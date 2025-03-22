@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Funciones.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">labo1</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Funciones.java</span></div><h1>Funciones.java</h1><pre class="source lang-java linenums">package aed;
+
+<span class="fc" id="L3">class Funciones {</span>
+    int cuadrado(int x) {
+<span class="fc" id="L5">        return x*x;</span>
+    }
+
+    double distancia(double x, double y) {
+<span class="fc" id="L9">        return Math.sqrt((x*x) + (y*y));</span>
+    }
+
+    boolean esPar(int n) {
+<span class="fc bfc" id="L13" title="All 2 branches covered.">        if (n%2 == 0) {</span>
+<span class="fc" id="L14">            return true;</span>
+        }
+<span class="fc" id="L16">        return false;</span>
+    }
+
+    boolean esBisiesto(int n) {
+<span class="fc bfc" id="L20" title="All 6 branches covered.">        if ((n%4 == 0 &amp;&amp; n%100 != 0) || n%400 == 0) {</span>
+<span class="fc" id="L21">            return true;</span>
+        }
+<span class="fc" id="L23">        return false;</span>
+    }
+
+    int factorialIterativo(int n) {
+<span class="fc" id="L27">        int res = 1;</span>
+
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (n == 0) {</span>
+<span class="fc" id="L30">            return 1;</span>
+        }
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        for (int i = 1; i &lt;= n; i++) {</span>
+<span class="fc" id="L33">            res *= i;</span>
+        }
+<span class="fc" id="L35">        return res;</span>
+    }
+
+    int factorialRecursivo(int n) {
+<span class="fc" id="L39">        int res = 1;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (n == 0) {</span>
+<span class="fc" id="L41">            return 1;</span>
+        }
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        while(n &gt; 0) {</span>
+<span class="fc" id="L44">            res *= n;</span>
+<span class="fc" id="L45">            n--;</span>
+        }
+<span class="fc" id="L47">        return res;</span>
+    }
+
+    boolean esPrimo(int n) {
+<span class="fc" id="L51">        int res = 0;</span>
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        for(int i = 1; i &lt;= n; i++){</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            if (n%i == 0){</span>
+<span class="fc" id="L55">                res += 1;</span>
+            }
+        }
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (res == 2){</span>
+<span class="fc" id="L59">            return true;</span>
+        }
+        else{
+<span class="fc" id="L62">            return false;</span>
+        }
+    }
+
+    int sumatoria(int[] numeros) {
+<span class="fc" id="L67">        int res = 0;</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        for (int i = 0; i &lt; numeros.length; i++) {</span>
+<span class="fc" id="L69">            res += numeros[i];</span>
+        }
+<span class="fc" id="L71">        return res;</span>
+    }
+
+    int busqueda(int[] numeros, int buscado) {
+<span class="fc" id="L75">        int posicion = 0;</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        for (int i = 0; i &lt; numeros.length; i++){</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            if (buscado == numeros[i]){</span>
+<span class="fc" id="L78">                return posicion;</span>
+            }
+            else{
+<span class="fc" id="L81">                posicion++;</span>
+            }
+        }
+<span class="nc" id="L84">        return posicion;</span>
+    }
+
+    boolean tienePrimo(int[] numeros) {
+<span class="fc" id="L88">        boolean res = false;</span>
+
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        for (int i = 0; i &lt; numeros.length; i++){</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            if(esPrimo(numeros[i]) != res){</span>
+<span class="fc" id="L92">                res = true;</span>
+<span class="fc" id="L93">                return res;</span>
+            }
+        }
+<span class="fc" id="L96">        return res;</span>
+    }
+
+    boolean todosPares(int[] numeros) {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (int i = 0; i &lt; numeros.length; i++){</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">            if (numeros[i]%2 != 0){</span>
+<span class="fc" id="L102">                return false;</span>
+            }
+        }
+<span class="fc" id="L105">        return true;</span>
+    }
+
+    boolean esPrefijo(String s1, String s2) {
+<span class="fc" id="L109">        int contador_s1 = 0;</span>
+
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (s1.length() &gt; s2.length()){</span>
+<span class="fc" id="L112">            return false;</span>
+        }
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        for (int i = 0; i &lt; s1.length(); i++){</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">            if (s1.charAt(contador_s1) != s2.charAt(i)){</span>
+<span class="fc" id="L116">                return false;</span>
+            }
+<span class="fc" id="L118">            contador_s1++;</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">            if (contador_s1 &gt; s1.length()){</span>
+<span class="nc" id="L120">                return false;</span>
+            }
+        }
+<span class="fc" id="L123">        return true;</span>
+        }
+
+    boolean esSufijo(String s1, String s2) {
+
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (s1.length() &gt; s2.length()){</span>
+<span class="fc" id="L129">            return false;</span>
+        }
+
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        for (int i = s1.length() -1; i &gt;= 0; i--){</span>
+            // contador_s2 me permite ir viendo los chars de s2 a partir de donde comenzaria s1
+<span class="fc" id="L134">            int contador_s2 = s2.length() - s1.length() + i;</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            if (s1.charAt(i) != s2.charAt(contador_s2)){</span>
+<span class="fc" id="L136">                return false;</span>
+            }
+        }
+<span class="fc" id="L139">        return true;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
