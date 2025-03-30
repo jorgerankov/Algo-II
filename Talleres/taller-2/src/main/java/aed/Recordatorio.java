@@ -25,28 +25,21 @@ public class Recordatorio {
 
     @Override
     public String toString() {
-        return (mensaje + "@" + fecha + horario);
+        return mensaje + "@" + fecha + horario;
     }
 
     @Override
     public boolean equals(Object otro) {
-        if (otro == null){
-            return false;
+        if (this == otro){
+            return true; // Si ambos objetos son la misma instancia, son iguales
         }
-        if (otro instanceof Recordatorio){
-            Recordatorio otroRecordatorio = (Recordatorio) otro;
-            
-            String otroMsj = otroRecordatorio.mensaje;
-            Fecha otraFecha = otroRecordatorio.fecha;
-            Horario otroHorario = otroRecordatorio.horario;
-
-            if (otroMsj == this.mensaje && otraFecha == this.fecha &&
-                otroHorario == this.horario){
-                    return true;
-            }
-
+        if (otro == null || getClass() != otro.getClass()){
+            return false; // Si es null o no es de la clase Recordatorio, no son iguales
         }
-        return false;
+        Recordatorio otroRecordatorio = (Recordatorio) otro;
+        return mensaje.equals(otroRecordatorio.mensaje) &&
+        fecha.equals(otroRecordatorio.fecha) &&
+        horario.equals(otroRecordatorio.horario); // comparo sus valores en lugar de sus referencias
     }
 
 }

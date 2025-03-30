@@ -1,40 +1,44 @@
 package aed;
+import java.util.ArrayList;
 
 class ArregloRedimensionableDeRecordatorios {
     int longitud;
     Recordatorio agregarAtras;
     Recordatorio obtener;
+    private ArrayList<Recordatorio> recordatorios;
 
     public ArregloRedimensionableDeRecordatorios() {
-        Recordatorio arregloRecordatorio[] = new Recordatorio[10];
+        this.recordatorios = new ArrayList<>();
     }
 
     public int longitud() {
-        return this.longitud;
+        return recordatorios.size();
     }
 
     public void agregarAtras(Recordatorio i) {
-        // HACER
+        recordatorios.add(i);
     }
 
     public Recordatorio obtener(int i) {
-        return this.obtener;
+        return recordatorios.get(i);
     }
 
     public void quitarAtras() {
-        // Implementar
+        recordatorios.remove(recordatorios.size() - 1);
     }
 
     public void modificarPosicion(int indice, Recordatorio valor) {
-        // Implementar
+        recordatorios.set(indice, valor);
     }
 
     public ArregloRedimensionableDeRecordatorios(ArregloRedimensionableDeRecordatorios vector) {
-        // Implementar
+        this.recordatorios = new ArrayList<>();
+        for (Recordatorio rec : vector.recordatorios){
+            this.recordatorios.add(new Recordatorio(rec.mensaje(),rec.fecha(),rec.horario()));
+        }
     }
 
     public ArregloRedimensionableDeRecordatorios copiar() {
-        // Implementar
-        return null;
+        return new ArregloRedimensionableDeRecordatorios(this);
     }
 }
