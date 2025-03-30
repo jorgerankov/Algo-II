@@ -1,13 +1,13 @@
 package aed;
 
 public class Recordatorio {
-    String mensaje;
-    Fecha fecha;
-    Horario horario;
+    private final String mensaje;
+    private final Horario horario;
+    private final Fecha fecha;
 
     public Recordatorio(String mensaje, Fecha fecha, Horario horario) {
         this.mensaje = mensaje;
-        this.fecha = fecha;
+        this.fecha = new Fecha(fecha);
         this.horario = horario;
     }
 
@@ -16,7 +16,7 @@ public class Recordatorio {
     }
 
     public Fecha fecha() {
-        return this.fecha;
+        return new Fecha(this.fecha); // Copia de fecha
     }
 
     public String mensaje() {
@@ -25,7 +25,7 @@ public class Recordatorio {
 
     @Override
     public String toString() {
-        return mensaje + "@" + fecha + horario;
+        return mensaje + " @ " + fecha + " " + horario.toString();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Recordatorio {
         if (this == otro){
             return true; // Si ambos objetos son la misma instancia, son iguales
         }
-        if (otro == null || getClass() != otro.getClass()){
+        if (otro == null || !(otro instanceof Recordatorio)){
             return false; // Si es null o no es de la clase Recordatorio, no son iguales
         }
         Recordatorio otroRecordatorio = (Recordatorio) otro;

@@ -46,11 +46,15 @@ public class Fecha {
     }
 
     public void incrementarDia() {
-        if (1 <= mes && mes <= 12){
-            if (dia < diasEnMes(mes)){
-                dia += 1;                    
-            }
+        if (dia >= diasEnMes(mes)){
             dia = 1;
+            if (mes == 12){
+                mes = 1;
+            }else{
+                mes++;
+            }      
+        }else{
+            dia++;
         }
     }
 

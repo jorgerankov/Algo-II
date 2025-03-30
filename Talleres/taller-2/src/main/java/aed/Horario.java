@@ -19,18 +19,6 @@ public class Horario {
 
     @Override
     public String toString() {
-        String horaConCero = "0" + hora;
-        String minutoConCero = "0" + minutos;
-
-        if (hora >= 10 && minutos < 10){
-            return (hora+":"+minutoConCero);
-        }
-        else if (hora < 10 && minutos >= 10){
-            return (horaConCero+":"+minutos);
-        }
-        else if(hora < 10 && minutos < 10){
-            return (horaConCero+":"+minutoConCero);
-        }
         return (hora+":"+minutos);
     }
 
