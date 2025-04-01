@@ -12,7 +12,7 @@ public class Recordatorio {
     }
 
     public Horario horario() {
-        return this.horario;
+        return horario;
     }
 
     public Fecha fecha() {
@@ -20,7 +20,7 @@ public class Recordatorio {
     }
 
     public String mensaje() {
-        return this.mensaje;
+        return mensaje;
     }
 
     @Override
@@ -30,16 +30,14 @@ public class Recordatorio {
 
     @Override
     public boolean equals(Object otro) {
-        if (this == otro){
-            return true; // Si ambos objetos son la misma instancia, son iguales
-        }
-        if (otro == null || !(otro instanceof Recordatorio)){
-            return false; // Si es null o no es de la clase Recordatorio, no son iguales
-        }
+        if ((otro == null) || !(otro instanceof Recordatorio)){
+            return false; // Si "otro" es null o no es de la clase Recordatorio, no son iguales -> devuelve false
+        }                 
         Recordatorio otroRecordatorio = (Recordatorio) otro;
-        return mensaje.equals(otroRecordatorio.mensaje) &&
-        fecha.equals(otroRecordatorio.fecha) &&
+
+        return mensaje.equals(otroRecordatorio.mensaje) && fecha.equals(otroRecordatorio.fecha) &&
         horario.equals(otroRecordatorio.horario); // comparo sus valores en lugar de sus referencias
+                                                 // Si son todos iguales, devuelve true
     }
 
 }

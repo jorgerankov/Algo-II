@@ -15,11 +15,11 @@ public class Fecha {
     }
 
     public Integer dia() {
-        return this.dia;
+        return dia;
     }
 
     public Integer mes() {
-        return this.mes;
+        return mes;
     }
     
     @Override
@@ -34,7 +34,6 @@ public class Fecha {
         }
         if (otra instanceof Fecha){
             Fecha otraFecha = (Fecha) otra;
-
             int otroDia = otraFecha.dia;
             int otroMes = otraFecha.mes;
 
@@ -42,7 +41,7 @@ public class Fecha {
                 return true;
             }
         }
-            return false;
+        return false;
     }
 
     public void incrementarDia() {

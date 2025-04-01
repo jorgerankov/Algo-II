@@ -2,13 +2,10 @@ package aed;
 import java.util.ArrayList;
 
 class ArregloRedimensionableDeRecordatorios {
-    int longitud;
-    Recordatorio agregarAtras;
-    Recordatorio obtener;
-    private ArrayList<Recordatorio> recordatorios;
+    private final ArrayList<Recordatorio> recordatorios;
 
     public ArregloRedimensionableDeRecordatorios() {
-        this.recordatorios = new ArrayList<>();
+        recordatorios = new ArrayList<>();
     }
 
     public int longitud() {
@@ -32,9 +29,9 @@ class ArregloRedimensionableDeRecordatorios {
     }
 
     public ArregloRedimensionableDeRecordatorios(ArregloRedimensionableDeRecordatorios vector) {
-        this.recordatorios = new ArrayList<>();
-        for (Recordatorio rec : vector.recordatorios){
-            this.recordatorios.add(new Recordatorio(rec.mensaje(),rec.fecha(),rec.horario()));
+        recordatorios = new ArrayList<>();
+        for (Recordatorio recordar : vector.recordatorios){
+            recordatorios.add(new Recordatorio(recordar.mensaje(),recordar.fecha(),recordar.horario()));
         }
     }
 

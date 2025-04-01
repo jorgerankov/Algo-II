@@ -16,7 +16,6 @@ public class Agenda {
     @Override
     public String toString() {
         String agendaHoy = "";
-        String fechaStr = fecha.toString(); 
 
         for (int i = 0; i < recordatorios.longitud(); i++){
             Recordatorio recordatorio = recordatorios.obtener(i);
@@ -26,7 +25,7 @@ public class Agenda {
                     agendaHoy += recordatorio.toString() + "\n";
                 }
             }
-        return fechaStr + "\n" + "=====\n" + agendaHoy;
+        return fecha.toString() + "\n" + "=====\n" + agendaHoy;
     }
 
     public void incrementarDia() {

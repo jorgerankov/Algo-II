@@ -10,11 +10,11 @@ public class Horario {
     }
 
     public int hora() {
-        return this.hora;
+        return hora;
     }
 
     public int minutos() {
-        return this.minutos;
+        return minutos;
     }
 
     @Override
