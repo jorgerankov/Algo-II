@@ -5,8 +5,8 @@ public class Agenda {
     private final Fecha fecha;
 
     public Agenda(Fecha fechaActual) {
-        this.fecha = new Fecha(fechaActual);
-        this.recordatorios = new ArregloRedimensionableDeRecordatorios();
+        fecha = new Fecha(fechaActual);
+        recordatorios = new ArregloRedimensionableDeRecordatorios();
     }
 
     public void agregarRecordatorio(Recordatorio recordatorio) {
@@ -15,22 +15,18 @@ public class Agenda {
 
     @Override
     public String toString() {
-        StringBuilder agendaHoy = new StringBuilder();
-
-        agendaHoy.append(fecha.toString());
-        agendaHoy.append("\n");
-        agendaHoy.append("=====\n");
+        String agendaHoy = "";
+        String fechaStr = fecha.toString(); 
 
         for (int i = 0; i < recordatorios.longitud(); i++){
             Recordatorio recordatorio = recordatorios.obtener(i);
                 // Comparo fechas
                 if (recordatorio.fecha().equals(fecha)){
                 // Si cumple, la agrego a la agenda de hoy
-                    agendaHoy.append(recordatorio.toString());
-                    agendaHoy.append("\n");
+                    agendaHoy += recordatorio.toString() + "\n";
                 }
             }
-        return agendaHoy.toString();
+        return fechaStr + "\n" + "=====\n" + agendaHoy;
     }
 
     public void incrementarDia() {
@@ -38,7 +34,7 @@ public class Agenda {
     }
 
     public Fecha fechaActual() {
-        return this.fecha;
+        return fecha;
     }
 
 }
