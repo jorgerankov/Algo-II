@@ -5,8 +5,8 @@ public class Agenda {
     private final Fecha fecha;
 
 <span class="fc" id="L7">    public Agenda(Fecha fechaActual) {</span>
-<span class="fc" id="L8">        this.fecha = new Fecha(fechaActual);</span>
-<span class="fc" id="L9">        this.recordatorios = new ArregloRedimensionableDeRecordatorios();</span>
+<span class="fc" id="L8">        fecha = new Fecha(fechaActual);</span>
+<span class="fc" id="L9">        recordatorios = new ArregloRedimensionableDeRecordatorios();</span>
 <span class="fc" id="L10">    }</span>
 
     public void agregarRecordatorio(Recordatorio recordatorio) {
@@ -15,30 +15,25 @@ public class Agenda {
 
     @Override
     public String toString() {
-<span class="fc" id="L18">        StringBuilder agendaHoy = new StringBuilder();</span>
+<span class="fc" id="L18">        String agendaHoy = &quot;&quot;;</span>
 
-<span class="fc" id="L20">        agendaHoy.append(fecha.toString());</span>
-<span class="fc" id="L21">        agendaHoy.append(&quot;\n&quot;);</span>
-<span class="fc" id="L22">        agendaHoy.append(&quot;=====\n&quot;);</span>
-
-<span class="fc bfc" id="L24" title="All 2 branches covered.">        for (int i = 0; i &lt; recordatorios.longitud(); i++){</span>
-<span class="fc" id="L25">            Recordatorio recordatorio = recordatorios.obtener(i);</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        for (int i = 0; i &lt; recordatorios.longitud(); i++){</span>
+<span class="fc" id="L21">            Recordatorio recordatorio = recordatorios.obtener(i);</span>
                 // Comparo fechas
-<span class="fc bfc" id="L27" title="All 2 branches covered.">                if (recordatorio.fecha().equals(fecha)){</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">                if (recordatorio.fecha().equals(fecha)){</span>
                 // Si cumple, la agrego a la agenda de hoy
-<span class="fc" id="L29">                    agendaHoy.append(recordatorio.toString());</span>
-<span class="fc" id="L30">                    agendaHoy.append(&quot;\n&quot;);</span>
+<span class="fc" id="L25">                    agendaHoy += recordatorio.toString() + &quot;\n&quot;;</span>
                 }
             }
-<span class="fc" id="L33">        return agendaHoy.toString();</span>
+<span class="fc" id="L28">        return fecha.toString() + &quot;\n&quot; + &quot;=====\n&quot; + agendaHoy;</span>
     }
 
     public void incrementarDia() {
-<span class="fc" id="L37">        fecha.incrementarDia();</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L32">        fecha.incrementarDia();</span>
+<span class="fc" id="L33">    }</span>
 
     public Fecha fechaActual() {
-<span class="fc" id="L41">        return this.fecha;</span>
+<span class="fc" id="L36">        return fecha;</span>
     }
 
 }

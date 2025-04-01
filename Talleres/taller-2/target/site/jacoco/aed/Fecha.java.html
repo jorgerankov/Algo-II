@@ -29,43 +29,42 @@ public class Fecha {
 
     @Override
     public boolean equals(Object otra) {
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (otra == null){</span>
-<span class="fc" id="L33">            return false;</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if (otra == null){</span>
+<span class="nc" id="L33">            return false;</span>
         }
 <span class="fc bfc" id="L35" title="All 2 branches covered.">        if (otra instanceof Fecha){</span>
 <span class="fc" id="L36">            Fecha otraFecha = (Fecha) otra;</span>
+<span class="fc" id="L37">            int otroDia = otraFecha.dia;</span>
+<span class="fc" id="L38">            int otroMes = otraFecha.mes;</span>
 
-<span class="fc" id="L38">            int otroDia = otraFecha.dia;</span>
-<span class="fc" id="L39">            int otroMes = otraFecha.mes;</span>
-
-<span class="fc bfc" id="L41" title="All 4 branches covered.">            if (otroDia == this.dia &amp;&amp; otroMes == this.mes){</span>
-<span class="fc" id="L42">                return true;</span>
+<span class="fc bfc" id="L40" title="All 4 branches covered.">            if (otroDia == this.dia &amp;&amp; otroMes == this.mes){</span>
+<span class="fc" id="L41">                return true;</span>
             }
         }
-<span class="fc" id="L45">            return false;</span>
+<span class="fc" id="L44">        return false;</span>
     }
 
     public void incrementarDia() {
-<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (dia &gt;= diasEnMes(mes)){</span>
-<span class="fc" id="L50">            dia = 1;</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (mes == 12){</span>
-<span class="fc" id="L52">                mes = 1;</span>
-<span class="fc" id="L53">            }else{</span>
-<span class="fc" id="L54">                mes++;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (dia &gt;= diasEnMes(mes)){</span>
+<span class="fc" id="L49">            dia = 1;</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            if (mes == 12){</span>
+<span class="fc" id="L51">                mes = 1;</span>
+<span class="fc" id="L52">            }else{</span>
+<span class="fc" id="L53">                mes++;</span>
             }      
-<span class="fc" id="L56">        }else{</span>
-<span class="fc" id="L57">            dia++;</span>
+<span class="fc" id="L55">        }else{</span>
+<span class="fc" id="L56">            dia++;</span>
         }
-<span class="fc" id="L59">    }</span>
+<span class="fc" id="L58">    }</span>
 
     private int diasEnMes(int mes) {
-<span class="fc" id="L62">        int dias[] = {</span>
+<span class="fc" id="L61">        int dias[] = {</span>
                 // ene, feb, mar, abr, may, jun
-<span class="fc" id="L64">                31, 28, 31, 30, 31, 30,</span>
+<span class="fc" id="L63">                31, 28, 31, 30, 31, 30,</span>
                 // jul, ago, sep, oct, nov, dic
-<span class="fc" id="L66">                31, 31, 30, 31, 30, 31</span>
+<span class="fc" id="L65">                31, 31, 30, 31, 30, 31</span>
         };
-<span class="fc" id="L68">        return dias[mes - 1];</span>
+<span class="fc" id="L67">        return dias[mes - 1];</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

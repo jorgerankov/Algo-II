@@ -12,7 +12,7 @@ public class Recordatorio {
 <span class="fc" id="L12">    }</span>
 
     public Horario horario() {
-<span class="fc" id="L15">        return this.horario;</span>
+<span class="fc" id="L15">        return horario;</span>
     }
 
     public Fecha fecha() {
@@ -20,7 +20,7 @@ public class Recordatorio {
     }
 
     public String mensaje() {
-<span class="fc" id="L23">        return this.mensaje;</span>
+<span class="fc" id="L23">        return mensaje;</span>
     }
 
     @Override
@@ -30,16 +30,14 @@ public class Recordatorio {
 
     @Override
     public boolean equals(Object otro) {
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (this == otro){</span>
-<span class="nc" id="L34">            return true; // Si ambos objetos son la misma instancia, son iguales</span>
-        }
-<span class="pc bpc" id="L36" title="2 of 4 branches missed.">        if (otro == null || !(otro instanceof Recordatorio)){</span>
-<span class="nc" id="L37">            return false; // Si es null o no es de la clase Recordatorio, no son iguales</span>
-        }
-<span class="fc" id="L39">        Recordatorio otroRecordatorio = (Recordatorio) otro;</span>
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        return mensaje.equals(otroRecordatorio.mensaje) &amp;&amp;</span>
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        fecha.equals(otroRecordatorio.fecha) &amp;&amp;</span>
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        horario.equals(otroRecordatorio.horario); // comparo sus valores en lugar de sus referencias</span>
+<span class="pc bpc" id="L33" title="2 of 4 branches missed.">        if ((otro == null) || !(otro instanceof Recordatorio)){</span>
+<span class="nc" id="L34">            return false; // Si &quot;otro&quot; es null o no es de la clase Recordatorio, no son iguales -&gt; devuelve false</span>
+        }                 
+<span class="fc" id="L36">        Recordatorio otroRecordatorio = (Recordatorio) otro;</span>
+
+<span class="pc bpc" id="L38" title="2 of 4 branches missed.">        return mensaje.equals(otroRecordatorio.mensaje) &amp;&amp; fecha.equals(otroRecordatorio.fecha) &amp;&amp;</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        horario.equals(otroRecordatorio.horario); // comparo sus valores en lugar de sus referencias</span>
+                                                 // Si son todos iguales, devuelve true
     }
 
 }
