@@ -91,8 +91,13 @@ INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
-INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\tools\.tex
+INPUT .\images\dc_logo.png
+INPUT .\images\dc_logo.png
+INPUT .\images\dc_logo.png
 OUTPUT tp.pdf
+INPUT .\images\dc_logo.png
+INPUT .\images\dc_logo.png
+INPUT .\images\dc_logo.png
 INPUT C:\Users\jr385010\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT tp.aux
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb

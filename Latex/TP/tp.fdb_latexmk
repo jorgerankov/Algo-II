@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1743980600.27106 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1743980602.12261 2
+["pdflatex"] 1743981355.86206 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1743981357.25841 0
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1743980491 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1743880181 12037540 2f2ba18176ac6854ae0db89aaf095999 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -53,10 +53,10 @@
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty" 1730544106 2671 70891d50dac933918b827d326687c6e8 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/graphics/trig.sty" 1730544106 4023 2c9f39712cf7b43d3eb93a8bbd5c8f67 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1716480499 29785 9f93ab201fe5dd053afcc6c1bcf7d266 ""
-  "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/tools/.tex" 1730400552 1426 cd6cd1667b1a28ea51b9de2c0b64d363 ""
-  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1743980594 728 6d1b77eff448edd4f34301542063ce85 ""
-  "tp.aux" 1743980601 456 d46b81150b69396f58fdfceb07e66ae1 "pdflatex"
-  "tp.tex" 1743980594 728 6d1b77eff448edd4f34301542063ce85 ""
+  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1743981354 739 40e59c32448051873a09cf080078d0c0 ""
+  "images/dc_logo.png" 1743980656 5924 5601a5df60b3bf4c656c6fa241766a92 ""
+  "tp.aux" 1743981356 456 d46b81150b69396f58fdfceb07e66ae1 "pdflatex"
+  "tp.tex" 1743981354 739 40e59c32448051873a09cf080078d0c0 ""
   (generated)
   "tp.aux"
   "tp.log"
