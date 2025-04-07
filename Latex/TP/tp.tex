@@ -1,26 +1,78 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{graphicx, float}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[absolute,overlay]{textpos}
+
 \graphicspath{{images/}}
-
-
-\title{Título del Documento}
-\author{Autor}
-\date{\today}
 
 \begin{document}
 
-\maketitle
 
-\section{Introducción}
+% Logo del DC
+\begin{textblock*}{16cm}(13cm, 0.3cm)
+    \includegraphics[width=0.5\textwidth]{dc_logo.png}
+\end{textblock*}
+
+
+% Titulo + Subtitulo
+{\raggedright
+\textbf{\Large Titulo: Trabajo Practico 1} \\
+\textit{\large Subtitulo} \\
+}
+
+
+% Linea horizontal + fecha + materia
+\begin{table}[h]
+    \begin{tabular}{>{\arraybackslash}m{8cm} >{\arraybackslash}m{5.3cm}}
+        \hline
+        6 de abril de 2025 & Algoritmos y Estructuras de Datos
+    \end{tabular}
+\end{table}
+
+
+% Nombre del grupo
+{\centering
+\textbf{Grupo 30}
+\par
+}
+
+
+% Cuadro de integrantes
+\begin{table}[h]
+\centering
+\begin{tabular}{|>{\vspace{1mm}\centering\arraybackslash}m{2.8cm} >{\vspace{2mm}\arraybackslash}m{1cm} >{\vspace{2mm}\arraybackslash}m{3cm}|}
+    \hline
+    Integrante & LU & Correo electrónico \\ [0.1cm]
+    \hline
+\end{tabular}
+\begin{tabular}{|>{\vspace{1mm}\centering\arraybackslash}m{2.5cm} >{\vspace{1mm}\centering\arraybackslash}m{1cm} >{\vspace{2mm}\centering\arraybackslash}m{3.3cm}|}
+    \hline
+    Rankov, Jorge & 714/23 & jrankov@dc.uba.ar \\ [0.2ex]
+    Falbo, Tiziana & nnn/nn & nnn@gmail.com \\ [0.3ex]
+    Facundo & nnn/nn & nnn@gmail.com \\ [0.3ex]
+    Bautista & nnn/nn & nnn@gmail.com \\ [0.3ex]
+    \hline
+\end{tabular}
+\end{table}
+    
+
+
+
+% Data para despues 
+\section{Cosas para usar despues en el TP}
 \subsection{Borrador para poner los simbolos}
 Sumatoria: $\sum$ \\
 Productoria: $\prod$
 
+\subsection{Otro tipo de infos}
 \begin{equation}
     5 + 5 = 10
 \end{equation}
+
 
 \begin{equation} \label{eq1}
     \begin{split}
@@ -28,12 +80,5 @@ Productoria: $\prod$
         A & = \frac{1}{2} \pi r^2
     \end{split}
 \end{equation}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=3in]{dc_logo.png}
-    \caption{My caption}
-    \label{fig:my_label}
-\end{figure}
 
 \end{document}
