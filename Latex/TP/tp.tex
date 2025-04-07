@@ -9,6 +9,8 @@
 \usepackage{relsize}
 \usepackage[absolute,overlay]{textpos}
 \usepackage{dsfont}
+\usepackage{textcomp}
+\usepackage{transparent}
 
 \graphicspath{{images/}}
 
@@ -20,31 +22,49 @@
     \includegraphics[width=0.5\textwidth]{dc_logo.png}
 \end{textblock*}
 
+% Logo de UBA
+\begin{textblock*}{17cm} (1cm, 17cm)
+    {\transparent{0.2}
+    \includegraphics[width=0.5\textwidth]{uba_logo.jpg}
+    }
+\end{textblock*}
+
+\begin{textblock*}{40cm} (12cm, 22cm)
+    {\raggedright
+    \textbf{Facultad de Ciencias Exactas y Naturales}\\
+    \textbf{Universidad de Buenos Aires}\\
+    Ciudad Universitaria - (Pabellon I/Planta Baja)\\
+    Intendente Guiraldes 2610 - C1428EGA\\
+    Ciudad Autónoma de Buenos Aires - Rep. Argentina\\
+    Tel/Fax: (++54 +11) 4576-3300\\
+    http://www.exactas.uba.ar
+    }
+\end{textblock*}
 
 \begin{adjustwidth}{-3.5cm}{0pt}
 \begin{flushleft}
-
 
 % Titulo + Subtitulo
 {\raggedright
 \textbf{\Large Titulo: Trabajo Practico 1} \\
 \textit{\large Subtitulo} \\
 }
-
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.3pt}}
 % Linea horizontal
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.2pt}}
 
 
-\noindent\makebox[\textwidth][l]{6 de abril de 2025} % Fecha alineada a la izquierda
-\makebox[\textwidth][r]{Algoritmos y Estructura de Datos} % Texto alineado a la derecha
+% Fecha alineada a la izquierda y materia a la derecha
+\noindent\makebox[\textwidth][l]{6 de abril de 2025 \noindent\makebox[\textwidth][r]Algoritmos y Estructura de Datos}\\
 
 % Nombre del grupo
-{\centering
-\textbf{Grupo 30}
-\par
-}
+\begin{textblock*}{15cm} (9.5cm, 7cm)
+    \textbf{Grupo 30}
+\end{textblock*}
+
+
 
 % Cuadro de integrantes
+\begin{textblock*}{14.5cm} (3.4cm, 8cm)
 \begin{table}[h]
 \centering
 \begin{tabular}{|>{\vspace{1mm}\centering\arraybackslash}m{2.8cm} >{\vspace{2mm}\arraybackslash}m{1cm} >{\vspace{2mm}\arraybackslash}m{3cm}|}
@@ -61,52 +81,83 @@
     \hline
 \end{tabular}
 \end{table}
+\end{textblock*}
 
 \end{flushleft}
 \end{adjustwidth}
 
+\thispagestyle{empty}
 
 \newpage % Fin de Titulo, inicio de Formulas y Funciones
-
+\setcounter{page}{1}
 
 % Formulitas
-\section{Funciones pasadas en limpio (Ver como poner sangria)}
+
+\section{TAD}
+\textbf{TAD \textdollar BerretaCoin} \{
+
+    Aca iria toda la datita del TAD pero falta hacerlo xd \\
+\}\\\\
+
+\section{Funciones}
+\subsection{Procesos y Predicados}
+
+\textbf{proc MontosDeUsuarios} \{
+
+    \textbf{Asegura}: $\forall$id $\in$ sinRepetidos(Usuarios(Cripto.blockchain)) $\rightarrow$ id $\in$ res
+
+    $\longleftrightarrow$ (esMaximo(MontoUsuario(Cripto.blockchain, id)); Montos(Usuarios(Cripto.blockchain)))
+\}\\\\\\
+\textbf{pred esMaximo} (Monto: $\mathds{Z}$, Montos: Seq\textless$\mathds{Z}$\textgreater) \{
+
+    ($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i \\
+\}\\\\\\
+\textbf{proc montoMedio} (S: Seq\textless Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): $\mathds{Z}$ \{\\
+
+    \textbf{Requiere}: $\forall$ bloque $\in S$, $|$bloque$|$ \textgreater 0 \\
+
+    \textbf{Asegura}: res = $\frac{\sum\limits_{j=0}^{|S|-1} \sum\limits_{i=1}^{|S_{[j]}|-1} S_{[j][i][3]}}{\sum\limits_{j=0}^{|S|-1} (|S_{[j]}|-1)}$ \\
+\}\\\\
+
+\newpage % Fin de Procesos y Predicados, inicio de Auxiliares
+
+\subsection{Auxiliares}
+
+\textbf{aux sinRepetidos}(S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater = \\
+
+    $[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$ \\\\\\\\
+\textbf{aux Usuarios}(S: Seq\textless Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): Seq\textless$\mathds{Z}$\textgreater=
+
+    \[
+    \sum\limits_{i=0}^{|s|-i} \sum\limits_{j=0}^{|s_{[i]}|-1} \left(S_{[i][j][1]}, S_{[i][j][2]}\right)
+    \]\\\\
+\textbf{aux MontoUsuario} (S: Seq\textless Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater; id: $\mathds{Z}$): $\mathds{Z}$ =
+    \[
+    \sum\limits_{j=0}^{|s|-1} \left( \sum\limits_{i=0}^{|s_{[j]}|-1} 
+    ifThenElse(id = S_{[j][i][1]}; S_{[j][i][3]}, 0) 
+    - \sum\limits_{j=0}^{|s|-1} ifThenElse(id = S_{[j][i][2]}; S_{[j][i][3]}, 0) \right)
+    \]\\\\
+\textbf{aux Montos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater = \\
+
+    $\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoUsuario(S_{[i]}))$
 
 
-\subsection{MontosDeUsuarios}
-\textbf{proc MontosDeUsuarios} \\
-\textbf{Asegura}: $\forall$id $\in$ sinRepetidos(Usuarios(Cripto.blockchain)) $\rightarrow$ id $\in$ res \\
-$\longleftrightarrow$ (esMaximo(MontoUsuario(Cripto.blockchain, id)); Montos(Usuarios(Cripto.blockchain)))
-
-
-\subsection{sinRepetidos (Aux)}
-\textbf{aux sinRepetidos}(S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
-$[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$
-
-
-\subsection{Usuarios (Aux)}
-\textbf{aux Usuarios} (S: Seq\textless Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
-\begin{flalign*}
-\sum\limits_{i=0}^{|s|-i} \sum\limits_{j=0}^{|s_{[i]}|-1} \left( S_{[i][j][1]}, S_{[i][j][2]} \right) &&
-\end{flalign*}
-
-
-\subsection{MontoUsuario (Aux)}
-\textbf{aux MontoUsuario} (S: Seq\textless Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater; id: $\mathds{Z}$): $\mathds{Z}$ \\
-\[
-\sum\limits_{j=0}^{|s|-1} \left( \sum\limits_{i=0}^{|s_{[j]}|-1} 
-ifThenElse(id = S_{[j][i][1]}; S_{[j][i][3]}, 0) 
-- \sum\limits_{j=0}^{|s|-1} ifThenElse(id = S_{[j][i][2]}; S_{[j][i][3]}, 0) \right)
-\]
-
-
-\subsection{Montos (Aux)}
-\textbf{aux Montos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
-$\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoUsuario(S_{[i]}))$
-
-
-\subsection{esMaximo (pred)}
-\textbf{pred esMaximo} (Monto: $\mathds{Z}$, Montos: Seq\textless$\mathds{Z}$\textgreater)\\
-($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
 
 \end{document}
+
+% Cosas a tener en cuenta:
+% Requiere: id_comprador != id_vendedor
+% Requiere: en id_transaccion, montoUsuario >= monto
+
+
+% Funciones a implementar:
+
+% agregarBloque
+
+% maximosTenedores
+% puedo usar MontosDeUsuarios para tomar a los maximos 
+% Veo quien tiene la mayor cantidad de cripto, si se repite el maximo en mas usuarios,
+% Los agrego a la lista. Sino, devuelvo una lista con 1 solo user
+
+% Transaccion de creacion = la primer transaccion de cada bloque?
+% montoMedio = for i in Montos, totalMontos += i -> res = totalMontos / |Montos|
