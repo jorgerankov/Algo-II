@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1744040515.34788 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1744040516.59139 0
+["pdflatex"] 1744041801.8672 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1744041802.96083 0
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1744034729 81068 299f700eb05b1217173e62b88b513bd0 ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1744037853 11548 cbee6a1a06230553750b3890faaff1d3 ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1743880181 12037540 2f2ba18176ac6854ae0db89aaf095999 ""
@@ -74,10 +74,10 @@
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/textpos/textpos.sty" 1658745447 12842 35403bda336a71a37a5edc37b78e3ec3 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty" 1730400552 14552 27664839421e418b87f56fa4c6f66b1a ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1730400552 7243 e5dac1240636811edb77568b81818372 ""
-  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1744040513 3704 117d1416938d9227e6d417b4004f79c6 ""
+  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1744041800 3744 d2e046822c2fc1e1d57a4f081ebf3f67 ""
   "images/dc_logo.png" 1743980656 5924 5601a5df60b3bf4c656c6fa241766a92 ""
-  "tp.aux" 1744040516 817 dc439390a2151891e2834490f44b1b6b "pdflatex"
-  "tp.tex" 1744040513 3704 117d1416938d9227e6d417b4004f79c6 ""
+  "tp.aux" 1744041802 823 30f66c3b19f084e868b99f07e47c4014 "pdflatex"
+  "tp.tex" 1744041800 3744 d2e046822c2fc1e1d57a4f081ebf3f67 ""
   (generated)
   "tp.aux"
   "tp.log"

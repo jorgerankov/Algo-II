@@ -71,24 +71,24 @@
 
 % Formulitas
 \section{Funciones pasadas en limpio (Ver como poner sangria)}
+
+
 \subsection{MontosDeUsuarios}
-
-
 \textbf{proc MontosDeUsuarios} \\
 \textbf{Asegura}: $\forall$id $\in$ sinRepetidos(Usuarios(Cripto.blockchain)) $\rightarrow$ id $\in$ res \\
 $\longleftrightarrow$ (esMaximo(MontoUsuario(Cripto.blockchain, id)); Montos(Usuarios(Cripto.blockchain)))
 
 
-\subsection{sinRepetidos}
+\subsection{sinRepetidos (Aux)}
 \textbf{aux sinRepetidos}(S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
 $[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$
 
 
 \subsection{Usuarios (Aux)}
 \textbf{aux Usuarios} (S: Seq\textless Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
-\[
-\sum\limits_{i=0}^{|s|-i} \sum\limits_{j=0}^{|s_{[i]}|-1} \left( S_{[i][j][1]}, S_{[i][j][2]} \right)
-\]
+\begin{flalign*}
+\sum\limits_{i=0}^{|s|-i} \sum\limits_{j=0}^{|s_{[i]}|-1} \left( S_{[i][j][1]}, S_{[i][j][2]} \right) &&
+\end{flalign*}
 
 
 \subsection{MontoUsuario (Aux)}
@@ -106,7 +106,7 @@ $\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoUsuario(S_{[i]}))$
 
 
 \subsection{esMaximo (pred)}
-\textbf{esMaximo} (Monto: $\mathds{Z}$, Montos: Seq\textless$\mathds{Z}$\textgreater)\\
+\textbf{pred esMaximo} (Monto: $\mathds{Z}$, Montos: Seq\textless$\mathds{Z}$\textgreater)\\
 ($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
 
 \end{document}
