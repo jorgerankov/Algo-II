@@ -3,9 +3,12 @@
 
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{graphicx, float}
-\usepackage{tabularx}
-\usepackage{array}
+\usepackage{tabularx}   % Paquete para hacer las tablas
+\usepackage{array}      % Paquete para 
+\usepackage{changepage} % Paquete para cambiar la ubicacion de palabras en el margen
+\usepackage{relsize}
 \usepackage[absolute,overlay]{textpos}
+\usepackage{dsfont}
 
 \graphicspath{{images/}}
 
@@ -18,28 +21,28 @@
 \end{textblock*}
 
 
+\begin{adjustwidth}{-3.5cm}{0pt}
+\begin{flushleft}
+
+
 % Titulo + Subtitulo
 {\raggedright
 \textbf{\Large Titulo: Trabajo Practico 1} \\
 \textit{\large Subtitulo} \\
 }
 
+% Linea horizontal
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.2pt}}
 
-% Linea horizontal + fecha + materia
-\begin{table}[h]
-    \begin{tabular}{>{\arraybackslash}m{8cm} >{\arraybackslash}m{5.3cm}}
-        \hline
-        6 de abril de 2025 & Algoritmos y Estructuras de Datos
-    \end{tabular}
-\end{table}
 
+\noindent\makebox[\textwidth][l]{6 de abril de 2025} % Fecha alineada a la izquierda
+\makebox[\textwidth][r]{Algoritmos y Estructura de Datos} % Texto alineado a la derecha
 
 % Nombre del grupo
 {\centering
 \textbf{Grupo 30}
 \par
 }
-
 
 % Cuadro de integrantes
 \begin{table}[h]
@@ -58,27 +61,52 @@
     \hline
 \end{tabular}
 \end{table}
-    
+
+\end{flushleft}
+\end{adjustwidth}
 
 
-
-% Data para despues 
-\section{Cosas para usar despues en el TP}
-\subsection{Borrador para poner los simbolos}
-Sumatoria: $\sum$ \\
-Productoria: $\prod$
-
-\subsection{Otro tipo de infos}
-\begin{equation}
-    5 + 5 = 10
-\end{equation}
+\newpage % Fin de Titulo, inicio de Formulas y Funciones
 
 
-\begin{equation} \label{eq1}
-    \begin{split}
-        A & = \frac{\pi r^2}{2} \\
-        A & = \frac{1}{2} \pi r^2
-    \end{split}
-\end{equation}
+% Formulitas
+\section{Funciones pasadas en limpio (Ver como poner sangria)}
+\subsection{MontosDeUsuarios}
+
+
+\textbf{proc MontosDeUsuarios} \\
+\textbf{Asegura}: $\forall$id $\in$ sinRepetidos(Usuarios(Cripto.blockchain)) $\rightarrow$ id $\in$ res \\
+$\longleftrightarrow$ (esMaximo(MontoUsuario(Cripto.blockchain, id)); Montos(Usuarios(Cripto.blockchain)))
+
+
+\subsection{sinRepetidos}
+\textbf{aux sinRepetidos}(S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
+$[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$
+
+
+\subsection{Usuarios (Aux)}
+\textbf{aux Usuarios} (S: Seq\textless Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
+\[
+\sum\limits_{i=0}^{|s|-i} \sum\limits_{j=0}^{|s_{[i]}|-1} \left( S_{[i][j][1]}, S_{[i][j][2]} \right)
+\]
+
+
+\subsection{MontoUsuario (Aux)}
+\textbf{aux MontoUsuario} (S: Seq\textless Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater; id: $\mathds{Z}$): $\mathds{Z}$ \\
+\[
+\sum\limits_{j=0}^{|s|-1} \left( \sum\limits_{i=0}^{|s_{[j]}|-1} 
+ifThenElse(id = S_{[j][i][1]}; S_{[j][i][3]}, 0) 
+- \sum\limits_{j=0}^{|s|-1} ifThenElse(id = S_{[j][i][2]}; S_{[j][i][3]}, 0) \right)
+\]
+
+
+\subsection{Montos (Aux)}
+\textbf{aux Montos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater \\
+$\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoUsuario(S_{[i]}))$
+
+
+\subsection{esMaximo (pred)}
+\textbf{esMaximo} (Monto: $\mathds{Z}$, Montos: Seq\textless$\mathds{Z}$\textgreater)\\
+($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
 
 \end{document}
