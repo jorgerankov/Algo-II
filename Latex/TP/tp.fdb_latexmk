@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1744241900.93856 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1744241902.00881 0
+["pdflatex"] 1744242206.77104 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1744242207.83194 0
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1744065578 81068 299f700eb05b1217173e62b88b513bd0 ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcbx1200.pk" 1744241526 15080 a0e03be2040ced0de9b03c521b7668ef ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcbx1440.pk" 1744239444 18748 6c1abfccf160631730ae23dfd6c714d7 ""
@@ -16,6 +16,7 @@
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/symbols/msbm10.tfm" 1233951854 908 2921f8a10601f252058503cc6570e581 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/symbols/msbm5.tfm" 1233951854 940 75ac932a52f80982a9f8ea75d03a34cf ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1233951854 940 228d6584342e91276bf566bcf9716b83 ""
+  "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmbsy10.tfm" 1136765053 1116 4e6ba9d7914baa6482fd69f67d126380 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmbx10.tfm" 1136765053 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmbx12.tfm" 1136765053 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmex10.tfm" 1136765053 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
@@ -33,6 +34,7 @@
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/doublestroke/dsrom10.tfm" 1030470372 452 168d896d9b2ead965bf08c9db69c947f ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/doublestroke/dsrom12.tfm" 1030470372 452 d8b5931fd510ede40dce06480d31d007 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/tfm/public/doublestroke/dsrom8.tfm" 1030470372 452 dc44cdd7c88ff2b15557f125edfc277b ""
+  "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb" 1247596666 34793 ae7a3e2775dc0ce90475eeabcb46f9f1 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1247596666 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1247596666 32080 340ef9bf63678554ee606688e7b5339d ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1247596667 30251 6afa5cb1d0204815a708a080681d4674 ""
@@ -87,11 +89,11 @@
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1730400552 7243 e5dac1240636811edb77568b81818372 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/transparent/transparent-nometadata.sty" 1674488802 4212 8da4873548cbd3f1cdb053c708e8aa7e ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/transparent/transparent.sty" 1674488802 1918 c8d1ecb3722721d6f624992cbc042b70 ""
-  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1744241899 8563 b7cc6647b8a25a8711d6ac566979f0c6 ""
+  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1744242205 8582 7079500e23ac6e25ef99469034298f0f ""
   "images/dc_logo.png" 1743980656 5924 5601a5df60b3bf4c656c6fa241766a92 ""
   "images/uba_logo.jpg" 1744065126 277040 3d5a17932b08e713436a5440f4c9da9f ""
-  "tp.aux" 1744241901 92 36f71451b0808b6082d618a09210d266 "pdflatex"
-  "tp.tex" 1744241899 8563 b7cc6647b8a25a8711d6ac566979f0c6 ""
+  "tp.aux" 1744242207 92 36f71451b0808b6082d618a09210d266 "pdflatex"
+  "tp.tex" 1744242205 8582 7079500e23ac6e25ef99469034298f0f ""
   (generated)
   "tp.aux"
   "tp.log"
