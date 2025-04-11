@@ -15,11 +15,19 @@
 
 \graphicspath{{images/}}
 
+%Macros para el TP%
+\newcommand{\Entero}{$\mathds{Z}$}
+\newcommand{\Natural}{$\mathds{N}$}
+\newcommand{\tuplaDeDosEnteros}{Seq\textless\Entero\texttimes\Entero\textgreater}
+\newcommand{\tuplaDeCuatroEnteros}{Seq\textless\Entero\texttimes\Entero\texttimes\Entero\texttimes\Entero\textgreater}
+\newcommand{\tuplaDeTuplaDeCuatroEnteros}{{Seq\textless Seq\textless\Entero\texttimes\Entero\texttimes\Entero\texttimes\Entero\textgreater\textgreater}}
+
+
 \begin{document}
 
 
 % Logo del DC
-\begin{textblock*}{16cm}(13cm, 0.3cm)
+\begin{textblock*}{16cm} (13cm, 0.3cm)
     \includegraphics[width=0.5\textwidth]{dc_logo.png}
 \end{textblock*}
 
@@ -31,13 +39,12 @@
 \end{textblock*}
 
 \begin{textblock*}{40cm} (12cm, 22cm)
-    {\raggedright
-    \textbf{Facultad de Ciencias Exactas y Naturales}\\
+    {\raggedright\textbf{Facultad de Ciencias Exactas y Naturales}\\
     \textbf{Universidad de Buenos Aires}\\
-    Ciudad Universitaria - (Pabellon I/Planta Baja)\\
-    Intendente Guiraldes 2610 - C1428EGA\\
-    Ciudad Autónoma de Buenos Aires - Rep. Argentina\\
-    Tel/Fax: (++54 +11) 4576-3300\\
+    Ciudad Universitaria $-$ (Pabellon I/Planta Baja)\\
+    Intendente Guiraldes 2610 $-$ C1428EGA\\
+    Ciudad Autónoma de Buenos Aires $-$ Rep. Argentina\\
+    Tel/Fax: (++54 +11) 4576$-$3300\\
     http://www.exactas.uba.ar
     }
 \end{textblock*}
@@ -54,7 +61,7 @@
 % Linea horizontal
 
 % Fecha alineada a la izquierda y materia a la derecha
-\noindent\makebox[\textwidth][l]{6 de abril de 2025 \noindent\makebox[\textwidth][r]Algoritmos y Estructura de Datos}\\
+\noindent\makebox[\textwidth][l]{\today \noindent\makebox[\textwidth][r]Algoritmos y Estructura de Datos}\\
 
 % Nombre del grupo
 \begin{textblock*}{15cm} (9.5cm, 7cm)
@@ -90,80 +97,146 @@
 \setcounter{page}{1}
 \subsection*{TAD \textdollar BerretaCoin \{}
     %Obs
-    \textbf{obs bc:} Seq\textless Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater\\
+    \textbf{obs blockchain:} \tuplaDeTuplaDeCuatroEnteros\\
 
     %agregarBloque
     \textbf{proc agregarBloque} (inout bc: \textdollar BerretaCoin;
-                                in bloque: Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater)\{
-        \indent\indent \textbf{requiere}\{ ($|bc|$\textless3000) $\land_L$ ($|$bloque$|$\textless50) \}\\
-        \indent\indent \textbf{requiere}\{ esTransaccionCreacion(bloque$_{[0]}$) \}\\
-        \indent\indent \textbf{requiere}\{ ($\forall$i: $\mathds{N}$)
-                                (0 $\leq$i \textless $|$monto$|\rightarrow_L$(bloque$_{[i][1]}$ $\neq$ bloque$_{[i][2]}))$ \}\\
-        \indent\indent \textbf{asegura}\{ ($\exists$ idMontos: Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater)(sinRepetirId(idMontos) $\land_L$\\
-        \indent\indent\indent\indent\indent esTransaccionValida(bloque, idMontos)) \}\\
-        \indent\indent \textbf{asegura}\{ bc = concat(bc$_0$) \}\\
+                                in bloque: \tuplaDeCuatroEnteros)\{
+        \indent\indent \textbf{requiere}\{ ($|bc|<$ 3000) $\land_L$ ($|bloque|<$ 50) \}\\
+
+        \indent\indent \textbf{requiere}\{ esTransaccionCreacion (bloque$_{[0]}$) \}\\
+
+        \indent\indent \textbf{requiere}\{ ($\forall$i: \Natural)
+                                (0 $\leq$ i $<|bloque| \rightarrow_L$ (bloque$_{[i][1]}$ $\neq$ bloque$_{[i][2]}))$ \}\\
+
+        \indent\indent \textbf{asegura}\{($\exists$ idMontos: \tuplaDeDosEnteros) (sinRepetirId (idMontos)\\
+        \indent\indent\indent\indent\indent $\land_L$ esTransaccionValida (bloque, idMontos))\}\\
+
+        \indent\indent \textbf{asegura}\{ bc = concat (bc$_0$, \textless bloque\textgreater) \}\\
+
         \indent\indent \textbf{asegura}\{ $|$bc$|$ = $|$bc$_0|$+1 \}
 
+    \}\\\\
+
+    \textbf{proc agregarBloque2.0} (inout BC.Berret\@, S:\tuplaDeCuatroEnteros) \{\\
+        \indent\indent\textbf{requiere} \{ $B = B_0 \land 0 < |s| \leq S_0 \land bloqueValido(BC, S)$ \}\\
+
+        \indent\indent\textbf{asegura} \{ bc.blockchain = 0 b${_0}$.blockchain ++ S \}
+
+    \}\\\\
+
+    \textbf{proc agregarBloque3.0} (inout cripto: BerretaCoin, in bloque:\tuplaDeCuatroEnteros)\{\\
+        \indent\indent\textbf{requiere} \{ length (cripto.blockchain) $<$ 50 \}\\
+
+        \indent\indent\textbf{requiere} \{ cripto = cripto$_0$ \}\\
+
+        \indent\indent\textbf{asegura} \{ cripto.blockchain = concat (cripto$_0$.blockchain, \textless bloque\textgreater) \}
+    
     \}\\\\
 
     %montosDeUsuarios
     \textbf{proc montosDeUsuarios} \{
 
-        \indent\indent \textbf{asegura}: $\forall$id $\in$ sinRepetidos(Usuarios(Cripto.blockchain)) $\rightarrow$ id $\in$ res\\
-        \indent\indent\indent\indent\indent $\longleftrightarrow$ (esMaximo(MontoUsuario(Cripto.blockchain, id));\\
-        \indent\indent\indent\indent\indent Montos(Usuarios(Cripto.blockchain)))
+        \indent\indent \textbf{asegura} \{ $\forall$id $\in$ sinRepetidos (Usuarios (Cripto.blockchain)) $\rightarrow$ id $\in$ res\\
+        \indent\indent\indent\indent\indent $\longleftrightarrow$ (esMaximo (MontoDeUsuario (Cripto.blockchain, id));\\
+        \indent\indent\indent\indent\indent Montos (Usuarios (Cripto.blockchain))) \}
 
-    \}\\\\
+    \}
+\newpage
 
-    \textbf{pred esTransaccionCreacion} (t: Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater) \{\\
-        \indent\indent t$_{[1]}$ = 0
+    \textbf{proc maximosTenedores} (in bc: BerretaCoin): Seq$<$\Entero$>$ \{
 
-    \}\\\\
+        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)(0 $\le i < |res|) \rightarrow$
+                                            esUsuario $(res_{[i]}$, bc.blockchain) \}\\
 
-    \textbf{pred sinRepetirId} (ids: Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater) \{\\
-        \indent\indent($\forall$i,j: $\mathds{N}$) ((0 $\leq$ i \textless$|$ids$|$ $\land_L$ (0 $\leq$ j \textless$|$ids$|$ $\land_L$ (j $\neq$ i))\\
-        \indent\indent$\rightarrow_L$ id$_{[i][0]} \neq$ id$_{[j][0]}$))
-
-    \}\\\\
-
-    \textbf{pred esMaximo} (Monto: $\mathds{Z}$, Montos: Seq\textless$\mathds{Z}$\textgreater) \{\\
-        \indent\indent($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
+        \indent\indent\textbf{asegura} \{ $(\forall$id: \Entero) (id $\in$ res) $\longleftrightarrow$\\
+        \indent\indent\indent\indent\indent $\neg$ ($\exists$ otro: \Entero) (esUsuario (otro; bc.blockchain))\\
+        \indent\indent\indent\indent\indent $\land$ (montoDeUsuario (otro, bc) $\ge$ MontoDeUsuario (id, bc)) \}
 
     \}\\\\
 
     \textbf{proc montoMedio} 
     (S: Seq\textless Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): $\mathds{Z}$ \{\\
-        \indent\indent \textbf{requiere}: $\forall$ bloque $\in S$, $|$bloque$|$ \textgreater 0 \\\\
+        \indent\indent \textbf{requiere}: $\forall$ bloque $\in S$, $|$bloque$| >$ 0 \\\\
         \indent\indent \textbf{asegura}: res = $\frac{\sum\limits_{j=0}^{|S|-1} \sum\limits_{i=1}^{|S_{[j]}|-1} S_{[j][i][3]}}{\sum\limits_{j=0}^{|S|-1} (|S_{[j]}|-1)}$
 
     \}\\\\
 
-    \textbf{pred esTransaccionValida} (b: Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater, 
-                                        ids: Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater) \{\\
-        \indent\indent($\forall$i,j: $\mathds{N}$)( j $\leq$ i \textless $|b|$ $\land_L$ (0 $\leq$ j \textless $|ids|$) $\land_L$ ($b_{[i][2]} = ids_{[j][0]}$))\\
-        \indent\indent $\rightarrow_L$ ($b_{[i][3]} \leq ids_{[j][1]}$)
+    \textbf{proc Usuarios} (in bc: BerretaCoin): Seq\textless\Entero\textgreater\{\\
+        \indent\indent \textbf{asegura}\{ ($\forall$i: \Entero) ($0 \le i < |bc.blockchain|$)\}\\
+
+        \indent\indent \textbf{asegura}\{ ($\forall$j: \Entero) ($0 \le i < |bc.blockchain_{[i]}|$)\}\\
+
+        \indent\indent \textbf{asegura}\{$ (bc.blockchain_{[i][j][1]} \land bc.blockchain_{[i][j][2]}) \in res$\\
+        \indent\indent\indent\indent\indent $\land$ ningunOtroElem $\in res$ \}
+    
+    \}
+
+
+
+
+
+
+
+\newpage
+\section*{Predicados}
+
+    \textbf{pred esTransaccionCreacion} (t: \tuplaDeCuatroEnteros) \{\\
+        \indent\indent t$_{[1]}$ = 0
 
     \}\\\\
 
-% Fin de Procesos y Predicados, inicio de Auxiliares
-    \textbf{aux sinRepetidos}(S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater =\\\\
-        \indent\indent $[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$ \\\\
+    \textbf{pred sinRepetirId} (ids: \tuplaDeDosEnteros) \{\\
+        \indent\indent($\forall$i,j: \Natural) ((0 $\leq$ i $<|$ids$|$ $\land_L$ (0 $\leq$ j $<|$ids$|$ $\land_L$ (j $\neq$ i))\\
+        \indent\indent$\rightarrow_L$ id$_{[i][0]} \neq$ id$_{[j][0]}$)) \}\\\\
 
-    \textbf{aux Usuarios}(S: Seq\textless Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): Seq\textless$\mathds{Z}$\textgreater=
+    \textbf{pred esMaximo} (Monto: \Entero, Montos: Seq\textless$\mathds{Z}$\textgreater) \{\\
+        \indent\indent($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
+
+    \}\\\\
+
+    \textbf{pred esUsuario} (id: \Entero, b: \tuplaDeTuplaDeCuatroEnteros) \{\\
+        \indent\indent($\exists$i: \Entero) ($\exists$j: \Entero) (0 $\leq$ i $< |b|$ $\land_L$ 0 $\leq$ j $< |b_{[i]}|$) $\land$\\
+        \indent\indent\indent\indent\indent\indent\indent         (id = b$_{[i][j]_{[1]}} \lor$ id = b$_{[i][j]_{[2]}}$)
+
+    \}\\\\
+
+    \textbf{pred bloqueValido} (B: \tuplaDeTuplaDeCuatroEnteros, S: \tuplaDeCuatroEnteros)\{\\
+        \indent\indent ($|$B$|<$ 3000 $\rightarrow$ S$_{[0]_{1}}$ = 0) $\land$ ($|$B$|>$ 3000 $\rightarrow$ S$_{[0]_{1}} \neq$ 0) $\land$ (0 $<|S| \le$ 50)
+
+    \}\\\\
+
+    \textbf{pred esTransaccionValida} (b: \tuplaDeCuatroEnteros, 
+                                        ids: \tuplaDeDosEnteros) \{\\
+        \indent\indent($\forall$i,j: \Natural) (j $\leq$ i \textless $|b|$ $\land_L$ (0 $\leq$ j \textless $|ids|$) $\land_L$ ($b_{[i][2]} = ids_{[j][0]}$))\\
+        \indent\indent\indent\indent\indent $\rightarrow_L$ ($b_{[i][3]} \leq ids_{[j][1]}$)
+
+    \}
+\newpage
+% Fin de Procesos y Predicados, inicio de Auxiliares
+\section{Auxiliares}
+
+    \textbf{aux sinRepetidos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater =\\\\
+        \indent\indent $[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$ \\\\\\
+
+    \textbf{aux Usuarios} (S:\tuplaDeTuplaDeCuatroEnteros): Seq\textless$\mathds{Z}$\textgreater=
     \[
     \sum\limits_{i=0}^{|s|-i} \sum\limits_{j=0}^{|s_{[i]}|-1} \left(S_{[i][j][1]}, S_{[i][j][2]}\right)
-    \]\\
+    \]\\\\
 
-    \textbf{aux MontoUsuario} (S: Seq\textless Seq\textless $\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater; id: $\mathds{Z}$): $\mathds{Z}$ =\\
-        \[
-        \indent\indent \sum\limits_{j=0}^{|s|-1} \left( \sum\limits_{i=0}^{|s_{[j]}|-1} 
-                        ifThenElse(id = S_{[j][i][1]}; S_{[j][i][3]}, 0) 
-                        - \sum\limits_{j=0}^{|s|-1} ifThenElse(id = S_{[j][i][2]}; S_{[j][i][3]}, 0) \right)
-        \]\\\\
+    \textbf{aux MontoDeUsuario} (id:\Entero; B:BerretaCoin): \Entero=\\
+
+        \indent\indent
+        $\mathlarger\sum\limits_{i=0}^{|b.blockchain| - 1} - \left(
+        \mathlarger\sum\limits_{j=0}^{|b.blockchain_{[i]}|-1} ifThenElse (id = b.blockchain_{[i][j]_1}, b.blockchain_{[i][j]_3}, 0)\right)$\\
+
+        \indent\indent\indent\indent\indent\indent
+        $+\left( \mathlarger\sum\limits_{j=0}^{|b.blockchain_{[i]}|-1} ifThenElse (id = b.blockchain_{[i][j]_1}, b.blockchain_{[i][j]_2}, 0)
+        \right)$\\\\
 
     \textbf{aux Montos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater = \\
 
-        \indent\indent $\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoUsuario(S_{[i]}))$
+        \indent\indent $\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoDeUsuario(S_{[i]}))$
 
 
 \subsection*{\}}
@@ -171,7 +244,7 @@
 
 % Cosas a tener en cuenta:
 % Requiere: id_comprador != id_vendedor
-% Requiere: en id_transaccion, montoUsuario >= monto
+% Requiere: en id_transaccion, MontoDeUsuario >= monto
 
 
 % Funciones a implementar:

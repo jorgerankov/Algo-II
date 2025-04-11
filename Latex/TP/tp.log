@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.5)  9 APR 2025 20:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.5)  11 APR 2025 20:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -198,20 +198,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (tp.aux)
 \openout1 = `tp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
  (C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count287
@@ -234,37 +234,37 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 <images/dc_logo.png, id=1, 335.2525pt x 151.56625pt>
 File: images/dc_logo.png Graphic file (type png)
 <use images/dc_logo.png>
-Package pdftex.def Info: images/dc_logo.png  used on input line 23.
+Package pdftex.def Info: images/dc_logo.png  used on input line 31.
 (pdftex.def)             Requested size: 227.62204pt x 102.90642pt.
 <images/uba_logo.jpg, id=2, 233.4321pt x 233.9139pt>
 File: images/uba_logo.jpg Graphic file (type jpg)
 <use images/uba_logo.jpg>
-Package pdftex.def Info: images/uba_logo.jpg  used on input line 29.
+Package pdftex.def Info: images/uba_logo.jpg  used on input line 37.
 (pdftex.def)             Requested size: 241.84842pt x 242.35454pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 68.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
  (C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 68.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
  (C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (1.54735pt too wide) in paragraph at lines 75--75
+Overfull \hbox (1.54735pt too wide) in paragraph at lines 82--82
  []|\OT1/cmr/m/n/10 714/23| 
  []
 
 
-Overfull \hbox (4.32513pt too wide) in paragraph at lines 76--76
+Overfull \hbox (4.32513pt too wide) in paragraph at lines 83--83
  []|\OT1/cmr/m/n/10 nnn/nn| 
  []
 
 
-Overfull \hbox (4.32513pt too wide) in paragraph at lines 77--77
+Overfull \hbox (4.32513pt too wide) in paragraph at lines 84--84
  []|\OT1/cmr/m/n/10 nnn/nn| 
  []
 
 
-Overfull \hbox (4.32513pt too wide) in paragraph at lines 78--78
+Overfull \hbox (4.32513pt too wide) in paragraph at lines 85--85
  []|\OT1/cmr/m/n/10 nnn/nn| 
  []
 
@@ -273,35 +273,35 @@ Overfull \hbox (4.32513pt too wide) in paragraph at lines 78--78
 [1
 
 {C:/Users/jr385010/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./images/dc_logo.png> <./images/uba_logo.jpg>]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 91.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 98.
  (C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
 File: omscmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 91.
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 93.
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 98.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 100.
  (C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex/latex/base\omlcmr.fd
 File: omlcmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 93.
-LaTeX Font Info:    Trying to load font information for U+dsrom on input line 93.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 100.
+LaTeX Font Info:    Trying to load font information for U+dsrom on input line 100.
  (C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex/latex/doublestroke\udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 93--94
+Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
  []
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 97.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 104.
 
-Overfull \hbox (18.29396pt too wide) in paragraph at lines 96--106
+Overfull \hbox (18.29396pt too wide) in paragraph at lines 103--106
 []\OT1/cmr/bx/n/10 proc agre-gar-Bloque \OT1/cmr/m/n/10 (in-out bc: \TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 Berre-ta-Coin; in bloque: Seq\OML/cmm/m/it/10 <$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\OML/cmm/m/it/10 >\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 f
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--108
+Underfull \hbox (badness 10000) in paragraph at lines 103--106
 
  []
 
@@ -311,137 +311,256 @@ Underfull \hbox (badness 10000) in paragraph at lines 107--108
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+Underfull \hbox (badness 10000) in paragraph at lines 112--114
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+Underfull \hbox (badness 10000) in paragraph at lines 115--116
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
+Underfull \hbox (badness 10000) in paragraph at lines 121--123
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--138
+Overfull \hbox (39.2581pt too wide) in paragraph at lines 128--130
+[]\OT1/cmr/bx/n/10 proc agre-gar-Bloque3.0 \OT1/cmr/m/n/10 (in-out cripto: Berre-ta-Coin, in bloque:Seq\OML/cmm/m/it/10 <$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\OML/cmm/m/it/10 >\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 f 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 128--130
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
  []
 
 
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 149--151
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--151
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--151
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--156
+Underfull \hbox (badness 10000) in paragraph at lines 158--162
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--158
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
 
  []
 
 
-Overfull \hbox (102.81654pt too wide) detected at line 162
-[][] [] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 162--163
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--163
+Underfull \hbox (badness 10000) in paragraph at lines 165--167
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--165
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
 
  []
 
 
 
-[2] (tp.aux)
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--192
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--192
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+
+ []
+
+
+Overfull \hbox (2.59271pt too wide) in paragraph at lines 204--206
+[]\OT1/cmr/bx/n/10 pred blo-que-Valido \OT1/cmr/m/n/10 (B: Seq\OML/cmm/m/it/10 <\OT1/cmr/m/n/10 Seq\OML/cmm/m/it/10 <$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\OML/cmm/m/it/10 >>\OT1/cmr/m/n/10 , S: Seq\OML/cmm/m/it/10 <$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\TS1/cmr/m/n/10 Ö$\U/dsrom/m/n/10 Z$\OML/cmm/m/it/10 >\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 f 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
+
+ []
+
+
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 219--221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
+
+ []
+
+
+Overfull \hbox (81.34007pt too wide) in paragraph at lines 229--232
+[][]$[] \OMS/cmsy/m/n/10 ^^@ []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--232
+
+ []
+
+
+Overfull \hbox (83.73589pt too wide) in paragraph at lines 233--236
+[][][][][][]$\OT1/cmr/m/n/10 + []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--236
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--236
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 237--238
+
+ []
+
+
+
+[4] (tp.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3432 strings out of 473523
- 54524 string characters out of 5713179
- 439546 words of memory out of 5000000
- 26587 multiletter control sequences out of 15000+600000
- 568644 words of font info for 77 fonts, out of 8000000 for 9000
+ 3438 strings out of 473523
+ 54617 string characters out of 5713179
+ 439607 words of memory out of 5000000
+ 26593 multiletter control sequences out of 15000+600000
+ 568942 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 59i,12n,67p,281b,333s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 59i,12n,67p,279b,333s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\jr385010\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\jr385010\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx1200.pk> <C:\Users\jr385010\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx1440.pk><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/jr385010/AppData/Local/Programs/MiKTeX/fonts/type1/public/doublestroke/dsrom10.pfb>
-Output written on tp.pdf (3 pages, 467546 bytes).
+Output written on tp.pdf (5 pages, 475655 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
+ 117 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
