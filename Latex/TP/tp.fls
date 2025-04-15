@@ -125,9 +125,6 @@ INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omscmr.fd
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omscmr.fd
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omscmr.fd
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbsy10.tfm
-INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
-INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
-INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke\udsrom.fd
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke\udsrom.fd
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\doublestroke\udsrom.fd
@@ -154,6 +151,9 @@ INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\doublestroke\dsrom12.tfm
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\doublestroke\dsrom8.tfm
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\public\doublestroke\dsrom8.tfm
+INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
+INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
+INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\jr385010\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT tp.aux
 INPUT C:\Users\jr385010\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk

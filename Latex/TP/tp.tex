@@ -98,8 +98,7 @@
 \setcounter{page}{1}
 \section*{TAD \textdollar BerretaCoin \{}
     %Obs
-    \textbf{obs blockchain:} Seq\textless Struct(transacciones: Seq\textless Struct(id, idComprador,
-                             idVendedor, monto), idBloque$>$)$>$\\\\
+    \textbf{obs blockchain:} Seq$<$bloques$>$\\\\
 
     \textbf{proc nuevoBerretaCoin()}: BerretaCoin \{\\
         \indent\indent \textbf{asegura} \{ res.blockchain = $<>$ \}
@@ -107,9 +106,9 @@
     \}\\\\
 
     \textbf{proc agregarBloque} (inout B: BerretaCoin, in S: bloque) \{\\
-        \indent\indent\textbf{requiere} \{ $B = B_0 \land 0 < |$S.transacciones$| \leq$ 50 $\land$ bloqueValido(B, S) $\land$ sonTransaccionesValidas(S, B) \}\\
+        \indent\indent\textbf{requiere} \{ $B = B_0 \land (0 < |$S.transacciones$| \leq$ 50) $\land$ bloqueValido(B, S) $\land$ sonTransaccionesValidas(S, B) \}\\
 
-        \indent\indent\textbf{asegura} \{ b.blockchain = b${_0}$.blockchain ++ \{S\} \}
+        \indent\indent\textbf{asegura} \{ B.blockchain = B${_0}$.blockchain ++ \{S\} \}
 
     \}\\\\
 
@@ -126,14 +125,14 @@
 
     \}\\\\
 
-    \textbf{proc montoMedio} (in B: BerretaCoin): Seq$<$\Entero$>$\\
+    \textbf{proc montoMedio} (in B: BerretaCoin): Float \{\\
         \indent\indent \textbf{requiere} \{ $|$B.blockchain$| \ne 0$ \}\\\\
         \indent\indent \textbf{asegura} \{ res = promedio (B.blockchain) \}
 
     \}\\\\
 
     \textbf{proc cotizacionAPesos} (in cotizaciones: Seq$<$\Entero$>$, in B: BerretaCoin): Seq$<$\Entero$>$ \{\\
-        \indent\indent \textbf{requiere} \{ (A $\in$ cotizaciones) (C $>$ 0) \}\\
+        \indent\indent \textbf{requiere} \{ $(\forall$C $\in$ cotizaciones) (C $>$ 0) \}\\
 
         \indent\indent \textbf{requiere} \{ $|$cotizaciones$|$ = $|$B.blockchain$|$ \}\\
 
@@ -148,18 +147,19 @@
 
 
 
+
+
+
 \newpage
 \section*{Predicados}
 
-    \textbf{pred bloqueValido} (B: BerretaCoin, S: bloque)\{\\
+    \textbf{pred bloqueValido} (B: BerretaCoin, S: bloque) \{\\
         \indent\indent ($|$B.blockchain$|<$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador = 0 $\land$
 
         \indent\indent ($|$B.blockchain$|\ge$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador $\ne$ 0 $\land$
 
         \indent\indent ($|S.transacciones| \le$ 50)\\
-
-        \indent\indent $\land$\\
-
+        \indent\indent$\land$\\
         \indent\indent[($\forall$ transaccion $\in$ S.transacciones) $\rightarrow$ [(transaccion.idComprador $\ne$ transaccion.idVendedor) $\land$
 
         \indent\indent(transaccion.id $>$ 0 $\land$ transaccion.idComprador $\ge$ 0 $\land$ transaccion.idVendedor $>$ 0 $\land$ transaccion.monto $>$ 0)] $\land$
@@ -175,19 +175,19 @@
 
     \textbf{pred esIdDeBloqueConsecutivo} (B: BerretaCoin, S: bloque) \{\\
         \indent\indent ($|$B.blockchain$| = 0)\rightarrow$ (S.idBloque = 0) $\land$\\
-        \indent\indent ($|$B.blockchain$| \ne 0 \rightarrow$ S.idBloque = B.blockchain[ $|$B.blockchain$|-$1 ].idBloque + 1)
+        \indent\indent ($|$B.blockchain$| \ne 0) \rightarrow$ (S.idBloque = B.blockchain[ $|$B.blockchain$|-$1 ].idBloque + 1)
 
     \}\\\\
 
     \textbf{pred sonTransaccionesValidas} (S: bloque, B: blockchain) \{\\
-        \indent\indent ($\forall id:$\Entero) ($\forall j:$\Entero) (0 $\le$ j $<|$S.transacciones$|$) [esUsuario (id, B) $\lor$ esUsuarioDeBloque (id, S)]
+        \indent\indent ($\forall id:$\Entero)($\forall j:$\Entero)(0 $\le$ j $<|$S.transacciones$|$) [esUsuario(id, B) $\lor$ esUsuarioDeBloque(id, S)]
         
-        \indent\indent\indent\indent\indent\indent\indent $\rightarrow$ montoDeUsuarioHastaTransaccion (id, S, B, j) $\ge$ 0
+        \indent\indent\indent\indent\indent\indent\indent $\rightarrow$ montoDeUsuarioHastaTransaccion(id, S, B, j) $\ge$ 0
 
     \}\\\\
 
     \textbf{pred esUsuario} (id: \Entero, B: BerretaCoin) \{\\
-        \indent\indent($\exists$i: \Entero) ($\exists$j: \Entero) (0 $\leq$ i $< |$b.blockchain$|$ $\land$ 0 $\le$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land$
+        \indent\indent($\exists$i: \Entero)($\exists$j: \Entero) (0 $\leq$ i $< |$b.blockchain$|$ $\land$ 0 $\le$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land$
 
         \indent\indent(id = b.blockchain$_{[i]}$.transacciones$_{[j]}$.idVendedor)
 
@@ -207,33 +207,33 @@
 \newpage
 \section*{Auxiliares}
 
-    \textbf{aux MontoDeUsuario} (id:\Entero; B:BerretaCoin): \Entero=\\
+    \textbf{aux MontoDeUsuario} (id: \Entero; B: BerretaCoin): \Entero =\\
 
         \indent\indent
-        $\mathlarger\sum\limits_{i=0}^{|b.blockchain| - 1} - \left(
-        \mathlarger\sum\limits_{j=0}^{|b.blockchain_{[i]}|-1} ifThenElse (id = b.blockchain_{[i][j]_1}, b.blockchain_{[i][j]_3}, 0)\right)$\\
+        $\mathlarger\sum\limits_{j=0}^{|bloques| - 1}
+        [\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador = id,\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{[i]}.monto, 0))$ + \\
 
-        \indent\indent\indent\indent\indent\indent
-        $+\left( \mathlarger\sum\limits_{j=0}^{|b.blockchain_{[i]}|-1} ifThenElse (id = b.blockchain_{[i][j]_1}, b.blockchain_{[i][j]_2}, 0)
-        \right)$\\\\\\
+        \indent\indent\indent\indent\indent
+        $\mathlarger\sum\limits_{i=0}^{bloques_{[j]}.transacciones|-1} (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idVendedor = id,\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{[i]}.monto, 0))$ ]\\\\\\
 
-    \textbf{aux montoDeUsuarioHastaTransaccion} (id:\Entero, S:bloque, B:BerretaCoin, pos:\Entero) \{\\\\
-        \indent\indent montoDeUsuario(id, B) +\\ 
-        \indent\indent [ $\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idComprador = id, -bloque_{[j]}.transacciones_{[i]}.monto))$ ]
+    \textbf{aux montoDeUsuarioHastaTransaccion} (id: \Entero, S: bloque, B: BerretaCoin, pos: \Entero) =\\\\
+        \indent\indent montoDeUsuario(id, B) +\\\\
+        \indent\indent [ $\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idComprador = id, bloques_{[j]}.transacciones_{[i]}.monto, 0))$\\\\\\
+        \indent\indent+\\
 
-    \}\\\\
+        \indent\indent $\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idVendedor = id, bloques_{[j]}.transacciones_{[i]}.monto, 0))$ ]\\\\
 
-    \textbf{aux promedio} (bloques: seq$<$bloques$>$): Float \{\\
+    \textbf{aux promedio} (bloques: seq$<$bloques$>$): Float = \\
 
         \indent\indent $\mathlarger\sum\limits_{j=0}^{|bloques|-1} (\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1}
         (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0),\\
         \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0))$
 
-        \indent\indent$\frac{}{\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent}$
+        \indent\indent$\frac{}{\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent}$\\\\\\\\
 
-    \}\\\\
-
-    \textbf{aux cotizarBloque} (in posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero =\\
+    \textbf{aux cotizarBloque} (posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero =\\
 
         \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion].transacciones_{[i]}.montos} \right) * \text{cotizaciones}[posicion]$\\\\\\
 
@@ -245,7 +245,8 @@
 \section*{Anotaciones y Cosas a reubicar después}
 cadenaDeBloques = \tuplaDeTuplaDeCuatroEnteros
 
-bloque = \tuplaDeCuatroEnteros\\\\
+bloque = struct(transacciones: seq$<$struct (idTransaccion:\Entero, idComprador:\Entero,
+                                            idVendedor:\Entero, monto:\Entero)$>$, idBloque:\Entero)
 
 \subsection*{Procs}
 \textbf{proc montosDeUsuarios} \{
