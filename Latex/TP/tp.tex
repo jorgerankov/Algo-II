@@ -25,8 +25,8 @@
 
 \begin{document}
 \thispagestyle{empty}
-\section*{Trabajo Práctico 1: \textdollar BerretaCoin}
-\subsection*{Cómo funcionan las Blockchains}
+\section*{Trabajo Práctico 1: Especificación de TADs}
+\subsection*{Cómo funcionan las Blockchains: \textdollar BerretaCoin}
 
 \begin{textblock*}{16cm} (13cm, 0cm)
     \includegraphics[width=0.5\textwidth]{dc_logo.png}
@@ -35,8 +35,9 @@
 
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 
-\begin{textblock*}{15cm} (9cm, 10cm)
-    \textbf{Grupo 30}
+%Grupo
+\begin{textblock*}{15cm} (8.67cm, 10cm)
+    \textbf{Grupo: Ameri}
 \end{textblock*}
 
 % Cuadro de integrantes
@@ -81,97 +82,68 @@
 
 
 \newpage
+
+
+
+
+
+
+
+
+
+
+
+
  % Fin de Titulo, inicio de Formulas y Funciones
 \setcounter{page}{1}
 \section*{TAD \textdollar BerretaCoin \{}
     %Obs
     \textbf{obs blockchain:} Seq\textless Struct(transacciones: Seq\textless Struct(id, idComprador,
-                             idVendedor, monto), idBloque$>$)$>$\\
+                             idVendedor, monto), idBloque$>$)$>$\\\\
 
     \textbf{proc nuevoBerretaCoin()}: BerretaCoin \{\\
         \indent\indent \textbf{asegura} \{ res.blockchain = $<>$ \}
 
     \}\\\\
 
-    %agregarBloque
-    \textbf{proc agregarBloque} (inout bc: \textdollar BerretaCoin, in bloque: \tuplaDeCuatroEnteros) \{\\
-        \indent\indent \textbf{requiere} \{ ($|bc|<$ 3000) $\land_L$ ($|bloque|<$ 50) \}\\
-
-        \indent\indent \textbf{requiere} \{ esTransaccionCreacion (bloque$_{[0]}$) \}\\
-
-        \indent\indent \textbf{requiere} \{ ($\forall$i: \Natural)
-                                (0 $\leq$ i $<|bloque| \rightarrow_L$ (bloque$_{[i][1]}$ $\neq$ bloque$_{[i][2]}))$ \}\\
-
-        \indent\indent \textbf{asegura} \{($\exists$ idMontos: \tuplaDeDosEnteros) (sinRepetirId (idMontos)
-                                            $\land_L$ esTransaccionValida (bloque, idMontos))\}\\
-
-        \indent\indent \textbf{asegura} \{ bc = concat (bc$_0$, \textless bloque\textgreater) \}\\
-
-        \indent\indent \textbf{asegura} \{ $|$bc$|$ = $|$bc$_0|$+1 \}
-
-    \}\\\\
-
-    \textbf{proc agregarBloque2.0} (inout B: BerretaCoin, in S: bloque) \{\\
+    \textbf{proc agregarBloque} (inout B: BerretaCoin, in S: bloque) \{\\
         \indent\indent\textbf{requiere} \{ $B = B_0 \land 0 < |$S.transacciones$| \leq$ 50 $\land$ bloqueValido(B, S) $\land$ sonTransaccionesValidas(S, B) \}\\
 
-        \indent\indent\textbf{asegura} \{ b.blockchain = b${_0}$.blockchain + \{S\} \}
+        \indent\indent\textbf{asegura} \{ b.blockchain = b${_0}$.blockchain ++ \{S\} \}
 
     \}\\\\
 
-    \textbf{proc agregarBloque3.0} (inout cripto: BerretaCoin, in bloque:\tuplaDeCuatroEnteros) \{\\
-        \indent\indent\textbf{requiere} \{ length (cripto.blockchain) $<$ 50 \}\\
-
-        \indent\indent\textbf{requiere} \{ cripto = cripto$_0$ \}\\
-
-        \indent\indent\textbf{asegura} \{ cripto.blockchain = concat (cripto$_0$.blockchain, \textless bloque\textgreater) \}
-    
-    \}\\\\
-
-    %montosDeUsuarios
-    \textbf{proc montosDeUsuarios} \{
-
-        \indent\indent \textbf{asegura} \{ $\forall$id $\in$ sinRepetidos (Usuarios (Cripto.blockchain)) $\rightarrow$ id $\in$ res\\
-        \indent\indent\indent\indent\indent $\longleftrightarrow$ (esMaximo (MontoDeUsuario (Cripto.blockchain, id));
-                                            Montos (Usuarios (Cripto.blockchain))) \}
-
-    \}\\\\
-
-    \textbf{proc maximosTenedores} (in bc: BerretaCoin): Seq$<$\Entero$>$ \{
+    \textbf{proc maximosTenedores} (in B: BerretaCoin): Seq$<$\Entero$>$ \{
 
         \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)(0 $\le i < |res|) \rightarrow$
-                                            esUsuario $(res_{[i]}$, bc.blockchain) \}\\
+                                            esUsuario $(res_{[i]}$, B) \}\\
 
-        \indent\indent\textbf{asegura} \{ $(\forall$id: \Entero) (id $\in$ res) $\longleftrightarrow$
-                                         $\neg$ ($\exists$ otro: \Entero) (esUsuario (otro; bc.blockchain)) $\land$\\
-        \indent\indent\indent\indent\indent (montoDeUsuario (otro, bc) $\ge$ MontoDeUsuario (id, bc)) \}
+        \indent\indent\textbf{asegura} \{ $(\forall$id: \Entero) (id $\in$ res) $\rightarrow$
+                                         $\neg$ ($\exists$ otro: \Entero) (esUsuario (otro, B)) $\land$\\
+        \indent\indent\indent\indent\indent (montoDeUsuario (otro, B) $\ge$ montoDeUsuario (id, B)) \}\\
 
-    \}\\\\
-
-    \textbf{proc montoMedio} 
-    (S: Seq\textless Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\textgreater): $\mathds{Z}$ \{\\
-        \indent\indent \textbf{requiere} \{ $\forall$ bloque $\in S$, $|$bloque$| >$ 0 \}\\\\
-        \indent\indent \textbf{asegura} \{ res = $\frac{\mathlarger\sum\limits_{j=0}^{|S|-1} \mathlarger\sum\limits_{i=1}^{|S_{[j]}|-1} S_{[j][i][3]}}{\mathlarger\sum\limits_{j=0}^{|S|-1} (|S_{[j]}|-1)}$ \}
+        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)$(\forall$j: \Entero) (0 $\le i < |res|)$ $\land$ (0 $\le j < |res|)$ $\land$ (i $\ne$ j) $\rightarrow$ res$_{[i]}$ $\ne$ res$_{[j]}$ \}
 
     \}\\\\
 
-    \textbf{proc Usuarios} (in bc: BerretaCoin): Seq$<$\Entero$>$ \{\\
-        \indent\indent \textbf{asegura} \{ ($\forall$i: \Entero) ($0 \le i < |bc.blockchain|$) \}\\
+    \textbf{proc montoMedio} (in B: BerretaCoin): Seq$<$\Entero$>$\\
+        \indent\indent \textbf{requiere} \{ $|$B.blockchain$| \ne 0$ \}\\\\
+        \indent\indent \textbf{asegura} \{ res = promedio (B.blockchain) \}
 
-        \indent\indent \textbf{asegura} \{ ($\forall$j: \Entero) ($0 \le i < |bc.blockchain_{[i]}|$) \}\\
-
-        \indent\indent \textbf{asegura} \{$ (bc.blockchain_{[i][j][1]} \land bc.blockchain_{[i][j][2]}) \in res$
-                                            $\land$ ningunOtroElem $\in res$ \}
-    
     \}\\\\
 
     \textbf{proc cotizacionAPesos} (in cotizaciones: Seq$<$\Entero$>$, in B: BerretaCoin): Seq$<$\Entero$>$ \{\\
-        \indent\indent \textbf{requiere} \{($\forall i:$\Entero)(0 $\le i <|$cotizaciones$|) \rightarrow$ cotizaciones$_{[i]} >$ 0 \}\\
+        \indent\indent \textbf{requiere} \{ (A $\in$ cotizaciones) (C $>$ 0) \}\\
 
         \indent\indent \textbf{requiere} \{ $|$cotizaciones$|$ = $|$B.blockchain$|$ \}\\
 
         \indent\indent \textbf{asegura} \{ $|$res$|$ = $|$cotizaciones$|$ \}\\
 
-        \indent\indent \textbf{asegura} \{ $(\forall i: $\Entero)(0 $\le i < |$res$|)\rightarrow$ res$_{[i]}$ = cotizarBloque (i, cotizaciones, b.bloque) \}
+        \indent\indent \textbf{asegura} \{ $(\forall i: $\Entero)(0 $\le i < |$res$|)\rightarrow$ res$_{[i]}$ = cotizarBloque (i, cotizaciones, B.blockchain) \}
+
+    \}\\\\
+
+    
 
 
 
@@ -179,76 +151,61 @@
 \newpage
 \section*{Predicados}
 
-    \textbf{pred esTransaccionCreacion} (t: \tuplaDeCuatroEnteros) \{\\
-        \indent\indent t$_{[1]}$ = 0
+    \textbf{pred bloqueValido} (B: BerretaCoin, S: bloque)\{\\
+        \indent\indent ($|$B.blockchain$|<$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador = 0 $\land$
+
+        \indent\indent ($|$B.blockchain$|\ge$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador $\ne$ 0 $\land$
+
+        \indent\indent ($|S.transacciones| \le$ 50)\\
+
+        \indent\indent $\land$\\
+
+        \indent\indent[($\forall$ transaccion $\in$ S.transacciones) $\rightarrow$ [(transaccion.idComprador $\ne$ transaccion.idVendedor) $\land$
+
+        \indent\indent(transaccion.id $>$ 0 $\land$ transaccion.idComprador $\ge$ 0 $\land$ transaccion.idVendedor $>$ 0 $\land$ transaccion.monto $>$ 0)] $\land$
+
+        \indent\indent estaOrdenada(S) $\land$ esIdDeBloqueConsecutivo(B, S)
 
     \}\\\\
 
-    \textbf{pred sinRepetirId} (ids: \tuplaDeDosEnteros) \{\\
-        \indent\indent($\forall$i,j: \Natural) ((0 $\leq$ i $<|$ids$|$ $\land_L$ (0 $\leq$ j $<|$ids$|$ $\land_L$ (j $\neq$ i))
-                        $\rightarrow_L$ id$_{[i][0]} \neq$ id$_{[j][0]}$)) \}\\\\
-
-    \textbf{pred esMaximo} (Monto: \Entero, Montos: Seq\textless$\mathds{Z}$\textgreater) \{\\
-        \indent\indent($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
+    \textbf{pred estaOrdenada} (S: bloque) \{\\
+        \indent\indent $(\forall i$: \Entero) (0 $\le$ i $< |$S.transacciones$|$) $\rightarrow$ (S.transacciones$_{[i]}$.idTransaccion = $i$)
 
     \}\\\\
 
-    \textbf{pred esUsuario} (id: \Entero, b: BerretaCoin) \{\\
-        \indent\indent($\exists$i: \Entero) ($\exists$j: \Entero) (0 $<$ i $\leq |$b.blockchain$|$ $\land_L$ 0 $<$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land$
+    \textbf{pred esIdDeBloqueConsecutivo} (B: BerretaCoin, S: bloque) \{\\
+        \indent\indent ($|$B.blockchain$| = 0)\rightarrow$ (S.idBloque = 0) $\land$\\
+        \indent\indent ($|$B.blockchain$| \ne 0 \rightarrow$ S.idBloque = B.blockchain[ $|$B.blockchain$|-$1 ].idBloque + 1)
+
+    \}\\\\
+
+    \textbf{pred sonTransaccionesValidas} (S: bloque, B: blockchain) \{\\
+        \indent\indent ($\forall id:$\Entero) ($\forall j:$\Entero) (0 $\le$ j $<|$S.transacciones$|$) [esUsuario (id, B) $\lor$ esUsuarioDeBloque (id, S)]
+        
+        \indent\indent\indent\indent\indent\indent\indent $\rightarrow$ montoDeUsuarioHastaTransaccion (id, S, B, j) $\ge$ 0
+
+    \}\\\\
+
+    \textbf{pred esUsuario} (id: \Entero, B: BerretaCoin) \{\\
+        \indent\indent($\exists$i: \Entero) ($\exists$j: \Entero) (0 $\leq$ i $< |$b.blockchain$|$ $\land$ 0 $\le$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land$
 
         \indent\indent(id = b.blockchain$_{[i]}$.transacciones$_{[j]}$.idVendedor)
 
     \}\\\\
 
-    \textbf{pred bloqueValido} (B: cadenaDeBloques, S: bloque)\{\\
-        \indent\indent ($|$B$|<$ 3000 $\rightarrow$ S.transacciones$_{[0]}$.idComprador = 0) $\land$
-                        ($|$B$|\ge$ 3000 $\rightarrow$ S.transacciones$_{[0]}$.idComprador $\ne$ 0) $\land$
-        
-        \indent\indent ($|S.transacciones| \le$ 50)\\
-        
-        \indent\indent $\land$\\
-
-        \indent\indent[($\forall i \in$ S.transacciones) $\rightarrow$ (S.transacciones$_{[i]}$.idComprador $\ne$ S.transacciones$_{[i]}$.idVendedor)] $\land$
-        
-        \indent\indent[($\forall j \in$ S.transacciones) $\rightarrow$ (S.transacciones$_{[j]}$.id $\ge$ 0 $\land$
-        S.transacciones$_{[j]}$.idComprador $\ge$ 0 $\land$
-        
-        \indent\indent S.transacciones$_{[j]}$.idVendedor $\ge$ 0 $\land$
-        S.transacciones$_{[j]}$.idMontos $>$ 0) $\land$
-        
-        \indent\indent estaOrdenado(S) $\land$ idOrdenado(B, S)]
 
 
-    \}\\\\
-
-    \textbf{pred esTransaccionValida} (b: \tuplaDeCuatroEnteros, ids: \tuplaDeDosEnteros) \{\\
-        \indent\indent($\forall$i,j: \Natural) (j $\leq$ i \textless $|b|$ $\land_L$ (0 $\leq$ j \textless $|ids|$) $\land_L$ ($b_{[i][2]} = ids_{[j][0]}$))
-                                                $\rightarrow_L$ ($b_{[i][3]} \leq ids_{[j][1]}$)
-
-    \}\\\\
-
-    \textbf{pred sonTransaccionesValidas} (S: bloque, B: blockchain) \{\\
-        \indent\indent ($\forall id:$\Entero) ($\forall j:$\Entero) (0 $\le$ j $<|$S.transacciones$|$) (esUsuario (id, blockchain) $\lor$ [esUsuarioDeBloque (id, S.transacciones)
-        
-        \indent\indent\indent\indent\indent\indent\indent $\rightarrow$ montoDeUsuarioHastaTransferencia (id, S, B, j) $\ge$ 0])
-
-    \}\\\\
 
 
-    \textbf{pred estaOrdenado} (S: bloque) \{\\
-        \indent\indent $(\forall i$: \Entero) (0 $\le$ i $< |$S.transacciones$|$) $\rightarrow$ (S.transacciones$_{[i]}$.id = $i$)
 
-    \}\\\\
-\newpage
+
+
+
+
+
 % Fin de Procesos y Predicados, inicio de Auxiliares
+\newpage
 \section*{Auxiliares}
-
-    \textbf{aux sinRepetidos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater =\\\\
-        \indent\indent $[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$ \\\\\\\\
-
-    \textbf{aux Usuarios} (S:\tuplaDeTuplaDeCuatroEnteros): Seq\textless$\mathds{Z}$\textgreater=\\
-
-    \indent\indent $\mathlarger\sum\limits_{i=0}^{|s|-i} \mathlarger\sum\limits_{j=0}^{|s_{[i]}|-1} (S_{[i][j][1]}, S_{[i][j][2]})$\\\\\\
 
     \textbf{aux MontoDeUsuario} (id:\Entero; B:BerretaCoin): \Entero=\\
 
@@ -260,47 +217,91 @@
         $+\left( \mathlarger\sum\limits_{j=0}^{|b.blockchain_{[i]}|-1} ifThenElse (id = b.blockchain_{[i][j]_1}, b.blockchain_{[i][j]_2}, 0)
         \right)$\\\\\\
 
+    \textbf{aux montoDeUsuarioHastaTransaccion} (id:\Entero, S:bloque, B:BerretaCoin, pos:\Entero) \{\\\\
+        \indent\indent montoDeUsuario(id, B) +\\ 
+        \indent\indent [ $\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idComprador = id, -bloque_{[j]}.transacciones_{[i]}.monto))$ ]
+
+    \}\\\\
+
+    \textbf{aux promedio} (bloques: seq$<$bloques$>$): Float \{\\
+
+        \indent\indent $\mathlarger\sum\limits_{j=0}^{|bloques|-1} (\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1}
+        (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0),\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0))$
+
+        \indent\indent$\frac{}{\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent}$
+
+    \}\\\\
+
+    \textbf{aux cotizarBloque} (in posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero =\\
+
+        \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion].transacciones_{[i]}.montos} \right) * \text{cotizaciones}[posicion]$\\\\\\
+
+
+
+
+
+\newpage
+\section*{Anotaciones y Cosas a reubicar después}
+cadenaDeBloques = \tuplaDeTuplaDeCuatroEnteros
+
+bloque = \tuplaDeCuatroEnteros\\\\
+
+\subsection*{Procs}
+\textbf{proc montosDeUsuarios} \{
+
+        \indent\indent \textbf{asegura} \{ $\forall$id $\in$ sinRepetidos (Usuarios (Cripto.blockchain)) $\rightarrow$ id $\in$ res\\
+        \indent\indent\indent\indent\indent $\longleftrightarrow$ (esMaximo (MontoDeUsuario (Cripto.blockchain, id));
+                                            Montos (Usuarios (Cripto.blockchain))) \}
+
+    \}\\\\
+
+\textbf{proc Usuarios} (in bc: BerretaCoin): Seq$<$\Entero$>$ \{
+
+    \indent\indent \textbf{asegura} \{ ($\forall$i: \Entero) ($0 \le i < |bc.blockchain|$) \}\\
+
+    \indent\indent \textbf{asegura} \{ ($\forall$j: \Entero) ($0 \le i < |bc.blockchain_{[i]}|$) \}\\
+
+    \indent\indent \textbf{asegura} \{$ (bc.blockchain_{[i][j][1]} \land bc.blockchain_{[i][j][2]}) \in res$
+                                            $\land$ ningunOtroElem $\in res$ \}
+    
+    \}\\\\
+
+\subsection*{Preds}
+    \textbf{pred esTransaccionCreacion} (t: \tuplaDeCuatroEnteros) \{\\
+        \indent\indent t$_{[1]}$ = 0
+
+    \}\\\\
+
+    \textbf{pred sinRepetirId} (ids: \tuplaDeDosEnteros) \{\\
+        \indent\indent($\forall$i,j: \Natural) ((0 $\leq$ i $<|$ids$|$ $\land_L$ (0 $\leq$ j $<|$ids$|$ $\land_L$ (j $\neq$ i))
+                        $\rightarrow_L$ id$_{[i][0]} \neq$ id$_{[j][0]}$))
+                        
+    \}\\\\
+
+    \textbf{pred esMaximo} (Monto: \Entero, Montos: Seq\textless$\mathds{Z}$\textgreater) \{\\
+        \indent\indent($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
+
+    \}\\\\
+
+    \textbf{pred esTransaccionValida} (b: \tuplaDeCuatroEnteros, ids: \tuplaDeDosEnteros) \{
+
+        \indent\indent($\forall$i,j: \Natural) (j $\leq$ i \textless $|b|$ $\land_L$ (0 $\leq$ j \textless $|ids|$) $\land_L$ ($b_{[i][2]} = ids_{[j][0]}$))
+                                                $\rightarrow_L$ ($b_{[i][3]} \leq ids_{[j][1]}$)
+
+    \}\\\\
+
+\subsection*{Auxs}
     \textbf{aux Montos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater = \\
 
         \indent\indent $\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoDeUsuario(S_{[i]}))$\\\\\\
 
-    \textbf{aux cotizarBloque} (in posicion. cotizaciones: Seq): \Entero =\\
+    \textbf{aux sinRepetidos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater =\\\\
+        \indent\indent $[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$ \\\\\\\\
 
-        \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion]_{[i]}.montos} \right)\cdot \text{cotizaciones}[posicion]$
+    \textbf{aux Usuarios} (S:\tuplaDeTuplaDeCuatroEnteros): Seq\textless$\mathds{Z}$\textgreater=\\
 
+    \indent\indent $\mathlarger\sum\limits_{i=0}^{|s|-i} \mathlarger\sum\limits_{j=0}^{|s_{[i]}|-1} (S_{[i][j][1]}, S_{[i][j][2]})$\\\\\\
 
-\subsection*{\}}
-
-\section*{anotaciones}
-cadenaDeBloques = \tuplaDeTuplaDeCuatroEnteros
-
-bloque = \tuplaDeCuatroEnteros
 
 \end{document}
-
-% Cosas a tener en cuenta:
-% Requiere: id_comprador != id_vendedor
-% Requiere: en id_transaccion, MontoDeUsuario >= monto
-
-
-% Funciones a implementar:
-
-% agregarBloque
-
-% maximosTenedores
-% puedo usar MontosDeUsuarios para tomar a los maximos 
-% Veo quien tiene la mayor cantidad de cripto, si se repite el maximo en mas usuarios,
-% Los agrego a la lista. Sino, devuelvo una lista con 1 solo user
-
-% Transaccion de creacion = la primer transaccion de cada bloque?
-% montoMedio = for i in Montos, totalMontos += i -> res = totalMontos / |Montos|
-
-
-
-\section{Simbolos para copiarpegar y no perder (tanto) tiempo}
-
-\textbf{Sumatoria: }\\
-\textbf{And: }$\land$ y \textbf{And later: }$\land_L$\\
-\textbf{Tal que: }$\rightarrow$ y \textbf{Tal que Luego: }$\rightarrow_L$\\
-\textbf{Menor: }\textless, \textbf{Menor o igual: }$\leq$, \textbf{Mayor: }\textgreater, \textbf{Mayor o igual: }$\geq$\\
-\textbf{Secuencia de 4 (o menos) enteros: }Seq\textless$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\texttimes$\mathds{Z}$\textgreater\\
