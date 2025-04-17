@@ -229,82 +229,23 @@
 
         \indent\indent $\Bigl(\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idVendedor = id, bloques_{[j]}.transacciones_{[i]}.monto, 0)) \Bigr)\Bigr]$\\\\\\\\
 
+
+    \textbf{aux montoTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero\\\\
+    \indent\indent $\mathlarger\sum\limits_{j=0}^{|bloques|-1} \Bigl(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1}
+        (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0),\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0)\Bigr)$\\\\
+
+    \textbf{aux cantidadTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero\\\\
+    \indent\indent$\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent$\\\\\\
+
     \textbf{aux promedio} (bloques: seq$<$bloques$>$): Float = \\
 
-        \indent\indent $\mathlarger\sum\limits_{j=0}^{|bloques|-1} \Bigl(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1}
-        (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0),\\
-        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0)\Bigr)$
-
-        \indent\indent$\frac{}{\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent}$\\\\\\\\\\
+    \indent\indent$\frac{montoTotalDeTransacciones(bloques)}{cantidadTotalDeTransacciones(bloques)}$\\\\\\\\\\
 
     \textbf{aux cotizarBloque} (posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero =\\
 
         \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion].transacciones_{[i]}.montos} \right) * \text{cotizaciones}[posicion]$\\\\\\
 
-
-
 \section*{\}}
-
-\newpage
-\section*{Anotaciones y Cosas a reubicar después}
-cadenaDeBloques = \tuplaDeTuplaDeCuatroEnteros
-
-
-\subsection*{Procs}
-\textbf{proc montosDeUsuarios} \{
-
-        \indent\indent \textbf{asegura} \{ $\forall$id $\in$ sinRepetidos (Usuarios (Cripto.blockchain)) $\rightarrow$ id $\in$ res\\
-        \indent\indent\indent\indent\indent $\longleftrightarrow$ (esMaximo (MontoDeUsuario (Cripto.blockchain, id));
-                                            Montos (Usuarios (Cripto.blockchain))) \}
-
-    \}\\\\
-
-\textbf{proc Usuarios} (in bc: BerretaCoin): Seq$<$\Entero$>$ \{
-
-    \indent\indent \textbf{asegura} \{ ($\forall$i: \Entero) ($0 \le i < |bc.blockchain|$) \}\\
-
-    \indent\indent \textbf{asegura} \{ ($\forall$j: \Entero) ($0 \le i < |bc.blockchain_{[i]}|$) \}\\
-
-    \indent\indent \textbf{asegura} \{$ (bc.blockchain_{[i][j][1]} \land bc.blockchain_{[i][j][2]}) \in res$
-                                            $\land$ ningunOtroElem $\in res$ \}
-    
-    \}\\\\
-
-\subsection*{Preds}
-    \textbf{pred esTransaccionCreacion} (t: \tuplaDeCuatroEnteros) \{\\
-        \indent\indent t$_{[1]}$ = 0
-
-    \}\\\\
-
-    \textbf{pred sinRepetirId} (ids: \tuplaDeDosEnteros) \{\\
-        \indent\indent($\forall$i,j: \Natural) ((0 $\leq$ i $<|$ids$|$ $\land_L$ (0 $\leq$ j $<|$ids$|$ $\land_L$ (j $\neq$ i))
-                        $\rightarrow_L$ id$_{[i][0]} \neq$ id$_{[j][0]}$))
-                        
-    \}\\\\
-
-    \textbf{pred esMaximo} (Monto: \Entero, Montos: Seq\textless$\mathds{Z}$\textgreater) \{\\
-        \indent\indent($\forall$i $\in$ Montos) $\rightarrow_L$ Monto $\geq$ i
-
-    \}\\\\
-
-    \textbf{pred esTransaccionValida} (b: \tuplaDeCuatroEnteros, ids: \tuplaDeDosEnteros) \{
-
-        \indent\indent($\forall$i,j: \Natural) (j $\leq$ i \textless $|b|$ $\land_L$ (0 $\leq$ j \textless $|ids|$) $\land_L$ ($b_{[i][2]} = ids_{[j][0]}$))
-                                                $\rightarrow_L$ ($b_{[i][3]} \leq ids_{[j][1]}$)
-
-    \}\\\\
-
-\subsection*{Auxs}
-    \textbf{aux Montos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater = \\
-
-        \indent\indent $\mathlarger\sum\limits_{j=0}^{|s|-1} (MontoDeUsuario(S_{[i]}))$\\\\\\
-
-    \textbf{aux sinRepetidos} (S: Seq\textless$\mathds{Z}$\textgreater): Seq\textless$\mathds{Z}$\textgreater =\\\\
-        \indent\indent $[S_{[0]}] + \mathlarger\sum\limits_{i=1}^{|s|-1} ifThenElse(S_{[i]} \in SubSeq(S, 0, i-1); \emptyset; [S_{[i]}])$ \\\\\\\\
-
-    \textbf{aux Usuarios} (S:\tuplaDeTuplaDeCuatroEnteros): Seq\textless$\mathds{Z}$\textgreater=\\
-
-    \indent\indent $\mathlarger\sum\limits_{i=0}^{|s|-i} \mathlarger\sum\limits_{j=0}^{|s_{[i]}|-1} (S_{[i][j][1]}, S_{[i][j][2]})$\\\\\\
-
 
 \end{document}
