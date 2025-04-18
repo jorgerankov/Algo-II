@@ -118,14 +118,14 @@
 
     \textbf{proc maximosTenedores} (in B: BerretaCoin): Seq$<$\Entero$>$ \{
 
-        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)(0 $\le i < |res|) \rightarrow$
+        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)(0 $\le i < |res|) \rightarrow_{L}$
                                             esUsuario $(res_{[i]}$, B) \}\\
 
-        \indent\indent\textbf{asegura} \{ $(\forall$id: \Entero) (id $\in$ res) $\rightarrow$
+        \indent\indent\textbf{asegura} \{ $(\forall$id: \Entero) (id $\in$ res) $\rightarrow_{L}$
                                          $\neg$ ($\exists$ otro: \Entero) (esUsuario (otro, B)) $\land$\\
         \indent\indent\indent\indent\indent (montoDeUsuario (otro, B) $>$ montoDeUsuario (id, B)) \}\\
 
-        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)$(\forall$j: \Entero) (0 $\le i < |res|)$ $\land$ (0 $\le j < |res|)$ $\land$ (i $\ne$ j) $\rightarrow$ res$_{[i]}$ $\ne$ res$_{[j]}$ \}
+        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)$(\forall$j: \Entero) (0 $\le i < |res|)$ $\land_{L}$ (0 $\le j < |res|)$ $\land_{L}$ (i $\ne$ j) $\rightarrow$ res$_{[i]}$ $\ne$ res$_{[j]}$ \}
 
     \}\\\\
 
@@ -136,13 +136,13 @@
     \}\\\\
 
     \textbf{proc cotizacionAPesos} (in cotizaciones: Seq$<$\Entero$>$, in B: BerretaCoin): Seq$<$\Entero$>$ \{\\
-        \indent\indent \textbf{requiere} \{ $(\forall$C $\in$ cotizaciones) (C $>$ 0) \}\\
+        \indent\indent \textbf{requiere} \{ $(\forall$C $\in$ cotizaciones) $\rightarrow$ (C $>$ 0) \}\\
 
         \indent\indent \textbf{requiere} \{ $|$cotizaciones$|$ = $|$B.blockchain$|$ \}\\
 
         \indent\indent \textbf{asegura} \{ $|$res$|$ = $|$cotizaciones$|$ \}\\
 
-        \indent\indent \textbf{asegura} \{ $(\forall i: $\Entero)(0 $\le i < |$res$|)\rightarrow$ res$_{[i]}$ = cotizarBloque (i, cotizaciones, B.blockchain) \}
+        \indent\indent \textbf{asegura} \{ $(\forall i: $\Entero)(0 $\le i < |$res$|)\rightarrow_{L}$ res$_{[i]}$ = cotizarBloque (i, cotizaciones, B.blockchain) \}
 
     \}\\\\
 
@@ -162,7 +162,7 @@
 
         \indent\indent ($|$B.blockchain$|\ge$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador $\ne$ 0 $\land$\\
 
-        \indent\indent[($\forall$ transaccion $\in$ S.transacciones) $\rightarrow$ [(transaccion.idComprador $\ne$ transaccion.idVendedor) $\land$
+        \indent\indent[($\forall$ transaccion $\in$ S.transacciones) $\rightarrow_{L}$ [(transaccion.idComprador $\ne$ transaccion.idVendedor) $\land$
 
         \indent\indent(transaccion.id $>$ 0 $\land$ transaccion.idComprador $\ge$ 0 $\land$ transaccion.idVendedor $>$ 0 $\land$ transaccion.monto $>$ 0)] $\land$
 
@@ -171,7 +171,7 @@
     \}\\\\
 
     \textbf{pred estaOrdenada} (S: bloque) \{\\
-        \indent\indent $(\forall i$: \Entero) (0 $\le$ i $< |$S.transacciones$|$) $\rightarrow$ (S.transacciones$_{[i]}$.idTransaccion = $i$)
+        \indent\indent $(\forall i$: \Entero) (0 $\le$ i $< |$S.transacciones$|$) $\rightarrow_{L}$ (S.transacciones$_{[i]}$.idTransaccion = $i$)
 
     \}\\\\
 
@@ -182,14 +182,14 @@
     \}\\\\
 
     \textbf{pred sonTransaccionesValidas} (S: bloque, B: blockchain) \{\\
-        \indent\indent ($\forall id:$\Entero)($\forall j:$\Entero)(0 $\le$ j $<|$S.transacciones$|$) [esUsuario(id, B) $\lor$ esUsuarioDeBloque(id, S)]
+        \indent\indent ($\forall id:$\Entero)($\forall j:$\Entero) (0 $\le$ j $<|$S.transacciones$|$) $\land$ [esUsuario(id, B) $\lor$ esUsuarioDeBloque(id, S)]
         
         \indent\indent\indent\indent\indent\indent\indent $\rightarrow$ montoDeUsuarioHastaTransaccion(id, S, B, j) $\ge$ 0
 
     \}\\\\
 
     \textbf{pred esUsuario} (id: \Entero, B: BerretaCoin) \{\\
-        \indent\indent($\exists$i: \Entero)($\exists$j: \Entero) (0 $\leq$ i $< |$b.blockchain$|$ $\land$ 0 $\le$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land$
+        \indent\indent($\exists$i: \Entero)($\exists$j: \Entero) (0 $\leq$ i $< |$b.blockchain$|$ $\land_{L}$ 0 $\le$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land_{L}$
 
         \indent\indent(id = b.blockchain$_{[i]}$.transacciones$_{[j]}$.idVendedor)
 
@@ -240,7 +240,7 @@
 
     \textbf{aux promedio} (bloques: seq$<$bloques$>$): Float = \\
 
-    \indent\indent$\frac{montoTotalDeTransacciones(bloques)}{cantidadTotalDeTransacciones(bloques)}$\\\\\\\\\\
+    \indent\indent$\dfrac{montoTotalDeTransacciones(bloques)}{cantidadTotalDeTransacciones(bloques)}$\\\\\\\\\\
 
     \textbf{aux cotizarBloque} (posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero =\\
 

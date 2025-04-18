@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1744923034.98519 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1744923036.35471 0
+["pdflatex"] 1745006776.02547 "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" "tp.pdf" "tp" 1745006777.08625 0
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1744322787 81068 299f700eb05b1217173e62b88b513bd0 ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcbx1200.pk" 1744241526 15080 a0e03be2040ced0de9b03c521b7668ef ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcbx1440.pk" 1744239444 18748 6c1abfccf160631730ae23dfd6c714d7 ""
@@ -84,11 +84,11 @@
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1730400552 7243 e5dac1240636811edb77568b81818372 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/transparent/transparent-nometadata.sty" 1674488802 4212 8da4873548cbd3f1cdb053c708e8aa7e ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/transparent/transparent.sty" 1674488802 1918 c8d1ecb3722721d6f624992cbc042b70 ""
-  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1744923033 10342 ff0730e8baebe345d1a95f959be1e65c ""
+  "c:/Users/jr385010/Documents/Algo-II/Latex/TP/tp.tex" 1745006774 10402 ed7e3e65cdcdd7a57d3da5e931ddc56e ""
   "images/dc_logo.png" 1743980656 5924 5601a5df60b3bf4c656c6fa241766a92 ""
   "images/uba_logo.jpg" 1744065126 277040 3d5a17932b08e713436a5440f4c9da9f ""
-  "tp.aux" 1744923035 92 b7189cf096b6d4b3560290f3cb193ef8 "pdflatex"
-  "tp.tex" 1744923033 10342 ff0730e8baebe345d1a95f959be1e65c ""
+  "tp.aux" 1745006776 92 b7189cf096b6d4b3560290f3cb193ef8 "pdflatex"
+  "tp.tex" 1745006774 10402 ed7e3e65cdcdd7a57d3da5e931ddc56e ""
   (generated)
   "tp.aux"
   "tp.log"
