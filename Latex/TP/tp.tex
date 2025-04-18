@@ -182,7 +182,7 @@
     \}\\\\
 
     \textbf{pred sonTransaccionesValidas} (S: bloque, B: blockchain) \{\\
-        \indent\indent ($\forall id:$\Entero)($\forall j:$\Entero) (0 $\le$ j $<|$S.transacciones$|$) $\land$ [esUsuario(id, B) $\lor$ esUsuarioDeBloque(id, S)]
+        \indent\indent ($\forall id:$\Entero)($\forall j:$\Entero) (0 $\le$ j $<|$S.transacciones$|$) $\land_{L}$ [esUsuario(id, B) $\lor$ esUsuarioDeBloque(id, S)]
         
         \indent\indent\indent\indent\indent\indent\indent $\rightarrow$ montoDeUsuarioHastaTransaccion(id, S, B, j) $\ge$ 0
 
