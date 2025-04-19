@@ -12,6 +12,8 @@
 \usepackage{textcomp}
 \usepackage{transparent}
 \usepackage{indentfirst}
+\usepackage[export]{adjustbox}
+\usepackage[spanish]{babel}
 
 \graphicspath{{images/}}
 
@@ -26,30 +28,21 @@
 \begin{document}
 \thispagestyle{empty}
 
+\includegraphics[width=0.48\textwidth, right]{dc_logo.png}
 
-\begin{textblock*}{16cm} (13cm, 0cm)
-    \includegraphics[width=0.5\textwidth]{dc_logo.png}
-\end{textblock*}
-
-\begin{textblock*}{20cm} (0.8cm, 4cm)
-    \section*{Trabajo Práctico 1: Especificación de TADs}
-    \subsection*{Cómo funcionan las Blockchains: \textdollar BerretaCoin}
-    \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-    \date{\today}
-\end{textblock*}
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-
-
+\section*{Trabajo Práctico 1: Especificación de TADs}
+\subsection*{Cómo funcionan las Blockchains: \textdollar BerretaCoin}
+\noindent\rule{19cm}{0.4pt}\\
+\today
+\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent
+Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 
 %Grupo
-\begin{textblock*}{13cm} (3.85cm, 9cm)
     \begin{center}
         \textbf{Grupo: Ameri}
     \end{center}
-\end{textblock*}
 
 % Cuadro de integrantes
-\begin{textblock*}{14.5cm} (3.4cm, 12cm)
 \begin{table}[h]
     \begin{center}
         \begin{tabular}{|>{\vspace{1mm}\centering\arraybackslash}m{4.2cm} >{\vspace{1mm}\centering\arraybackslash}m{2cm} >{\vspace{2mm}\centering\arraybackslash}m{5cm}|}
@@ -67,7 +60,6 @@
         \end{tabular}
     \end{center}
 \end{table}
-\end{textblock*}
 
 % Logo UBA
 \begin{textblock*}{17cm} (1cm, 22cm)
