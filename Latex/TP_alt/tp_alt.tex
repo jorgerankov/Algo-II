@@ -109,6 +109,7 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 
     {\fontfamily{pcr}\selectfont\textbf{proc maximosTenedores} (in B: BerretaCoin): Seq$<$\Entero$>$} \{
 
+        \indent\indent{\fontfamily{qcr}\selectfont requiere} \{ B.Blockchain $\ne$ $<>$ \}\\
         \indent\indent{\fontfamily{qcr}\selectfont asegura} \{ $(\forall$i: \Entero)(0 $\le i < |res|) \rightarrow_{L}$
                                             esUsuario $(res_{[i]}$, B) \}\\
         \indent\indent{\fontfamily{qcr}\selectfont asegura} \{ $(\forall$id: \Entero) (id $\in$ res) $\rightarrow_{L}$
@@ -141,7 +142,7 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
         \indent\indent ($|$B.blockchain$|\ge$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador $\ne$ 0 $\land$\\
         \indent\indent($\forall$ transaccion $\in$ S.transacciones) $\rightarrow_{L}$ [(transaccion.idComprador $\ne$ transaccion.idVendedor) $\land$
 
-        \indent\indent(transaccion.id $>$ 0 $\land$ transaccion.idComprador $\ge$ 0 $\land$ transaccion.idVendedor $>$ 0 $\land$ transaccion.monto $>$ 0)] $\land$
+        \indent\indent(transaccion.id $\ge$ 0 $\land$ transaccion.idComprador $\ge$ 0 $\land$ transaccion.idVendedor $>$ 0 $\land$ transaccion.monto $>$ 0)] $\land$
 
         \indent\indent estaOrdenada(S) $\land$ esIdDeBloqueConsecutivo(B, S)
 
@@ -183,7 +184,7 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 
 
     \indent{\fontfamily{qcr}\selectfont\textbf{pred esUsuarioDeBloque} (S: bloque, id: \Entero)} \{\\
-        \indent\indent $(\exists i$: \Entero) ($0 \le i < |s|)$ $\land_{L}$ ($S.transacciones_{[i]}.idVendedor$ = id)
+        \indent\indent $(\exists i$: \Entero) ($0 \le i < |S.transacciones|)$ $\land_{L}$ ($S.transacciones_{[i]}.idVendedor$ = id)
 
     \indent\}
 
@@ -202,7 +203,7 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
         \indent\indent\indent\indent\indent\indent\indent\indent+\\\\
 
         \indent\indent\indent\indent\indent
-        $\Bigl(\mathlarger\sum\limits_{i=0}^{B.blockchain_{[j]}.transacciones|-1} (ifThenElse (B.blockchain_{[j]}.transacciones_{[i]}.idVendedor = id,\\
+        $\Bigl(\mathlarger\sum\limits_{i=0}^{|B.blockchain_{[j]}.transacciones|-1} (ifThenElse (B.blockchain_{[j]}.transacciones_{[i]}.idVendedor = id,\\
         \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent B.blockchain_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)\Bigr]$\\\\\\\\
 
         {\fontfamily{qcr}\selectfont\textbf{aux montoDeUsuarioHastaTransaccion} (id: \Entero, S: bloque, B: BerretaCoin, pos: \Entero)} =\\\\
@@ -215,11 +216,11 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 
         {\fontfamily{qcr}\selectfont\textbf{aux montoTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero}\\\\
     \indent\indent $\mathlarger\sum\limits_{j=0}^{|bloques|-1} \Bigl(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1}
-        (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0),\\
+        ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0,\\
         \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0)\Bigr)$\\\\\\
 
         {\fontfamily{qcr}\selectfont\textbf{aux cantidadTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero}\\\\
-    \indent\indent$\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent$\\\\\\\\
+    \indent\indent$\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0)\right)\indent\indent\indent$\\\\\\\\
 
     {\fontfamily{qcr}\selectfont\textbf{aux promedio} (bloques: seq$<$bloques$>$): Float} = \\
 
@@ -227,7 +228,7 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 
     {\fontfamily{qcr}\selectfont\textbf{aux cotizarBloque} (posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero} =\\
 
-        \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion].transacciones_{[i]}.montos} \right) * \text{cotizaciones}[posicion]$\\
+        \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion].transacciones|-1} blockchain_{[posicion]}.transacciones_{[i]}.montos} \right) * \text{cotizaciones}_{[posicion]}$\\
 
 \section*{\}}
 
