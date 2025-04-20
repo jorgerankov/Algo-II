@@ -208,7 +208,7 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
         {\fontfamily{qcr}\selectfont\textbf{aux montoTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero}\\\\
     \indent\indent $\mathlarger\sum\limits_{j=0}^{|bloques|-1} \Bigl(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1}
         (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0),\\
-        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0)\Bigr)$\\\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0)\Bigr)$\\\\\\
 
         {\fontfamily{qcr}\selectfont\textbf{aux cantidadTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero}\\\\
     \indent\indent$\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent$\\\\\\\\
@@ -219,7 +219,7 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 
     {\fontfamily{qcr}\selectfont\textbf{aux cotizarBloque} (posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero} =\\
 
-        \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion].transacciones_{[i]}.montos} \right) * \text{cotizaciones}[posicion]$\\\\
+        \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion].transacciones_{[i]}.montos} \right) * \text{cotizaciones}[posicion]$\\
 
 \section*{\}}
 
