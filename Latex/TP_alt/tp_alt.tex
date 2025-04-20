@@ -174,11 +174,19 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 
 
     \indent{\fontfamily{qcr}\selectfont\textbf{pred esUsuario} (id: \Entero, B: BerretaCoin)} \{\\
-        \indent\indent($\exists$i: \Entero)($\exists$j: \Entero) (0 $\leq$ i $< |$b.blockchain$|$ $\land_{L}$ 0 $\le$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land_{L}$
+        \indent\indent($\exists$i: \Entero)($\exists$j: \Entero) (0 $\leq$ i $< |$B.blockchain$|$ $\land_{L}$ 0 $\le$ j $< |$B.blockchain$_{[i]}$.transacciones$|$) $\land_{L}$
 
-        \indent\indent\indent\indent\indent\indent(id = b.blockchain$_{[i]}$.transacciones$_{[j]}$.idVendedor)
+        \indent\indent\indent\indent\indent\indent(id = B.blockchain$_{[i]}$.transacciones$_{[j]}$.idVendedor)
 
     \indent\}\\\\
+
+
+
+    \indent{\fontfamily{qcr}\selectfont\textbf{pred esUsuarioDeBloque} (S: bloque, id: \Entero)} \{\\
+        \indent\indent $(\exists i$:\Entero)$(\exists j$:\Entero) ($0 \le i < |s|)$ $\land_{L}$ ($0 \le j < |s_{[i]}.transacciones|)$ $\land_{L}$ (id = $S_{[i]}.transacciones_{[j]}.idVendedor$)
+
+    \indent\}
+
 
 % Fin de Procesos y Predicados, inicio de Auxiliares
 \newpage
