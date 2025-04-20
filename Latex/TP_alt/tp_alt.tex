@@ -195,22 +195,22 @@ Algoritmos y Estructuras de Datos\\\\\\\\\\\\\\
 {\fontfamily{qcr}\selectfont\textbf{aux MontoDeUsuario} (id: \Entero; B: BerretaCoin): \Entero}=\\
 
         \indent\indent
-        $\mathlarger\sum\limits_{j=0}^{|bloques| - 1}
-        \Bigl[\Bigl(-\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador = id,\\
-        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)$ \\
+        $\mathlarger\sum\limits_{j=0}^{|B.blockchain| - 1}
+        \Bigl[\Bigl(-\mathlarger\sum\limits_{i=0}^{|B.blockchain_{[j]}.transacciones|-1} (ifThenElse (B.blockchain_{[j]}.transacciones_{[i]}.idComprador = id,\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent B.blockchain_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)$ \\
 
         \indent\indent\indent\indent\indent\indent\indent\indent+\\\\
 
         \indent\indent\indent\indent\indent
-        $\Bigl(\mathlarger\sum\limits_{i=0}^{bloques_{[j]}.transacciones|-1} (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idVendedor = id,\\
-        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)\Bigr]$\\\\\\\\
+        $\Bigl(\mathlarger\sum\limits_{i=0}^{B.blockchain_{[j]}.transacciones|-1} (ifThenElse (B.blockchain_{[j]}.transacciones_{[i]}.idVendedor = id,\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent B.blockchain_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)\Bigr]$\\\\\\\\
 
         {\fontfamily{qcr}\selectfont\textbf{aux montoDeUsuarioHastaTransaccion} (id: \Entero, S: bloque, B: BerretaCoin, pos: \Entero)} =\\\\
         \indent\indent montoDeUsuario(id, B) +\\\\
-        \indent\indent $\Bigl[\Bigl(-\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idComprador = id, bloques_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)$\\\\\\
+        \indent\indent $\Bigl[\Bigl(-\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idComprador = id, S.transacciones_{[i]}.monto, 0))\Bigr)$\\\\\\
         \indent\indent\indent+\\
 
-        \indent\indent $\Bigl(\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idVendedor = id, bloques_{[j]}.transacciones_{[i]}.monto, 0)) \Bigr)\Bigr]$\\\\\\\\
+        \indent\indent $\Bigl(\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idVendedor = id, S.transacciones_{[i]}.monto, 0)) \Bigr)\Bigr]$\\\\\\\\
 
 
         {\fontfamily{qcr}\selectfont\textbf{aux montoTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero}\\\\
