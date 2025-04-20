@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1745163470.67748 "c:/Users/jr385010/Documents/Algo-II/Latex/TP_alt/tp_alt.tex" "tp_alt.pdf" "tp_alt" 1745163472.18597 0
+["pdflatex"] 1745173439.50094 "c:/Users/jr385010/Documents/Algo-II/Latex/TP_alt/tp_alt.tex" "tp_alt.pdf" "tp_alt" 1745173440.77723 0
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1745117164 123178 2ccd746f0a4ec0e4e75a2c14b6603cde ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1000.pk" 1745116592 25420 e0fb62c44f99fcabebe4019fa68419f1 ""
   "C:/Users/jr385010/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1745116597 31952 3067753111205193f56ca01d82288f60 ""
@@ -125,11 +125,11 @@
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/transparent/transparent.sty" 1674488802 1918 c8d1ecb3722721d6f624992cbc042b70 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/varwidth/varwidth.sty" 1238469540 10894 d359a13923460b2a73d4312d613554c8 ""
   "C:/Users/jr385010/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Users/jr385010/Documents/Algo-II/Latex/TP_alt/tp_alt.tex" 1745163469 11728 0dcb7533b546b5f3d40d818c2ddf191e ""
+  "c:/Users/jr385010/Documents/Algo-II/Latex/TP_alt/tp_alt.tex" 1745173438 11653 a14d2852959bea69ee5c43b618797a34 ""
   "images/dc_logo.png" 1745075191 5924 5601a5df60b3bf4c656c6fa241766a92 ""
   "images/uba_logo.jpg" 1745075191 277040 3d5a17932b08e713436a5440f4c9da9f ""
-  "tp_alt.aux" 1745163471 329 70ce3c7008020251ad01052f9794b3e4 "pdflatex"
-  "tp_alt.tex" 1745163469 11728 0dcb7533b546b5f3d40d818c2ddf191e ""
+  "tp_alt.aux" 1745173440 329 70ce3c7008020251ad01052f9794b3e4 "pdflatex"
+  "tp_alt.tex" 1745173438 11653 a14d2852959bea69ee5c43b618797a34 ""
   (generated)
   "tp_alt.aux"
   "tp_alt.log"
