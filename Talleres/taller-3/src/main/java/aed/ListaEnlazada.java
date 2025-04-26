@@ -2,6 +2,7 @@ package aed;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ListaEnlazada<T> implements Secuencia<T> {
     // Completar atributos privados
@@ -121,15 +122,20 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     public class ListaIterador implements Iterador<T> {
     	private Nodo actual;
         private Nodo prev;
+        private Nodo primero;
 
-        private ListaIterador() {
-            this.actual = primero;
+        private ListaIterador(ListaEnlazada<T>.Nodo primero) {
+            this.primero = primero;
+            this.actual = null;
             this.prev = null;
         }
 
         @Override
         public boolean haySiguiente() {
-	        return actual != null && actual.sig != null;
+	        if (actual == null) {
+                return primero != null;
+            }
+            return actual.sig != null;
         }
 
         @Override
@@ -139,28 +145,44 @@ public class ListaEnlazada<T> implements Secuencia<T> {
 
         @Override
         public T siguiente() {
+
             if (actual == null) {
+                if (primero == null) {
+                    throw new NoSuchElementException();
+                }
                 actual = primero;
-            } else {
+                return actual.valor;
+
+            } else if (actual.sig != null) {
                 prev = actual;
                 actual = actual.sig;
+                return actual.valor;
+            } else {
+            throw new NoSuchElementException();
             }
-            return actual.valor;
         }
         
         @Override
         public T anterior() {
+            if (actual == null) {
+                if (primero == null) {
+                    throw new NoSuchElementException();
+                }
 	        actual = prev;
             return actual.valor;
+
+            } else if (prev != null) {
+                prev = actual;
+                actual = prev;
+                return actual.valor;
+            } else {
+                throw new NoSuchElementException();
+            }
         }
     }
 
     public Iterador<T> iterador() {
-        ListaIterador iterador = new ListaIterador();
-        if (iterador.haySiguiente() == true && iterador.hayAnterior() == true) {
-            return iterador;
-        }
-        return iterador;
+        return new ListaIterador(this.primero);
     }
 
 }
