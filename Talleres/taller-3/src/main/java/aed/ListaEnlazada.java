@@ -9,12 +9,14 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     private Nodo primero;
 
     private class Nodo {
-        private T valor;
-        private Nodo sig;
+        T valor;
+        Nodo sig;
+        Nodo prev;
 
-        private Nodo(T v) {
+        Nodo(T v) {
             this.valor = v;
             this.sig = null;
+            this.prev = null;
         }
     }
 
@@ -36,6 +38,9 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     @Override
     public void agregarAdelante(T elem) {
         Nodo nuevo = new Nodo(elem);
+        if (primero != null){
+            primero.prev = nuevo;
+        }
         nuevo.sig = primero;
         primero = nuevo;
     }
@@ -52,6 +57,7 @@ public class ListaEnlazada<T> implements Secuencia<T> {
                 actual = actual.sig;
             }
             actual.sig = nuevo;
+            nuevo.prev = actual;
         }
     }
 
@@ -69,15 +75,21 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     @Override
     public void eliminar(int i) {
         Nodo actual = primero;
-        Nodo prev = primero;
         for (int j = 0; j < i; j++) {
-            prev = actual;
             actual = actual.sig;
         }
         if (i == 0) {
             primero = actual.sig;
+            if (primero != null){
+                primero.prev = null;
+            }
         } else {
-            prev.sig = actual.sig;
+            if (actual.sig != null){
+                actual.sig.prev = actual.prev;
+            }
+            if (actual.prev != null){
+                actual.prev.sig = actual.sig;
+            }
         }
     }
 
@@ -121,13 +133,11 @@ public class ListaEnlazada<T> implements Secuencia<T> {
 
     public class ListaIterador implements Iterador<T> {
     	private Nodo actual;
-        private Nodo prev;
         private Nodo primero;
 
         private ListaIterador(ListaEnlazada<T>.Nodo primero) {
             this.primero = primero;
             this.actual = null;
-            this.prev = null;
         }
 
         @Override
@@ -140,44 +150,37 @@ public class ListaEnlazada<T> implements Secuencia<T> {
 
         @Override
         public boolean hayAnterior() {
-	        return prev != null;
+            if (actual == null){
+                return false;
+            }
+            return actual.prev != null;
         }
 
         @Override
         public T siguiente() {
-
-            if (actual == null) {
-                if (primero == null) {
-                    throw new NoSuchElementException();
-                }
-                actual = primero;
-                return actual.valor;
-
-            } else if (actual.sig != null) {
-                prev = actual;
-                actual = actual.sig;
-                return actual.valor;
-            } else {
+           if (!haySiguiente()) {
             throw new NoSuchElementException();
-            }
+           }
+           if (actual == null) {
+            actual = primero;
+           } else {
+                actual = actual.sig;
+           }
+           return actual.valor;
         }
         
         @Override
         public T anterior() {
-            if (actual == null) {
-                if (primero == null) {
-                    throw new NoSuchElementException();
-                }
-	        actual = prev;
-            return actual.valor;
-
-            } else if (prev != null) {
-                prev = actual;
-                actual = prev;
-                return actual.valor;
-            } else {
+            if (!hayAnterior()) {
                 throw new NoSuchElementException();
             }
+            if (actual.sig == null){
+                while (actual.sig != null){
+                    actual = actual.sig;
+                }
+            }
+            actual = actual.prev;
+            return actual.valor;
         }
     }
 
