@@ -40,8 +40,8 @@ public class ListaEnlazada<T> implements Secuencia<T> {
         Nodo nuevo = new Nodo(elem);
         if (primero != null){
             primero.prev = nuevo;
+            nuevo.sig = primero;
         }
-        nuevo.sig = primero;
         primero = nuevo;
     }
 
@@ -50,8 +50,7 @@ public class ListaEnlazada<T> implements Secuencia<T> {
         Nodo nuevo = new Nodo(elem);
         if (primero == null) {
             primero = nuevo;
-        }
-        else {
+        }else {
             Nodo actual = primero;
             while (actual.sig != null) {
                 actual = actual.sig;
@@ -75,8 +74,10 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     @Override
     public void eliminar(int i) {
         Nodo actual = primero;
-        for (int j = 0; j < i; j++) {
+        int contador = 0;
+        while (actual != null && contador < i) {
             actual = actual.sig;
+            contador++;
         }
         if (i == 0) {
             primero = actual.sig;
@@ -97,12 +98,13 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     public void modificarPosicion(int indice, T elem) {
         Nodo actual = primero;
         int contador = 0;
-        while (actual != null && contador != indice) {
+        while (actual != null && contador < indice) {
             actual = actual.sig;
             contador++;
         }
         actual.valor = elem;
     }
+
 
     public ListaEnlazada(ListaEnlazada<T> lista) {
         if (lista.primero == null) {
@@ -142,7 +144,7 @@ public class ListaEnlazada<T> implements Secuencia<T> {
 
         @Override
         public boolean haySiguiente() {
-	        if (actual == null) {
+            if (actual == null) {
                 return primero != null;
             }
             return actual.sig != null;
@@ -150,43 +152,30 @@ public class ListaEnlazada<T> implements Secuencia<T> {
 
         @Override
         public boolean hayAnterior() {
-            if (actual == null) {
-                return false;
-            }
-            return actual.prev != null;
+            return actual != null;
         }
 
         @Override
         public T siguiente() {
-           if (!haySiguiente()) {
-            throw new NoSuchElementException();
-           }
-           if (actual == null) {
-                actual = primero;
-           } else {
-                actual = actual.sig;
-           }
-           return actual.valor;
-        }
-        
-        @Override
-        public T anterior() {
-            if (actual == null) {
-                actual = primero;
-                if (actual == null) {
-                    throw new NoSuchElementException();
-                }
-                while (actual.sig != null) {
-                    actual = actual.sig;
-                }
-                return actual.valor;
-            }
-            else if (!hayAnterior()) {
+            if (!haySiguiente()) {
                 throw new NoSuchElementException();
+            }
+            if (actual == null) {
+                actual = primero; // Si no arranque, voy al primer nodo
             } else {
-                actual = actual.prev;
+                actual = actual.sig; // Si ya arranque, voy al siguiente
             }
             return actual.valor;
+        }
+
+        @Override
+        public T anterior() {
+            if (!hayAnterior()) {
+                throw new NoSuchElementException();
+            }
+            T valor = actual.valor;
+            actual = actual.prev; // Voy al nodo anterior
+            return valor;
         }
             
     }
