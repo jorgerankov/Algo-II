@@ -113,9 +113,6 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
     
     @Override
     public void eliminar(T elem){
-        if (_raiz == null) {
-            // No elimino nada
-        }
         Nodo actual = _raiz;
         Nodo padre = null;
 
@@ -130,6 +127,7 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
 
         if (actual == null){
             // No existe el elemento
+            return;
         }
 
         // Sin hijos
@@ -149,75 +147,114 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
 
             if (actual == _raiz) {
                 _raiz = hijo;
+                hijo.padre = null;
             } else if (padre.izq == actual) {
                 padre.izq = hijo;
+                hijo.padre = padre;
             } else {
                 padre.der = hijo;
+                hijo.padre = padre;
             }
         }
 
         // 2 hijos
         else {
-            Nodo sucPadre = actual;
             Nodo suc = actual.der;
 
             while (suc.izq != null){
-                sucPadre = suc;
                 suc = suc.izq;
             }
 
-            actual.valor = suc.valor;
-
-            if (sucPadre.izq == suc) {
-                sucPadre.izq = suc.der;
-            } else {
-                sucPadre.der = suc.der;
-            }
+            T valorSuc = suc.valor;
+            eliminar(valorSuc);
+            actual.valor = valorSuc;
+            return;
         }
         _cardinal--;
     }
 
     @Override
     public String toString(){
-        String res = "{";
-        if (_raiz == null){
-            res = res.concat("}");
-            return res;
-        } 
-        Nodo actual = _raiz;
-        if (actual.izq == null && actual.der == null){
-            res = res.concat(actual.valor.toString());
-            res = res.concat("}");
-            return res;
+
+        if (_raiz == null) {
+            return "{}";
         }
-        return res;
+
+        StringBuilder res = new StringBuilder("{");
+
+        Nodo actual = _raiz;
+        while (actual.izq != null){
+            actual = actual.izq;
+        }
+
+        while (actual != null) {
+            res.append(actual.valor);
+
+            Nodo sig = null;
+            if (actual.der != null){
+                sig = actual.der;
+                while (sig.izq != null){
+                    sig = sig.izq;
+                }
+            } else {
+                Nodo padre = actual.padre;
+                while (padre != null && actual == padre.der){
+                    actual = padre;
+                    padre = padre.padre;
+                }
+                sig = padre;
+            }
+
+            if (sig != null){
+                res.append(",");
+            }
+            actual = sig;
+        }
+        res.append("}");
+        return res.toString();
+
     }
 
     private class ABB_Iterador implements Iterador<T> {
         private Nodo _actual = _raiz;
+        
+        public ABB_Iterador() {
+            _actual = _raiz;
+            if (_actual != null) {
+                while (_actual.izq != null) {
+                    _actual = _actual.izq;
+                }
+            }
+        }
 
         @Override
         public boolean haySiguiente() {      
-            return _actual != null && _actual.der != null;
+            return _actual != null;
         }
         
         @Override
         public T siguiente() {
-            T res = null;
-            if (_actual == null) {
-                res = null;
+            
+            if (!haySiguiente()) {
+                return null;
             }
-            if (haySiguiente()) {
-                Nodo actual = _actual.der;
-                Nodo actualPrev = actual;
-                while (actual.izq != null) {
-                    actualPrev = actual;
-                    actual = actual.izq;
+
+            T valor = _actual.valor;
+
+            if (_actual.der != null){
+                _actual = _actual.der;
+                while (_actual.izq != null){
+                    _actual = _actual.izq;
                 }
-                _actual = actualPrev; // Update _actual to the next node
-                res = _actual.valor;
+            } else {
+                Nodo padre = _actual.padre;
+                while (padre != null && _actual == padre.der) {
+                    _actual = padre;
+                    padre = padre.padre;
+                }
+                _actual = padre;
             }
-            return res;
+            return valor;
         }
     }
 
