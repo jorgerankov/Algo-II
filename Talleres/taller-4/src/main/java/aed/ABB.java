@@ -1,4 +1,5 @@
 package aed;
+
 public class ABB<T extends Comparable<T>> implements Conjunto<T> {
     private Nodo _raiz;
     private int _cardinal;
@@ -24,12 +25,10 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         _altura = 0;
     }
 
-    @Override
     public int cardinal() {
         return _cardinal;
     }
 
-    @Override
     public T minimo(){
         if (_raiz == null) {
             return null;
@@ -45,7 +44,6 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         return min;
     }
 
-    @Override
     public T maximo(){
         if (_raiz == null) {
             return null;
@@ -61,48 +59,31 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         return max;
     }
 
-    @Override
     public void insertar(T elem) {
-        if (_raiz == null) {
-            _raiz = new Nodo(elem);
+        _raiz = insertarAux(_raiz, elem, null);
+    }
+    private Nodo insertarAux(Nodo raiz, T e, Nodo padre) {
+        if (raiz == null) {
+            Nodo nuevo = new Nodo(e);
+            nuevo.padre = padre;
             _cardinal++;
-            return;
+            return nuevo;
+        } else if (e.compareTo(raiz.valor) < 0) {
+            raiz.izq = insertarAux(raiz.izq, e, raiz);
+        } else if (e.compareTo(raiz.valor) > 0) {
+            raiz.der = insertarAux(raiz.der, e, raiz);
         }
-
-        Nodo actual = _raiz;
-        while (true) {
-            int cmp = elem.compareTo(actual.valor);
-            if (cmp == 0) {
-                // Ya existe, no se inserta
-                return;
-            } else if (cmp < 0) {
-                if (actual.izq == null) {
-                    actual.izq = new Nodo(elem);
-                    actual.izq.padre = actual;
-                    _cardinal++;
-                    return;
-                }
-                actual = actual.izq;
-            } else {
-                if (actual.der == null) {
-                    actual.der = new Nodo(elem);
-                    actual.der.padre = actual;
-                    _cardinal++;
-                    return;
-                }
-                actual = actual.der;
-            }
-        }
+        // Si ya existe, no se inserta nada
+        return raiz;
     }
 
-    @Override
     public boolean pertenece(T elem) {
         Nodo actual = _raiz;
         while (actual != null) {
-            int cmp = elem.compareTo(actual.valor);
-            if (cmp == 0) {
+            int comp = elem.compareTo(actual.valor);
+            if (comp == 0) {
                 return true;
-            } else if (cmp < 0) {
+            } else if (comp < 0) {
                 actual = actual.izq;
             } else {
                 actual = actual.der;
@@ -111,108 +92,66 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         return false;
     }
     
-    @Override
     public void eliminar(T elem){
-        Nodo actual = _raiz;
-        Nodo padre = null;
+        _raiz = eliminarAux(_raiz, elem);
+    } 
+    private Nodo eliminarAux(Nodo raiz, T elem){
+        Nodo actual = raiz;
 
-        while (actual != null && actual.valor.compareTo(elem) != 0){
-            padre = actual;
-            if (elem.compareTo(actual.valor) < 0){
-                actual = actual.izq;
-            } else {
-                actual = actual.der;
+        if (actual == null) {
+            return actual;
+        } else if (elem.compareTo(actual.valor) < 0) {
+            actual.izq = eliminarAux(actual.izq, elem);
+        } else if (elem.compareTo(actual.valor) > 0) {
+            actual.der = eliminarAux(actual.der, elem);
+        } else { // Nodo encontrado
+            if(actual.izq == null && actual.der == null) {
+                _cardinal--;
+                actual = null;
+            } else if(actual.der != null) { // busco sucesor (hijo)
+                actual.valor = hijo(actual);
+                actual.der = eliminarAux(actual.der, actual.valor);
+            } else { // busco predecesor (padre)
+                actual.valor = padre(actual);
+                actual.izq = eliminarAux(actual.izq, actual.valor);
             }
         }
-
-        if (actual == null){
-            // No existe el elemento
-            return;
+        return actual;
+    }
+    private T hijo(Nodo raiz) { // Busco menor valor de la rama der
+        raiz = raiz.der;
+        while (raiz.izq != null) {
+            raiz = raiz.izq;
         }
-
-        // Sin hijos
-        if (actual.izq == null && actual.der == null) {
-            if (actual == _raiz){
-                _raiz = null;
-            } else if (padre.izq == actual){
-                padre.izq = null;
-            } else {
-                padre.der = null;
-            }
-        } 
-
-        // Un solo hijo
-        else if (actual.izq == null || actual.der == null) {
-            Nodo hijo = (actual.izq != null) ? actual.izq : actual.der;
-
-            if (actual == _raiz) {
-                _raiz = hijo;
-                hijo.padre = null;
-            } else if (padre.izq == actual) {
-                padre.izq = hijo;
-                hijo.padre = padre;
-            } else {
-                padre.der = hijo;
-                hijo.padre = padre;
-            }
+        return raiz.valor;
+    }
+    private T padre(Nodo raiz) { // Busco mayor valor de la rama izq
+        raiz = raiz.izq;
+        while (raiz.der != null) {
+            raiz = raiz.der;
         }
-
-        // 2 hijos
-        else {
-            Nodo suc = actual.der;
-
-            while (suc.izq != null){
-                suc = suc.izq;
-            }
-
-            T valorSuc = suc.valor;
-            eliminar(valorSuc);
-            actual.valor = valorSuc;
-            return;
-        }
-        _cardinal--;
+        return raiz.valor;
     }
 
-    @Override
-    public String toString(){
-
-        if (_raiz == null) {
-            return "{}";
+    public String toString() {
+        String str = toStrAux(_raiz);
+        return "{" + str + "}";
+    }
+    private String toStrAux(Nodo raiz) {
+        if (raiz == null) {
+            return "";
         }
-
-        StringBuilder res = new StringBuilder("{");
-
-        Nodo actual = _raiz;
-        while (actual.izq != null){
-            actual = actual.izq;
+        StringBuilder res = new StringBuilder();
+        String izqStr = toStrAux(raiz.izq);
+        if (!izqStr.isEmpty()) {
+            res.append(izqStr).append(",");
         }
-
-        while (actual != null) {
-            res.append(actual.valor);
-
-            Nodo sig = null;
-            if (actual.der != null){
-                sig = actual.der;
-                while (sig.izq != null){
-                    sig = sig.izq;
-                }
-            } else {
-                Nodo padre = actual.padre;
-                while (padre != null && actual == padre.der){
-                    actual = padre;
-                    padre = padre.padre;
-                }
-                sig = padre;
-            }
-
-            if (sig != null){
-                res.append(",");
-            }
-            actual = sig;
+        res.append(raiz.valor.toString());
+        String derStr = toStrAux(raiz.der);
+        if (!derStr.isEmpty()) {
+            res.append(",").append(derStr);
         }
-        res.append("}");
         return res.toString();
-
     }
 
     private class ABB_Iterador implements Iterador<T> {
