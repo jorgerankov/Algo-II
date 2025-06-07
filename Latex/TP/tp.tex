@@ -1,0 +1,251 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[legalpaper, margin=0.5in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx, float}
+\usepackage{tabularx}   % Paquete para hacer las tablas
+\usepackage{array}      % Paquete para 
+\usepackage{changepage} % Paquete para cambiar la ubicacion de palabras en el margen
+\usepackage{relsize}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{dsfont}
+\usepackage{textcomp}
+\usepackage{transparent}
+\usepackage{indentfirst}
+
+\graphicspath{{images/}}
+
+%Macros para el TP%
+\newcommand{\Entero}{$\mathds{Z}$}
+\newcommand{\Natural}{$\mathds{N}$}
+\newcommand{\tuplaDeDosEnteros}{Seq\textless\Entero\texttimes\Entero\textgreater}
+\newcommand{\tuplaDeCuatroEnteros}{Seq\textless\Entero\texttimes\Entero\texttimes\Entero\texttimes\Entero\textgreater}
+\newcommand{\tuplaDeTuplaDeCuatroEnteros}{{Seq\textless Seq\textless\Entero\texttimes\Entero\texttimes\Entero\texttimes\Entero\textgreater\textgreater}}
+
+
+\begin{document}
+\thispagestyle{empty}
+\section*{Trabajo Práctico 1: Especificación de TADs}
+\subsection*{Cómo funcionan las Blockchains: \textdollar BerretaCoin}
+
+\begin{textblock*}{16cm} (13cm, 0cm)
+    \includegraphics[width=0.5\textwidth]{dc_logo.png}
+\end{textblock*}
+
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+%Grupo
+\begin{textblock*}{13cm} (3.85cm, 9cm)
+    \begin{center}
+        \textbf{Grupo: Ameri}
+    \end{center}
+\end{textblock*}
+
+% Cuadro de integrantes
+\begin{textblock*}{14.5cm} (3.4cm, 12cm)
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{|>{\vspace{1mm}\centering\arraybackslash}m{4.2cm} >{\vspace{1mm}\centering\arraybackslash}m{2cm} >{\vspace{2mm}\centering\arraybackslash}m{5cm}|}
+            \hline
+            Integrante & LU & Correo electrónico \\ [0.1cm]
+            \hline
+        \end{tabular}
+        \begin{tabular}{|>{\vspace{1mm}\centering\arraybackslash}m{4.2cm} >{\vspace{1mm}\centering\arraybackslash}m{2cm} >{\vspace{2mm}\centering\arraybackslash}m{5cm}|}
+            \hline
+            Falbo, Tiziana & 863/23 & tfalbo@dc.uba.ar \\ [0.3ex]
+            Herrera, Facundo & 1175/22 & facundoherreracp@gmail.com \\ [0.3ex]
+            Marsico, Bautista & 1001/24 & bautimarsico@gmail.com \\ [0.3ex]
+            Rankov, Jorge & 714/23 & jrankov@dc.uba.ar \\ [0.2ex]
+            \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+\end{textblock*}
+
+% Logo UBA
+\begin{textblock*}{17cm} (1cm, 22cm)
+    {\transparent{0.2}
+    \includegraphics[width=0.5\textwidth]{uba_logo.jpg}
+    }
+\end{textblock*}
+
+% Texto UBA
+\begin{textblock*}{20cm} (12cm, 25.5cm)
+    {\raggedright\textbf{Facultad de Ciencias Exactas y Naturales}\\
+    \textbf{Universidad de Buenos Aires}\\
+    Ciudad Universitaria $-$ (Pabellon I/Planta Baja)\\
+    Intendente Guiraldes 2610 $-$ C1428EGA\\
+    Ciudad Autónoma de Buenos Aires $-$ Rep. Argentina\\
+    Tel/Fax: (+54) 11 4576$-$3300\\
+    http://www.exactas.uba.ar
+    }
+\end{textblock*}
+
+
+
+\newpage
+
+
+
+
+
+
+
+
+
+
+
+
+ % Fin de Titulo, inicio de Formulas y Funciones
+\setcounter{page}{1}
+\textbf{bloque} ES struct(transacciones: seq$<$struct (idTransaccion:\Entero, idComprador:\Entero, idVendedor:\Entero, monto:\Entero)$>$, idBloque: \Entero)\\
+\section*{TAD \textdollar BerretaCoin \{}
+    %Obs
+    \textbf{obs blockchain:} Seq$<$bloque$>$\\\\
+
+    \textbf{proc nuevoBerretaCoin()}: BerretaCoin \{\\
+        \indent\indent \textbf{asegura} \{ res.blockchain = $<>$ \}
+
+    \}\\\\
+
+    \textbf{proc agregarBloque} (inout B: BerretaCoin, in S: bloque) \{\\
+        \indent\indent\textbf{requiere} \{ $B = B_0 \land (0 < |$S.transacciones$| \leq$ 50) $\land$ bloqueValido(B, S) $\land$ sonTransaccionesValidas(S, B) \}\\
+
+        \indent\indent\textbf{asegura} \{ B.blockchain = B${_0}$.blockchain ++ \{S\} \}
+
+    \}\\\\
+
+    \textbf{proc maximosTenedores} (in B: BerretaCoin): Seq$<$\Entero$>$ \{
+
+        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)(0 $\le i < |res|) \rightarrow_{L}$
+                                            esUsuario $(res_{[i]}$, B) \}\\
+
+        \indent\indent\textbf{asegura} \{ $(\forall$id: \Entero) (id $\in$ res) $\rightarrow_{L}$
+                                         $\neg$ ($\exists$ otro: \Entero) (esUsuario (otro, B)) $\land$\\
+        \indent\indent\indent\indent\indent (montoDeUsuario (otro, B) $>$ montoDeUsuario (id, B)) \}\\
+
+        \indent\indent\textbf{asegura} \{ $(\forall$i: \Entero)$(\forall$j: \Entero) (0 $\le i < |res|)$ $\land_{L}$ (0 $\le j < |res|)$ $\land_{L}$ (i $\ne$ j) $\rightarrow$ res$_{[i]}$ $\ne$ res$_{[j]}$ \}
+
+    \}\\\\
+
+    \textbf{proc montoMedio} (in B: BerretaCoin): Float \{\\
+        \indent\indent \textbf{requiere} \{ $|$B.blockchain$| \ne 0$ \}\\\\
+        \indent\indent \textbf{asegura} \{ res = promedio (B.blockchain) \}
+
+    \}\\\\
+
+    \textbf{proc cotizacionAPesos} (in cotizaciones: Seq$<$\Entero$>$, in B: BerretaCoin): Seq$<$\Entero$>$ \{\\
+        \indent\indent \textbf{requiere} \{ $(\forall$C $\in$ cotizaciones) $\rightarrow$ (C $>$ 0) \}\\
+
+        \indent\indent \textbf{requiere} \{ $|$cotizaciones$|$ = $|$B.blockchain$|$ \}\\
+
+        \indent\indent \textbf{asegura} \{ $|$res$|$ = $|$cotizaciones$|$ \}\\
+
+        \indent\indent \textbf{asegura} \{ $(\forall i: $\Entero)(0 $\le i < |$res$|)\rightarrow_{L}$ res$_{[i]}$ = cotizarBloque (i, cotizaciones, B.blockchain) \}
+
+    \}\\\\
+
+    
+
+
+
+
+
+
+
+\newpage
+\section*{Predicados}
+
+    \textbf{pred bloqueValido} (B: BerretaCoin, S: bloque) \{\\
+        \indent\indent ($|$B.blockchain$|<$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador = 0 $\land$
+
+        \indent\indent ($|$B.blockchain$|\ge$ 3000) $\rightarrow$ S.transacciones$_{[0]}$.idComprador $\ne$ 0 $\land$\\
+
+        \indent\indent[($\forall$ transaccion $\in$ S.transacciones) $\rightarrow_{L}$ [(transaccion.idComprador $\ne$ transaccion.idVendedor) $\land$
+
+        \indent\indent(transaccion.id $>$ 0 $\land$ transaccion.idComprador $\ge$ 0 $\land$ transaccion.idVendedor $>$ 0 $\land$ transaccion.monto $>$ 0)] $\land$
+
+        \indent\indent estaOrdenada(S) $\land$ esIdDeBloqueConsecutivo(B, S)
+
+    \}\\\\
+
+    \textbf{pred estaOrdenada} (S: bloque) \{\\
+        \indent\indent $(\forall i$: \Entero) (0 $\le$ i $< |$S.transacciones$|$) $\rightarrow_{L}$ (S.transacciones$_{[i]}$.idTransaccion = $i$)
+
+    \}\\\\
+
+    \textbf{pred esIdDeBloqueConsecutivo} (B: BerretaCoin, S: bloque) \{\\
+        \indent\indent ($|$B.blockchain$| = 0)\rightarrow$ (S.idBloque = 0) $\land$\\
+        \indent\indent ($|$B.blockchain$| \ne 0) \rightarrow$ (S.idBloque = B.blockchain[ $|$B.blockchain$|-$1 ].idBloque + 1)
+
+    \}\\\\
+
+    \textbf{pred sonTransaccionesValidas} (S: bloque, B: blockchain) \{\\
+        \indent\indent ($\forall id:$\Entero)($\forall j:$\Entero) (0 $\le$ j $<|$S.transacciones$|$) $\land_{L}$ [esUsuario(id, B) $\lor$ esUsuarioDeBloque(id, S)]
+        
+        \indent\indent\indent\indent\indent\indent\indent $\rightarrow$ montoDeUsuarioHastaTransaccion(id, S, B, j) $\ge$ 0
+
+    \}\\\\
+
+    \textbf{pred esUsuario} (id: \Entero, B: BerretaCoin) \{\\
+        \indent\indent($\exists$i: \Entero)($\exists$j: \Entero) (0 $\leq$ i $< |$b.blockchain$|$ $\land_{L}$ 0 $\le$ j $< |$b.blockchain$_{[i]}$.transacciones$|$) $\land_{L}$
+
+        \indent\indent(id = b.blockchain$_{[i]}$.transacciones$_{[j]}$.idVendedor)
+
+    \}\\\\
+
+
+
+
+
+
+
+
+
+
+
+% Fin de Procesos y Predicados, inicio de Auxiliares
+\newpage
+\section*{Auxiliares}
+
+    \textbf{aux MontoDeUsuario} (id: \Entero; B: BerretaCoin): \Entero =\\
+
+        \indent\indent
+        $\mathlarger\sum\limits_{j=0}^{|bloques| - 1}
+        \Bigl[\Bigl(-\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador = id,\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)$ \\
+
+        \indent\indent\indent\indent\indent\indent\indent\indent+\\\\
+
+        \indent\indent\indent\indent\indent
+        $\Bigl(\mathlarger\sum\limits_{i=0}^{bloques_{[j]}.transacciones|-1} (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idVendedor = id,\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)\Bigr]$\\\\\\\\
+
+    \textbf{aux montoDeUsuarioHastaTransaccion} (id: \Entero, S: bloque, B: BerretaCoin, pos: \Entero) =\\\\
+        \indent\indent montoDeUsuario(id, B) +\\\\
+        \indent\indent $\Bigl[\Bigl(-\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idComprador = id, bloques_{[j]}.transacciones_{[i]}.monto, 0))\Bigr)$\\\\\\
+        \indent\indent\indent+\\
+
+        \indent\indent $\Bigl(\mathlarger\sum\limits_{i=0}^{pos} (ifThenElse (S.transacciones_{[i]}.idVendedor = id, bloques_{[j]}.transacciones_{[i]}.monto, 0)) \Bigr)\Bigr]$\\\\\\\\
+
+
+    \textbf{aux montoTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero\\\\
+    \indent\indent $\mathlarger\sum\limits_{j=0}^{|bloques|-1} \Bigl(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1}
+        (ifThenElse (bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0),\\
+        \indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent\indent bloques_{[j]}.transacciones_{{i}}.monto, 0)\Bigr)$\\\\
+
+    \textbf{aux cantidadTotalDeTransacciones} (bloques: seq$<$bloque$>$): \Entero\\\\
+    \indent\indent$\mathlarger\sum\limits_{j=0}^{|bloques|-1} \left(\mathlarger\sum\limits_{i=0}^{|bloques_{[j]}.transacciones|-1} (ifThenElse(bloques_{[j]}.transacciones_{[i]}.idComprador \ne 0, 1, 0))\right)\indent\indent\indent$\\\\\\
+
+    \textbf{aux promedio} (bloques: seq$<$bloques$>$): Float = \\
+
+    \indent\indent$\dfrac{montoTotalDeTransacciones(bloques)}{cantidadTotalDeTransacciones(bloques)}$\\\\\\\\\\
+
+    \textbf{aux cotizarBloque} (posicion: \Entero, cotizaciones: Seq$<$\Entero$>$, blockchain: Seq$<$bloques$>$): \Entero =\\
+
+        \indent\indent $\left( \mathlarger{\sum\limits_{i=0}^{|blockchain[posicion]|-1} blockchain[posicion].transacciones_{[i]}.montos} \right) * \text{cotizaciones}[posicion]$\\\\\\
+
+\section*{\}}
+
+\end{document}
