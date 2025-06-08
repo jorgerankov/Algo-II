@@ -32,7 +32,7 @@ public class arrayConHandle {
         Handle handle = new Handle(size);       // Handle que apunta al indice actual
         nuevoNodo.handle = handle;              // Asocio el Handle al Nodo
         heap[size] = nuevoNodo;                 // Inserto el Nodo al final del Heap
-        heapifyUp(size);                        // Reordeno (si llega a ser necesario)
+        siftUp(size);                        // Reordeno (si llega a ser necesario)
         size++;                                 // +1 el tamaño del Handle
         return handle;                          // Devuelvo el Handle
     }
@@ -41,14 +41,14 @@ public class arrayConHandle {
         int i = h.indiceEnHeap;                 // Accedo a la pos del Nodo
         if (heap[i].valor > valorARestar) {     // Busco que el valor no quede negativo
             heap[i].valor -= valorARestar;      // Resto el valor
-            heapifyUp(i);                       // Reordeno el Heap
+            siftUp(i);                       // Reordeno el Heap
         }
     }
 
     void sumarValor(Handle h, int valorASumar) {
         int i = h.indiceEnHeap;                 // Accedo a la pos del Nodo
             heap[i].valor += valorASumar;       // Resto el valor
-            //heapifyDown(i);                     // Reordeno el Heap
+            siftDown(i);                     // Reordeno el Heap
     }
 
     void swap(int i, int j) {
@@ -61,7 +61,7 @@ public class arrayConHandle {
 
     }
 
-    void heapifyUp(int i) {
+    void siftUp(int i) {
         while (i > 0) {
             int padre = (i-1) / 2;                      // Calculo indice de padre
             if (heap[i].valor < heap[padre].valor) {    // Si prioridad es menor que su padre
@@ -69,6 +69,26 @@ public class arrayConHandle {
                 i = padre;                              // Sigo buscando
             }
             return;
+        }
+    }
+
+    void siftDown(int i) {
+        int izq = 2 * i + 1;                            // Indice de hizo izquierdo
+
+        while (izq < size) {                            // Mientras el Nodo tenga al menos un hijo
+            int der = 2 * i + 2;                        // Calculo indice de hijo derecho
+            int menor = izq;
+
+            if (der < size && heap[der].valor < heap[izq].valor) {  // Si el derecho es menor que el izquierdo, lo elijo
+                menor = der;
+            }
+            if (heap[menor].valor >= heap[i].valor) {   // Si el hijo menor no es mas chico que el heap, el heap esta ordenado
+                return;
+            }
+
+            swap(i, menor);
+            i = menor;
+            izq = 2 * i + 1;
         }
     }
 
