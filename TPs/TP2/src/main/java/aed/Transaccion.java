@@ -15,7 +15,7 @@ public class Transaccion implements Comparable<Transaccion> {
 
     @Override
     public int compareTo(Transaccion otro) {
-        throw new UnsupportedOperationException("Implementar!");
+        return Integer.compare(otro.monto, this.monto);
     }
 
     @Override

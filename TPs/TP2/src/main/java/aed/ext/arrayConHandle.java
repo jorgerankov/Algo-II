@@ -1,4 +1,4 @@
-package aed;
+package aed.ext;
 
 class Nodo {
     int valor;                                  // "Prioridad" dada al Nodo
