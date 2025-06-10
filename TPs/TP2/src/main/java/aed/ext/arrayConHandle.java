@@ -22,7 +22,7 @@ public class arrayConHandle {
     Nodo[] heap;
     int size;                                   // Cantidad de elems en el heap
 
-    void minHeap(int capacidad) {
+    public arrayConHandle(int capacidad) {
         heap = new Nodo[capacidad];             // Creo array (heap) con determinada capacidad
         size = 0;                               // Inicializo el heap vacio
     }

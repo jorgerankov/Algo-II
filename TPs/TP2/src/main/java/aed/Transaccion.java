@@ -15,12 +15,22 @@ public class Transaccion implements Comparable<Transaccion> {
 
     @Override
     public int compareTo(Transaccion otro) {
-        return Integer.compare(otro.monto, this.monto);
+        if (this.monto != otro.monto) {
+            return Integer.compare(this.monto, otro.monto);     // mayor Monto si es unico
+        } else {
+            return Integer.compare(this.id, otro.id);           // mayor ID si hay +1 mayor monto = 
+        }
     }
 
     @Override
     public boolean equals(Object otro){
-        throw new UnsupportedOperationException("Implementar!");
+        if (this == otro) return true;
+        if (otro == null || getClass() != otro.getClass()) return false;
+        Transaccion t = (Transaccion) otro;
+        return id == t.id &&
+                id_comprador == t.id_comprador &&
+                id_vendedor == t.id_vendedor &&
+                monto == t.monto;
     }
 
     public int monto() {
