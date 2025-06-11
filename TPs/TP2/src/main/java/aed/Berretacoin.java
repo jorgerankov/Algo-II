@@ -90,46 +90,47 @@ public class Berretacoin {
 
 
     public int montoMedioUltimoBloque(){
-        if (ultimoBloque == null || ultimoBloque.totalTx() <= 1) return 0;
+        if (ultimoBloque == null || ultimoBloque.totalTxSinCreacion() <= 0) return 0;
         // Si ultimoBloque no tiene Tx o no hay mas de 1 Tx (la de creacion) devuelvo 0
         return ultimoBloque.montoTotalSinCreacion() / ultimoBloque.totalTxSinCreacion();
         // Sino, devuelvo los montos / la cantidad de Tx (ambos sin la de creacion)
     }
 
-
     public void hackearTx() {
-        Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();      // Primer Tx del bloque sin hackear
+        Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();
 
-        int compradorId = bloqueHackeado.id_comprador();                                // IDC de la primer Tx
-        int vendedorId = bloqueHackeado.id_vendedor();                                  // IDV de la primer Tx
-        
+        int compradorId = bloqueHackeado.id_comprador();
+        int vendedorId = bloqueHackeado.id_vendedor();
 
+        // Revertir los saldos de la transacción hackeada
         if (compradorId != 0) {
             Usuario comprador = usuarios[compradorId - 1];
             comprador.setMonto(comprador.getMonto() + bloqueHackeado.monto());
-            actualizarUsuarioMax(comprador);
         }
-
         if (vendedorId != 0) {
             Usuario vendedor = usuarios[vendedorId - 1];
             vendedor.setMonto(vendedor.getMonto() - bloqueHackeado.monto());
-            actualizarUsuarioMax(vendedor);
         }
 
-        actualizarMaximoTenedor();
+        // Eliminar la Tx hackeada del Heap y del array de Txs del bloque
+        ultimoBloque.obtenerHeap().eliminar(bloqueHackeado);
+        ultimoBloque.eliminar(bloqueHackeado);
 
-        // Elimino la transacción hackeada directamente del heap y del arreglo de transacciones del bloque
-        ultimoBloque.obtenerHeap().eliminar(bloqueHackeado);                // Elimino la Tx del Heap
-        ultimoBloque.eliminar(bloqueHackeado);                              // Elimino la Tx hackeada del array de Tx
+        // Actualizo montos y cantidad de Txs despues de hackear
+        if (bloqueHackeado.id_comprador() == 0) {
+            ultimoBloque.restarMontoTotal(bloqueHackeado.monto());
+            ultimoBloque.restarCantidadTx();
+        } else {
+            ultimoBloque.restarMontoTotal(bloqueHackeado.monto());
+            ultimoBloque.restarCantidadTx();
+            ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());
+            ultimoBloque.restarCantidadTxSinCreacion();
+        }
 
-        ultimoBloque.restarMontoTotal(bloqueHackeado.monto());              // Resto de montoTotal el monto hackeado con Creacion
-        ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());   // Y sin Creacion
-
-        ultimoBloque.restarCantidadTx();                                    // Resto en 1 la cantidad de Txs con Creacion
-        ultimoBloque.restarCantidadTxSinCreacion();                         // Y sin Creacion
-
-        txMayorValorUltimoBloque();
-        txUltimoBloque();
-        maximoTenedor();
+        // Recalculo el usuario con mayor monto
+        usuarioMax = usuarios[0];
+        for (Usuario u : usuarios) {
+            usuarioMax = Usuario.maximo(usuarioMax, u);
+        }
     }
 }

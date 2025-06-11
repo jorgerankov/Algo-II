@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>nodoTx.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed.ext</a> &gt; <span class="el_source">nodoTx.java</span></div><h1>nodoTx.java</h1><pre class="source lang-java linenums">package aed.ext;
+import aed.Transaccion;
+
+public class nodoTx {
+
+    private Transaccion[] transacciones;
+
+    maxHeapTx heap;
+    int montoTotal;
+    int cantidadTx;
+    nodoTx anterior;
+
+    private int montoSinCreacion;
+    private int cantidadSinCreacion;
+
+<span class="fc" id="L16">    public nodoTx(Transaccion[] transacciones) {</span>
+        
+<span class="fc" id="L18">        this.transacciones = transacciones;</span>
+<span class="fc" id="L19">        this.anterior = null;</span>
+
+<span class="fc" id="L21">        heap = new maxHeapTx();</span>
+<span class="fc" id="L22">        montoTotal = 0;</span>
+<span class="fc" id="L23">        cantidadTx = 0;</span>
+<span class="fc" id="L24">        montoSinCreacion = 0;</span>
+<span class="fc" id="L25">        cantidadSinCreacion = 0;</span>
+        
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (Transaccion t : transacciones) {           // Veo c/ transaccion</span>
+<span class="fc" id="L28">            heap.insertar(t);                           // Inserto 1 a 1 en el Heap </span>
+<span class="fc" id="L29">            montoTotal += t.monto();                    // Sumo los montos al monto total</span>
+<span class="fc" id="L30">            cantidadTx++;                               // Sumo la cantidad total de Tx</span>
+
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if (t.id_comprador() != 0) {                          // Si el ID de Tx no es el de creacion</span>
+<span class="fc" id="L33">                montoSinCreacion += t.monto();          // Sumo monto al total (sin creacion)</span>
+<span class="fc" id="L34">                cantidadSinCreacion++;                  // +1 Tx (sin creacion)</span>
+            }
+        }
+        //anterior = null;                                
+<span class="fc" id="L38">    }</span>
+
+    // Devuelvo el monto total de todas las Tx sin la de Creacion (la primera)
+    public int montoTotalSinCreacion() {
+<span class="fc" id="L42">        return montoSinCreacion;</span>
+    }
+
+    // Devuelvo el monto total de todas las Tx
+    public int montoTotal() {
+<span class="nc" id="L47">        return montoTotal;</span>
+    }
+
+    // Devuelvo la cantidad total de Tx en el bloque sin la de Creacion (la primera)
+    public int totalTxSinCreacion() {
+<span class="fc" id="L52">        return cantidadSinCreacion;</span>
+    }
+    
+    // Devuelvo la cantidad total de Tx en el bloque
+    public int totalTx() {
+<span class="nc" id="L57">        return cantidadTx;</span>
+    }
+
+    // Devuelve el Heap de las Tx
+    public maxHeapTx obtenerHeap() {
+<span class="fc" id="L62">        return heap;</span>
+    }
+
+    // Devuelve un nuevo heap sin la primer transacción (la de mayor valor)
+    public maxHeapTx obtenerHeapPostHack() {
+<span class="nc" id="L67">        maxHeapTx heapHackeado = new maxHeapTx();</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        for (Transaccion t : this.transacciones) {</span>
+<span class="nc" id="L69">            heapHackeado.insertar(t);</span>
+        }
+<span class="nc" id="L71">        return heapHackeado;</span>
+    }
+
+    // El nuevo bloque de Tx apunta al bloque creado antes que el
+    public void apuntarAnterior(nodoTx prev) {
+<span class="fc" id="L76">        this.anterior = prev;</span>
+<span class="fc" id="L77">    }</span>
+
+    // Devuelve las Tx
+    public Transaccion[] obtenerTransacciones(){
+<span class="fc" id="L81">        return transacciones;</span>
+    }
+
+    // Almacena las Tx sin la Tx eliminada en hackearTx
+    public void nuevasTx(Transaccion[] nuevasTx) {
+<span class="nc" id="L86">        this.transacciones = nuevasTx;</span>
+<span class="nc" id="L87">    }</span>
+
+    public void restarMontoTotal(int m) {
+<span class="fc" id="L90">        montoTotal -= m;</span>
+<span class="fc" id="L91">    }</span>
+
+    public void restarMontoTotalSinCreacion(int m) {
+<span class="fc" id="L94">        montoSinCreacion -= m;</span>
+<span class="fc" id="L95">    }</span>
+
+    public void restarCantidadTx() {
+<span class="fc" id="L98">        cantidadTx-- ;</span>
+<span class="fc" id="L99">    }</span>
+
+    public void restarCantidadTxSinCreacion() {
+<span class="fc" id="L102">        cantidadSinCreacion--;</span>
+<span class="fc" id="L103">    }</span>
+
+    public void eliminar(Transaccion tx) {
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (transacciones == null) return;                  // Si no hay Txs, no devuelvo nada</span>
+<span class="fc" id="L107">        int n = transacciones.length;                       // n = total de Txs</span>
+<span class="fc" id="L108">        int idx = -1;                                       // Tomo caso borde </span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="pc bpc" id="L110" title="1 of 4 branches missed.">            if (transacciones[i] != null &amp;&amp; transacciones[i].equals(tx)) {  // Si la Tx del array es igual a la q quiero eliminar</span>
+<span class="fc" id="L111">                idx = i;                                                    // Me guardo el caso</span>
+<span class="fc" id="L112">                i = n;                                                      // Tomo la ultima Tx del array para romper el ciclo For</span>
+            }
+        }
+
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (idx != -1) {                                                    // Si encontré la Tx que buscaba eliminar</span>
+<span class="fc" id="L117">            Transaccion[] nuevo = new Transaccion[n - 1];                   // Creo una lista de Tx con longitud Txs originales menos la eliminada</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">            for (int i = 0, j = 0; i &lt; n; i++) {                            // </span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">                if (i != idx) {</span>
+<span class="fc" id="L120">                    nuevo[j++] = transacciones[i];</span>
+                }
+            }
+<span class="fc" id="L123">            transacciones = nuevo;</span>
+        }
+<span class="fc" id="L125">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

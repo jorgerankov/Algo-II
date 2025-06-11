@@ -29,12 +29,11 @@ public class nodoTx {
             montoTotal += t.monto();                    // Sumo los montos al monto total
             cantidadTx++;                               // Sumo la cantidad total de Tx
 
-            if (t.id() != 0) {                          // Si el ID de Tx no es el de creacion
+            if (t.id_comprador() != 0) {                // Si el ID de Tx no es el de creacion
                 montoSinCreacion += t.monto();          // Sumo monto al total (sin creacion)
                 cantidadSinCreacion++;                  // +1 Tx (sin creacion)
             }
         }
-        //anterior = null;                                
     }
 
     // Devuelvo el monto total de todas las Tx sin la de Creacion (la primera)
