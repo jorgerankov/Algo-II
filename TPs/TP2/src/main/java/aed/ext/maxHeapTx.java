@@ -21,7 +21,7 @@ public class maxHeapTx {
         for (int i = 0; i < heap.size(); i++) {
             if (heap.get(i).equals(t)) {
                 idTxHackeada = i;
-                return;
+                break;
             }
         }
 
@@ -87,10 +87,6 @@ public class maxHeapTx {
     // Devuelve la cantidad total de elems que hay en el Heap
     public int tamano() {
         return heap.size();
-    }
-
-    public boolean estaVacio() {
-        return heap == null;
     }
 
     // Devuelve todos los elems del Heap

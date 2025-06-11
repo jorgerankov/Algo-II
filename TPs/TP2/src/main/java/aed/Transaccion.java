@@ -17,8 +17,10 @@ public class Transaccion implements Comparable<Transaccion> {
     public int compareTo(Transaccion otro) {
         if (this.monto != otro.monto) {
             return Integer.compare(this.monto, otro.monto);     // mayor Monto si es unico
-        } else {
+        } else if (this.monto == otro.monto){
             return Integer.compare(this.id, otro.id);           // mayor ID si hay +1 mayor monto = 
+        } else {
+            return 0;                                           // si montos e ID son iguales
         }
     }
 

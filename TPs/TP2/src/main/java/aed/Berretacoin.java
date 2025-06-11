@@ -38,15 +38,15 @@ public class Berretacoin {
             int monto = tx.monto();                         // Asigno monto
 
             if (vendedor != 0) {
-                Usuario u = usuarios[vendedor - 1];
+                Usuario u = usuarios[vendedor - 1];         // Busco la posicion del vendedor en el array de Usuarios
                 u.setMonto(u.getMonto() + monto);           // Sumo el monto al vendedor
-                actualizarUsuarioMax(u);                    // Evaluo nuevo Usuario con mayor monto
+                actualizarUsuarioMax(u);                    // Evaluo si hay un nuevo Usuario con mayor monto
             }
 
             if (comprador != 0) {
-                Usuario u = usuarios[comprador - 1];
+                Usuario u = usuarios[comprador - 1];        // Busco la posicion del comprador en el array de Usuarios
                 u.setMonto(u.getMonto() - monto);           // Resto el monto al comprador
-                actualizarUsuarioMax(u);                    // Evaluo nuevo Usuario con mayor monto
+                actualizarUsuarioMax(u);                    // Evaluo si hay un nuevo Usuario con mayor monto
             }
         }
 
@@ -55,7 +55,11 @@ public class Berretacoin {
 
 
     private void actualizarUsuarioMax(Usuario u) {
-        usuarioMax = Usuario.maximo(usuarioMax, u);         // Veo si u es mayor que el usuario con mayor monto
+        if (u == usuarioMax) {
+            actualizarMaximoTenedor();                      // Evaluo todo de 0
+        } else {
+            usuarioMax = Usuario.maximo(usuarioMax, u);     // Veo si u es mayor que el usuario con mayor monto
+        }
     }
 
 
@@ -84,9 +88,9 @@ public class Berretacoin {
         return usuarioMax.getId();                          // ID del usuario con mayor monto
     }
 
-    
+
     public int montoMedioUltimoBloque(){
-        if (ultimoBloque == null || ultimoBloque.totalTxSinCreacion() <= 1) return 0;
+        if (ultimoBloque == null || ultimoBloque.totalTx() <= 1) return 0;
         // Si ultimoBloque no tiene Tx o no hay mas de 1 Tx (la de creacion) devuelvo 0
         return ultimoBloque.montoTotalSinCreacion() / ultimoBloque.totalTxSinCreacion();
         // Sino, devuelvo los montos / la cantidad de Tx (ambos sin la de creacion)
@@ -94,45 +98,38 @@ public class Berretacoin {
 
 
     public void hackearTx() {
-        Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();  // Obtengo la Tx a hackear
+        Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();      // Primer Tx del bloque sin hackear
 
-        int compradorId = bloqueHackeado.id_comprador();                        // Tomo el ID del Comprador del Bloque a hackear
-        int vendedorId = bloqueHackeado.id_vendedor();                          // Tomo el ID del Vendedor del Bloque a hackear
+        int compradorId = bloqueHackeado.id_comprador();                                // IDC de la primer Tx
+        int vendedorId = bloqueHackeado.id_vendedor();                                  // IDV de la primer Tx
+        
 
-        if (compradorId != 0) {                                                 // Evaluo que el ID no sea el primero para que no me salte error al buscar compradorID[0-1 = -1]
-            Usuario comprador = usuarios[compradorId - 1];                      // Busco el ID del Comprador en la lista de Usuarios
-            comprador.setMonto(comprador.getMonto() + bloqueHackeado.monto());  // Devuelvo monto al Comprador
-        } else {
-            Usuario comprador = usuarios[compradorId];                          // Si es el primer comprador, lo defino
-            comprador.setMonto(comprador.getMonto() + bloqueHackeado.monto());  // Devuelvo monto al Comprador
+        if (compradorId != 0) {
+            Usuario comprador = usuarios[compradorId - 1];
+            comprador.setMonto(comprador.getMonto() + bloqueHackeado.monto());
+            actualizarUsuarioMax(comprador);
         }
 
-        if (vendedorId != 0) {                                                  // Evaluo que el ID no sea el primero para que no me salte error al buscar vendedorID[0-1 = -1]
-            Usuario vendedor = usuarios[vendedorId - 1];                        // Busco el ID del Vendedor en la lista de Usuarios
-            vendedor.setMonto(vendedor.getMonto() - bloqueHackeado.monto());    // Le saco el monto al Vendedor
-        } else {
-            Usuario vendedor = usuarios[vendedorId];                            // Si es el primer vendedor, lo defino
-            vendedor.setMonto(vendedor.getMonto() - bloqueHackeado.monto());    // Le saco el monto al Vendedor
+        if (vendedorId != 0) {
+            Usuario vendedor = usuarios[vendedorId - 1];
+            vendedor.setMonto(vendedor.getMonto() - bloqueHackeado.monto());
+            actualizarUsuarioMax(vendedor);
         }
-
-        ultimoBloque.obtenerHeap().eliminar(bloqueHackeado);                    // Elimino del Heap el Bloque a hackear
-        ultimoBloque.obtenerHeapPostHack();
-
-
-        Transaccion[] Txs = ultimoBloque.obtenerTransacciones();                // Tomo el Bloque de Txs con la Tx a eliminar
-        int longitudTxs = Txs.length;                                           // Y su longitud
-        Transaccion[] nuevoBloque = new Transaccion[longitudTxs - 1];           // Creo un nuevo Bloque de Txs sin la Tx eliminada
-        int idx = 0;                                                
-        for (int i = 0; i < longitudTxs; i++) {
-            if (!Txs[i].equals(bloqueHackeado)) {                               // Si la Tx analizada no es la que quiero hackear
-                nuevoBloque[idx++] = Txs[i];                                    // La agrego al nuevo Bloque de Txs
-            }
-        }
-        ultimoBloque.nuevasTx(nuevoBloque);                                     // Creo un nuevo conjunto de Tx sin la Tx hackeada
-
-        ultimoBloque.restarMontoTotal(bloqueHackeado.monto());                  // Saco el monto de la Tx hackeada al ultimo Bloque
-        ultimoBloque.restarCantidadTx();                                        // -1 Txs (saco la hackeada)
 
         actualizarMaximoTenedor();
+
+        // Elimino la transacción hackeada directamente del heap y del arreglo de transacciones del bloque
+        ultimoBloque.obtenerHeap().eliminar(bloqueHackeado);                // Elimino la Tx del Heap
+        ultimoBloque.eliminar(bloqueHackeado);                              // Elimino la Tx hackeada del array de Tx
+
+        ultimoBloque.restarMontoTotal(bloqueHackeado.monto());              // Resto de montoTotal el monto hackeado con Creacion
+        ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());   // Y sin Creacion
+
+        ultimoBloque.restarCantidadTx();                                    // Resto en 1 la cantidad de Txs con Creacion
+        ultimoBloque.restarCantidadTxSinCreacion();                         // Y sin Creacion
+
+        txMayorValorUltimoBloque();
+        txUltimoBloque();
+        maximoTenedor();
     }
 }

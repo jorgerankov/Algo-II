@@ -101,4 +101,26 @@ public class nodoTx {
     public void restarCantidadTxSinCreacion() {
         cantidadSinCreacion--;
     }
+
+    public void eliminar(Transaccion tx) {
+        if (transacciones == null) return;                  // Si no hay Txs, no devuelvo nada
+        int n = transacciones.length;                       // n = total de Txs
+        int idx = -1;                                       // Tomo caso borde 
+        for (int i = 0; i < n; i++) {
+            if (transacciones[i] != null && transacciones[i].equals(tx)) {  // Si la Tx del array es igual a la q quiero eliminar
+                idx = i;                                                    // Me guardo el caso
+                i = n;                                                      // Tomo la ultima Tx del array para romper el ciclo For
+            }
+        }
+
+        if (idx != -1) {                                                    // Si encontré la Tx que buscaba eliminar
+            Transaccion[] nuevo = new Transaccion[n - 1];                   // Creo una lista de Tx con longitud Txs originales menos la eliminada
+            for (int i = 0, j = 0; i < n; i++) {                            // 
+                if (i != idx) {
+                    nuevo[j++] = transacciones[i];
+                }
+            }
+            transacciones = nuevo;
+        }
+    }
 }
