@@ -3,7 +3,7 @@ import aed.Transaccion;
 import java.util.ArrayList;
 
 public class maxHeapTx {
-    private ArrayList<Transaccion> heap;
+    ArrayList<Transaccion> heap;
 
     // Creo un nuevo Heap
     public maxHeapTx() {
@@ -32,7 +32,7 @@ public class maxHeapTx {
         heap.remove(ultimo);
 
         if (idTxHackeada < heap.size()) {
-            heapifyArriba(idTxHackeada);
+            // heapifyArriba(idTxHackeada);
             heapifyAbajo(idTxHackeada);
         }
     }

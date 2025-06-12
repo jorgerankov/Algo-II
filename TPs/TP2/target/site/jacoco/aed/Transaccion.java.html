@@ -29,10 +29,10 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
 <span class="fc bfc" id="L29" title="All 2 branches covered.">        if (this == otro) return true;</span>
 <span class="pc bpc" id="L30" title="2 of 4 branches missed.">        if (otro == null || getClass() != otro.getClass()) return false;</span>
 <span class="fc" id="L31">        Transaccion t = (Transaccion) otro;</span>
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        return id == t.id &amp;&amp;</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                id_comprador == t.id_comprador &amp;&amp;</span>
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">                id_vendedor == t.id_vendedor &amp;&amp;</span>
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                monto == t.monto;</span>
+<span class="pc bpc" id="L32" title="3 of 8 branches missed.">        return id == t.id &amp;&amp;</span>
+                id_comprador == t.id_comprador &amp;&amp;
+                id_vendedor == t.id_vendedor &amp;&amp;
+                monto == t.monto;
     }
 
     public int monto() {
@@ -48,7 +48,7 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
     }
 
     public int id() {
-<span class="fc" id="L51">        return id;</span>
+<span class="nc" id="L51">        return id;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

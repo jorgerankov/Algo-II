@@ -11,11 +11,10 @@ package aed;
 import aed.ext.Usuario;
 import aed.ext.nodoTx;
 
-
 public class Berretacoin {
-    private Usuario[] usuarios;                             // Array de Usuarios
-    private nodoTx ultimoBloque;                            // Apunta al ultimo Bloque de Tx
-    private Usuario usuarioMax;                             // Usuario de mayor monto actual
+    Usuario[] usuarios;                                     // Array de Usuarios
+    nodoTx ultimoBloque;                                    // Direcion del ultimo Bloque de Txs
+    Usuario usuarioMax;                                     // Usuario de mayor monto actual
 
     public Berretacoin(int n_usuarios){
         usuarios = new Usuario[n_usuarios];                 // Creo array de Usuarios con n usuarios
@@ -55,11 +54,11 @@ public class Berretacoin {
 
 
     private void actualizarUsuarioMax(Usuario u) {
-        if (u == usuarioMax) {
-            actualizarMaximoTenedor();                      // Evaluo todo de 0
-        } else {
+        // if (u == usuarioMax) {
+        //     actualizarMaximoTenedor();                      // Evaluo todo de 0
+        // } else {
             usuarioMax = Usuario.maximo(usuarioMax, u);     // Veo si u es mayor que el usuario con mayor monto
-        }
+        //}
     }
 
 
@@ -71,16 +70,16 @@ public class Berretacoin {
 
 
     public Transaccion txMayorValorUltimoBloque(){
-        if (ultimoBloque == null) return null;
+        //if (ultimoBloque == null) return null;
         return ultimoBloque.obtenerHeap().devolverPrimero();
     }
 
 
     public Transaccion[] txUltimoBloque(){
-        if (ultimoBloque == null) {
-            return new Transaccion[0];                      // Si no hay Bloque, devuelvo un array vacio
-        }
-        return ultimoBloque.obtenerTransacciones();         // Sino, devuelvo las transacciones del ultimo Bloque
+        // if (ultimoBloque == null) {
+        //     return new Transaccion[0];                      // Si no hay Bloque, devuelvo un array vacio
+        // }
+        return ultimoBloque.obtenerTransacciones();         // Devuelvo las transacciones del ultimo Bloque (en caso que no tenga, devuelve vacío)
     }
 
 
