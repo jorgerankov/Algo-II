@@ -12,8 +12,8 @@ public class maxHeapTx {
 
     // Inserto nueva Tx en el Heap y la "acomodo"
     public void insertar(Transaccion t) {
-         heap.add(t);
-         heapifyArriba(heap.size() - 1);
+         heap.add(t);                               // O(1) 
+         heapifyArriba(heap.size() - 1);            // O(n)
     }
 
     public void eliminar(Transaccion t) {
@@ -32,7 +32,6 @@ public class maxHeapTx {
         heap.remove(ultimo);
 
         if (idTxHackeada < heap.size()) {
-            // heapifyArriba(idTxHackeada);
             heapifyAbajo(idTxHackeada);
         }
     }
@@ -73,24 +72,24 @@ public class maxHeapTx {
 
     // Intercambio elems en el heap para mantenerlo correcto (maxHeap, que no haya elems hijos mayores al padre)
     private void swap(int i, int j) {
-        Transaccion temp = heap.get(i);
-        heap.set(i, heap.get(j));
-        heap.set(j, temp);
+        Transaccion temp = heap.get(i);                         // O(n)
+        heap.set(i, heap.get(j));                               // O(n)
+        heap.set(j, temp);                                      // O(1)
     }
 
     // Devuelvo el primer elem del heap (mayor monto)
     public Transaccion devolverPrimero() {
-        if (heap.isEmpty()) return null;
-        return heap.get(0);
+        if (heap.isEmpty()) return null;                        // O(1)
+        return heap.get(0);                                     // O(1)
     }
 
     // Devuelve la cantidad total de elems que hay en el Heap
     public int tamano() {
-        return heap.size();
+        return heap.size();                                     // O(1)
     }
 
     // Devuelve todos los elems del Heap
     public ArrayList<Transaccion> obtenerElementos() {
-        return heap;
+        return heap;                                            // O(n)
     }
 }

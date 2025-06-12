@@ -8,7 +8,6 @@ public class nodoTx {
     maxHeapTx heap;
     int montoTotal;
     int cantidadTx;
-    nodoTx anterior;
 
     private int montoSinCreacion;
     private int cantidadSinCreacion;
@@ -16,7 +15,6 @@ public class nodoTx {
     public nodoTx(Transaccion[] transacciones) {
         
         this.transacciones = transacciones;
-        this.anterior = null;
 
         heap = new maxHeapTx();
         montoTotal = 0;
@@ -70,11 +68,6 @@ public class nodoTx {
         return heapHackeado;
     }
 
-    // El nuevo bloque de Tx apunta al bloque creado antes que el
-    public void apuntarAnterior(nodoTx prev) {
-        this.anterior = prev;
-    }
-
     // Devuelve las Tx
     public Transaccion[] obtenerTransacciones(){
         return transacciones;
@@ -102,9 +95,9 @@ public class nodoTx {
     }
 
     public void eliminar(Transaccion tx) {
-        if (transacciones == null) return;                  // Si no hay Txs, no devuelvo nada
-        int n = transacciones.length;                       // n = total de Txs
-        int idx = -1;                                       // Tomo caso borde 
+        if (transacciones == null) return;                                  // Si no hay Txs, no devuelvo nada
+        int n = transacciones.length;                                       // n = total de Txs
+        int idx = -1;                                                       // Tomo caso borde 
         for (int i = 0; i < n; i++) {
             if (transacciones[i] != null && transacciones[i].equals(tx)) {  // Si la Tx del array es igual a la q quiero eliminar
                 idx = i;                                                    // Me guardo el caso
