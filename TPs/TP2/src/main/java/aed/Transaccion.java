@@ -17,26 +17,25 @@ public class Transaccion implements Comparable<Transaccion> {
     public int compareTo(Transaccion otro) {
         if (this.monto != otro.monto) {
             return Integer.compare(this.monto, otro.monto);     // mayor Monto si es unico
-        } else if (this.monto == otro.monto){
-            return Integer.compare(this.id, otro.id);           // mayor ID si hay +1 mayor monto = 
         } else {
-            return 0;                                           // si montos e ID son iguales
+            return Integer.compare(this.id, otro.id);           // Si son iguales, comparo los IDs
         }
     }
 
     @Override
-    public boolean equals(Object otro){
-        if (this == otro) return true;
-        if (otro == null || getClass() != otro.getClass()) return false;
-        Transaccion t = (Transaccion) otro;
+    public boolean equals(Object otro){        
+        // Modifico tipo Object por tipo Transaccion para evaluar las 2 Tx 
+        Transaccion t = (Transaccion) otro; 
+
+        // Comparo todos los atributos de la Tx y otro, si son todos = devuelve True, sino False
         return id == t.id &&
                 id_comprador == t.id_comprador &&
                 id_vendedor == t.id_vendedor &&
                 monto == t.monto;
     }
 
-    public int monto() {
-        return monto;
+    public int id() {
+        return id;
     }
 
     public int id_comprador() {
@@ -47,7 +46,7 @@ public class Transaccion implements Comparable<Transaccion> {
         return id_vendedor;
     }
 
-    public int id() {
-        return id;
+    public int monto() {
+        return monto;
     }
 }

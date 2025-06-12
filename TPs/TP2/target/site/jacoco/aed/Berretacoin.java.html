@@ -103,18 +103,12 @@ public class Berretacoin {
 <span class="fc" id="L103">            ultimoBloque.restarMontoTotal(bloqueHackeado.monto());</span>
 <span class="fc" id="L104">            ultimoBloque.restarCantidadTx();</span>
 <span class="fc" id="L105">        } else {</span>
-            //ultimoBloque.restarMontoTotal(bloqueHackeado.monto());
-            //ultimoBloque.restarCantidadTx();
-<span class="fc" id="L108">            ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());</span>
-<span class="fc" id="L109">            ultimoBloque.restarCantidadTxSinCreacion();</span>
+<span class="fc" id="L106">            ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());</span>
+<span class="fc" id="L107">            ultimoBloque.restarCantidadTxSinCreacion();</span>
         }
 
         // Recalculo el usuario con mayor monto
-<span class="fc" id="L113">        actualizarMaximoTenedor();</span>
-        // usuarioMax = usuarios[0];
-        // for (Usuario u : usuarios) {
-        //     usuarioMax = Usuario.maximo(usuarioMax, u);
-        // }
-<span class="fc" id="L118">    }</span>
+<span class="fc" id="L111">        actualizarMaximoTenedor();</span>
+<span class="fc" id="L112">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

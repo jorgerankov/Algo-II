@@ -27,45 +27,36 @@ public class nodoTx {
             montoTotal += t.monto();                    // Sumo los montos al monto total
             cantidadTx++;                               // Sumo la cantidad total de Tx
 
-            if (t.id_comprador() != 0) {                // Si el ID de Tx no es el de creacion
+            if (t.id_comprador() != 0) {                // Si el ID del comprador no es el de creacion
                 montoSinCreacion += t.monto();          // Sumo monto al total (sin creacion)
                 cantidadSinCreacion++;                  // +1 Tx (sin creacion)
             }
         }
     }
 
-    // Devuelvo el monto total de todas las Tx sin la de Creacion (la primera)
-    public int montoTotalSinCreacion() {
-        return montoSinCreacion;
-    }
-
+    
     // Devuelvo el monto total de todas las Tx
     public int montoTotal() {
         return montoTotal;
     }
 
-    // Devuelvo la cantidad total de Tx en el bloque sin la de Creacion (la primera)
-    public int totalTxSinCreacion() {
-        return cantidadSinCreacion;
-    }
-    
     // Devuelvo la cantidad total de Tx en el bloque
     public int totalTx() {
         return cantidadTx;
     }
 
+    // Devuelvo el monto total de todas las Tx sin la de Creacion (la primera)
+    public int montoTotalSinCreacion() {
+        return montoSinCreacion;
+    }
+    // Devuelvo la cantidad total de Tx en el bloque sin la de Creacion (la primera)
+    public int totalTxSinCreacion() {
+        return cantidadSinCreacion;
+    }
+    
     // Devuelve el Heap de las Tx
     public maxHeapTx obtenerHeap() {
         return heap;
-    }
-
-    // Devuelve un nuevo heap sin la primer transacción (la de mayor valor)
-    public maxHeapTx obtenerHeapPostHack() {
-        maxHeapTx heapHackeado = new maxHeapTx();
-        for (Transaccion t : this.transacciones) {
-            heapHackeado.insertar(t);
-        }
-        return heapHackeado;
     }
 
     // Devuelve las Tx
@@ -101,7 +92,6 @@ public class nodoTx {
         for (int i = 0; i < n; i++) {
             if (transacciones[i] != null && transacciones[i].equals(tx)) {  // Si la Tx del array es igual a la q quiero eliminar
                 idx = i;                                                    // Me guardo el caso
-                i = n;                                                      // Tomo la ultima Tx del array para romper el ciclo For
             }
         }
 

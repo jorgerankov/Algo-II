@@ -17,38 +17,37 @@ public class Transaccion implements Comparable&lt;Transaccion&gt; {
     public int compareTo(Transaccion otro) {
 <span class="fc bfc" id="L18" title="All 2 branches covered.">        if (this.monto != otro.monto) {</span>
 <span class="fc" id="L19">            return Integer.compare(this.monto, otro.monto);     // mayor Monto si es unico</span>
-<span class="pc bpc" id="L20" title="1 of 2 branches missed.">        } else if (this.monto == otro.monto){</span>
-<span class="fc" id="L21">            return Integer.compare(this.id, otro.id);           // mayor ID si hay +1 mayor monto = </span>
         } else {
-<span class="nc" id="L23">            return 0;                                           // si montos e ID son iguales</span>
+<span class="fc" id="L21">            return Integer.compare(this.id, otro.id);           // Si son iguales, comparo los IDs</span>
         }
     }
 
     @Override
-    public boolean equals(Object otro){
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (this == otro) return true;</span>
-<span class="pc bpc" id="L30" title="2 of 4 branches missed.">        if (otro == null || getClass() != otro.getClass()) return false;</span>
-<span class="fc" id="L31">        Transaccion t = (Transaccion) otro;</span>
-<span class="pc bpc" id="L32" title="3 of 8 branches missed.">        return id == t.id &amp;&amp;</span>
-                id_comprador == t.id_comprador &amp;&amp;
-                id_vendedor == t.id_vendedor &amp;&amp;
-                monto == t.monto;
-    }
+    public boolean equals(Object otro){        
+        // Modifico tipo Object por tipo Transaccion para evaluar las 2 Tx 
+<span class="fc" id="L28">        Transaccion t = (Transaccion) otro; </span>
 
-    public int monto() {
-<span class="fc" id="L39">        return monto;</span>
-    }
-
-    public int id_comprador() {
-<span class="fc" id="L43">        return id_comprador;</span>
-    }
-    
-    public int id_vendedor() {
-<span class="fc" id="L47">        return id_vendedor;</span>
+        // Comparo todos los atributos de la Tx y otro, si son todos = devuelve True, sino False
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        return id == t.id &amp;&amp;</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">                id_comprador == t.id_comprador &amp;&amp;</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                id_vendedor == t.id_vendedor &amp;&amp;</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">                monto == t.monto;</span>
     }
 
     public int id() {
-<span class="nc" id="L51">        return id;</span>
+<span class="nc" id="L38">        return id;</span>
+    }
+
+    public int id_comprador() {
+<span class="fc" id="L42">        return id_comprador;</span>
+    }
+    
+    public int id_vendedor() {
+<span class="fc" id="L46">        return id_vendedor;</span>
+    }
+
+    public int monto() {
+<span class="fc" id="L50">        return monto;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
