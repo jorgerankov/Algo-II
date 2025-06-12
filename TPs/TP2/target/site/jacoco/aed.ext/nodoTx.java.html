@@ -95,9 +95,9 @@ public class nodoTx {
 <span class="fc" id="L95">    }</span>
 
     public void eliminar(Transaccion tx) {
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (transacciones == null) return;                  // Si no hay Txs, no devuelvo nada</span>
-<span class="fc" id="L99">        int n = transacciones.length;                       // n = total de Txs</span>
-<span class="fc" id="L100">        int idx = -1;                                       // Tomo caso borde </span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (transacciones == null) return;                                  // Si no hay Txs, no devuelvo nada</span>
+<span class="fc" id="L99">        int n = transacciones.length;                                       // n = total de Txs</span>
+<span class="fc" id="L100">        int idx = -1;                                                       // Tomo caso borde </span>
 <span class="fc bfc" id="L101" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
 <span class="pc bpc" id="L102" title="1 of 4 branches missed.">            if (transacciones[i] != null &amp;&amp; transacciones[i].equals(tx)) {  // Si la Tx del array es igual a la q quiero eliminar</span>
 <span class="fc" id="L103">                idx = i;                                                    // Me guardo el caso</span>

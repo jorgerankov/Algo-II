@@ -1,128 +1,120 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Berretacoin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Berretacoin.java</span></div><h1>Berretacoin.java</h1><pre class="source lang-java linenums">// Lista Enlazada que tenga dentro:
-//      Heap de prioridad de transacciones de mayor valor
-//      Monto total 
-//      Cantidad de Transacciones (Tx)
-
-// Heap de prioridad de Usuario con mayor Monto (casi hecho)
-
-// Array con Handles donde los ids coinciden con los indices de los Handles
-
-package aed;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Berretacoin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed</a> &gt; <span class="el_source">Berretacoin.java</span></div><h1>Berretacoin.java</h1><pre class="source lang-java linenums">package aed;
 import aed.ext.Usuario;
 import aed.ext.nodoTx;
 
 public class Berretacoin {
-    Usuario[] usuarios;                                     // Array de Usuarios
-    nodoTx ultimoBloque;                                    // Direcion del ultimo Bloque de Txs
-    Usuario usuarioMax;                                     // Usuario de mayor monto actual
+    Usuario[] usuarios;                                         // Array de Usuarios
+    nodoTx ultimoBloque;                                        // Direcion del ultimo Bloque de Txs
+    Usuario usuarioMax;                                         // Usuario de mayor monto actual
 
-<span class="fc" id="L19">    public Berretacoin(int n_usuarios){</span>
-<span class="fc" id="L20">        usuarios = new Usuario[n_usuarios];                 // Creo array de Usuarios con n usuarios</span>
-<span class="fc bfc" id="L21" title="All 2 branches covered.">        for (int i = 0; i &lt; n_usuarios; i++) {              // Agrego usuarios de 1 a P a la lista de usuarios</span>
-<span class="fc" id="L22">            usuarios[i] = new Usuario(i + 1, 0);      // Y los inicializo con monto = 0</span>
+<span class="fc" id="L10">    public Berretacoin(int n_usuarios){</span>
+<span class="fc" id="L11">        usuarios = new Usuario[n_usuarios];                     // Creo array de Usuarios con n usuarios</span>
+<span class="fc bfc" id="L12" title="All 2 branches covered.">        for (int i = 0; i &lt; n_usuarios; i++) {                  // Agrego usuarios de 1 a P a la lista de usuarios</span>
+<span class="fc" id="L13">            usuarios[i] = new Usuario(i + 1, 0);          // Y los inicializo con monto = 0</span>
         }
-<span class="fc" id="L24">        usuarioMax = usuarios[0];                           // Inicio Usuario de mayor monto con el primero</span>
-<span class="fc" id="L25">        ultimoBloque = null;                                // No tengo Bloques creados</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L15">        usuarioMax = usuarios[0];                               // Inicio Usuario de mayor monto con el primero</span>
+<span class="fc" id="L16">        ultimoBloque = null;                                    // No tengo Bloques creados</span>
+<span class="fc" id="L17">    }</span>
 
 
-    public void agregarBloque(Transaccion[] transacciones){ // O(P + n_b) = O(Cantidad de usuarios + Cantidad de Txs en bloque)
-<span class="fc" id="L30">        nodoTx nuevoNodo = new nodoTx(transacciones);       // Creo un nuevo Nodo con las Tx del input</span>
-<span class="fc" id="L31">        ultimoBloque = nuevoNodo;                           // Actualizo el ultimo Bloque agregado (ahora es el nuevo)</span>
+    public void agregarBloque(Transaccion[] transacciones){     // O(P + n_b) = O(Cantidad de usuarios + Cantidad de Txs en bloque)
+<span class="fc" id="L21">        nodoTx nuevoNodo = new nodoTx(transacciones);           // Creo un nuevo Nodo con las Tx del input</span>
+<span class="fc" id="L22">        ultimoBloque = nuevoNodo;                               // Actualizo el ultimo Bloque agregado (ahora es el nuevo)</span>
 
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        for (Transaccion tx : transacciones) {              // Recorro todas las Tx</span>
-<span class="fc" id="L34">            int comprador = tx.id_comprador();              // Asigno idComprador</span>
-<span class="fc" id="L35">            int vendedor = tx.id_vendedor();                // Asigno idVendedor</span>
-<span class="fc" id="L36">            int monto = tx.monto();                         // Asigno monto</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        for (Transaccion tx : transacciones) {                  // Recorro todas las Tx</span>
+<span class="fc" id="L25">            int comprador = tx.id_comprador();                  // Asigno idComprador</span>
+<span class="fc" id="L26">            int vendedor = tx.id_vendedor();                    // Asigno idVendedor</span>
+<span class="fc" id="L27">            int monto = tx.monto();                             // Asigno monto</span>
 
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">            if (vendedor != 0) {</span>
-<span class="fc" id="L39">                Usuario u = usuarios[vendedor - 1];         // Busco la posicion del vendedor en el array de Usuarios</span>
-<span class="fc" id="L40">                u.setMonto(u.getMonto() + monto);           // Sumo el monto al vendedor</span>
-<span class="fc" id="L41">                actualizarUsuarioMax(u);                    // Evaluo si hay un nuevo Usuario con mayor monto</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">            if (vendedor != 0) {</span>
+<span class="fc" id="L30">                Usuario u = usuarios[vendedor - 1];             // Busco la posicion del vendedor en el array de Usuarios</span>
+<span class="fc" id="L31">                u.setMonto(u.getMonto() + monto);               // Sumo el monto al vendedor</span>
+<span class="fc" id="L32">                actualizarUsuarioMax(u);                        // Evaluo si hay un nuevo Usuario con mayor monto</span>
             }
 
-<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (comprador != 0) {</span>
-<span class="fc" id="L45">                Usuario u = usuarios[comprador - 1];        // Busco la posicion del comprador en el array de Usuarios</span>
-<span class="fc" id="L46">                u.setMonto(u.getMonto() - monto);           // Resto el monto al comprador</span>
-<span class="fc" id="L47">                actualizarUsuarioMax(u);                    // Evaluo si hay un nuevo Usuario con mayor monto</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            if (comprador != 0) {</span>
+<span class="fc" id="L36">                Usuario u = usuarios[comprador - 1];            // Busco la posicion del comprador en el array de Usuarios</span>
+<span class="fc" id="L37">                u.setMonto(u.getMonto() - monto);               // Resto el monto al comprador</span>
+<span class="fc" id="L38">                actualizarUsuarioMax(u);                        // Evaluo si hay un nuevo Usuario con mayor monto</span>
             }
         }
 
-<span class="fc" id="L51">        actualizarMaximoTenedor();                          // Actualizo si cambia orden de usuarioMax</span>
-<span class="fc" id="L52">    }</span>
+<span class="fc" id="L42">        actualizarMaximoTenedor();                              // Actualizo si cambia orden de usuarioMax</span>
+<span class="fc" id="L43">    }</span>
 
 
     private void actualizarUsuarioMax(Usuario u) {              // O(1)
-<span class="fc" id="L56">            usuarioMax = Usuario.maximo(usuarioMax, u);         // Veo si u es mayor que el usuario con mayor monto (Comparo 2 usuarios)</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L47">            usuarioMax = Usuario.maximo(usuarioMax, u);         // Veo si u es mayor que el usuario con mayor monto (Comparo 2 usuarios)</span>
+<span class="fc" id="L48">    }</span>
 
 
     private void actualizarMaximoTenedor() {                    // O(n)
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (Usuario u : usuarios) {                            // Recorro todos los usuarios</span>
-<span class="fc" id="L62">            usuarioMax = Usuario.maximo(usuarioMax, u);         // Evaluo maximo tenedor o minimo ID en caso de haber +1 con mismo monto maximo</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (Usuario u : usuarios) {                            // Recorro todos los usuarios</span>
+<span class="fc" id="L53">            usuarioMax = Usuario.maximo(usuarioMax, u);         // Evaluo maximo tenedor o minimo ID en caso de haber +1 con mismo monto maximo</span>
         }
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L55">    }</span>
 
 
     public Transaccion txMayorValorUltimoBloque(){              // O(1)
         //if (ultimoBloque == null) return null;
-<span class="fc" id="L69">        return ultimoBloque.obtenerHeap().devolverPrimero();</span>
+<span class="fc" id="L60">        return ultimoBloque.obtenerHeap().devolverPrimero();</span>
     }
 
 
     public Transaccion[] txUltimoBloque(){                      // O(1) -&gt; obtenerTxs devuelve una copia del array de Txs
-<span class="fc" id="L74">        return ultimoBloque.obtenerTransacciones();             // Devuelvo las transacciones del ultimo Bloque (en caso que no tenga, devuelve vacío)</span>
+<span class="fc" id="L65">        return ultimoBloque.obtenerTransacciones();             // Devuelvo las transacciones del ultimo Bloque (en caso que no tenga, devuelve vacío)</span>
     }
 
 
     public int maximoTenedor(){                                 // O(1)
-<span class="fc" id="L79">        return usuarioMax.getId();                              // ID del usuario con mayor monto</span>
+<span class="fc" id="L70">        return usuarioMax.getId();                              // ID del usuario con mayor monto</span>
     }
 
 
     public int montoMedioUltimoBloque(){                        // O(1) -&gt; Accede a valores ya calculados del ultimoBloque
-<span class="pc bpc" id="L84" title="1 of 4 branches missed.">        if (ultimoBloque == null || ultimoBloque.totalTxSinCreacion() &lt;= 0) return 0;</span>
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">        if (ultimoBloque == null || ultimoBloque.totalTxSinCreacion() &lt;= 0) return 0;</span>
         // Si ultimoBloque no tiene Tx o no hay mas de 1 Tx (la de creacion) devuelvo 0
-<span class="fc" id="L86">        return ultimoBloque.montoTotalSinCreacion() / ultimoBloque.totalTxSinCreacion();</span>
+<span class="fc" id="L77">        return ultimoBloque.montoTotalSinCreacion() / ultimoBloque.totalTxSinCreacion();</span>
         // Sino, devuelvo los montos / la cantidad de Tx (ambos sin la de creacion)
     }
 
     public void hackearTx() {                                   // O(n)
-<span class="fc" id="L91">        Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();</span>
+<span class="fc" id="L82">        Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();</span>
 
-<span class="fc" id="L93">        int compradorId = bloqueHackeado.id_comprador();</span>
-<span class="fc" id="L94">        int vendedorId = bloqueHackeado.id_vendedor();</span>
+<span class="fc" id="L84">        int compradorId = bloqueHackeado.id_comprador();</span>
+<span class="fc" id="L85">        int vendedorId = bloqueHackeado.id_vendedor();</span>
 
         // Revertir los saldos de la transacción hackeada
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (compradorId != 0) {</span>
-<span class="fc" id="L98">            Usuario comprador = usuarios[compradorId - 1];</span>
-<span class="fc" id="L99">            comprador.setMonto(comprador.getMonto() + bloqueHackeado.monto());</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (compradorId != 0) {</span>
+<span class="fc" id="L89">            Usuario comprador = usuarios[compradorId - 1];</span>
+<span class="fc" id="L90">            comprador.setMonto(comprador.getMonto() + bloqueHackeado.monto());</span>
         }
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (vendedorId != 0) {</span>
-<span class="fc" id="L102">            Usuario vendedor = usuarios[vendedorId - 1];</span>
-<span class="fc" id="L103">            vendedor.setMonto(vendedor.getMonto() - bloqueHackeado.monto());</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (vendedorId != 0) {</span>
+<span class="fc" id="L93">            Usuario vendedor = usuarios[vendedorId - 1];</span>
+<span class="fc" id="L94">            vendedor.setMonto(vendedor.getMonto() - bloqueHackeado.monto());</span>
         }
 
         // Eliminar la Tx hackeada del Heap y del array de Txs del bloque
-<span class="fc" id="L107">        ultimoBloque.obtenerHeap().eliminar(bloqueHackeado);</span>
-<span class="fc" id="L108">        ultimoBloque.eliminar(bloqueHackeado);</span>
+<span class="fc" id="L98">        ultimoBloque.obtenerHeap().eliminar(bloqueHackeado);</span>
+<span class="fc" id="L99">        ultimoBloque.eliminar(bloqueHackeado);</span>
 
         // Actualizo montos y cantidad de Txs despues de hackear
-<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (bloqueHackeado.id_comprador() == 0) {</span>
-<span class="fc" id="L112">            ultimoBloque.restarMontoTotal(bloqueHackeado.monto());</span>
-<span class="fc" id="L113">            ultimoBloque.restarCantidadTx();</span>
-<span class="fc" id="L114">        } else {</span>
-<span class="fc" id="L115">            ultimoBloque.restarMontoTotal(bloqueHackeado.monto());</span>
-<span class="fc" id="L116">            ultimoBloque.restarCantidadTx();</span>
-<span class="fc" id="L117">            ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());</span>
-<span class="fc" id="L118">            ultimoBloque.restarCantidadTxSinCreacion();</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (bloqueHackeado.id_comprador() == 0) {</span>
+<span class="fc" id="L103">            ultimoBloque.restarMontoTotal(bloqueHackeado.monto());</span>
+<span class="fc" id="L104">            ultimoBloque.restarCantidadTx();</span>
+<span class="fc" id="L105">        } else {</span>
+            //ultimoBloque.restarMontoTotal(bloqueHackeado.monto());
+            //ultimoBloque.restarCantidadTx();
+<span class="fc" id="L108">            ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());</span>
+<span class="fc" id="L109">            ultimoBloque.restarCantidadTxSinCreacion();</span>
         }
 
         // Recalculo el usuario con mayor monto
-<span class="fc" id="L122">        usuarioMax = usuarios[0];</span>
-<span class="fc bfc" id="L123" title="All 2 branches covered.">        for (Usuario u : usuarios) {</span>
-<span class="fc" id="L124">            usuarioMax = Usuario.maximo(usuarioMax, u);</span>
-        }
-<span class="fc" id="L126">    }</span>
+<span class="fc" id="L113">        actualizarMaximoTenedor();</span>
+        // usuarioMax = usuarios[0];
+        // for (Usuario u : usuarios) {
+        //     usuarioMax = Usuario.maximo(usuarioMax, u);
+        // }
+<span class="fc" id="L118">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
