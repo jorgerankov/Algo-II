@@ -66,7 +66,7 @@ public class Berretacoin {
         
     }
 
-    // Complejidad O(log P * log(n_b)), accedo a modificar el heap tanto de los usuarios como de las Txs
+    // Complejidad O(log(n_b) + log P), accedo a modificar el heap tanto de los usuarios como el de las Txs
     public void hackearTx() {         
         Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();
 
