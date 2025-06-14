@@ -11,32 +11,32 @@ public class UsuarioConHandle {
 <span class="fc" id="L11">        this.handle = null;</span>
 <span class="fc" id="L12">    }</span>
 
-    // devuelvo ID de usuario
+    // devuelvo ID de usuario (O(1))
     public int getId() {
 <span class="fc" id="L16">        return id;                      </span>
     }
 
-    // Devuelvo monto de usuario
+    // Devuelvo monto de usuario (O(1))
     public int getMonto() {
 <span class="fc" id="L21">        return monto;                   </span>
     }
 
-    // Defino el monto para cada usuario
+    // Defino el monto para cada usuario (O(1))
     public void setMonto(int monto) {
 <span class="fc" id="L26">        this.monto = monto;             </span>
 <span class="fc" id="L27">    }</span>
 
-    // Defino el handle para el usuario creado
+    // Defino el handle para el usuario creado (O(1))
     public void setHandle(Handle handle) {
 <span class="fc" id="L31">        this.handle = handle;</span>
 <span class="fc" id="L32">    }</span>
 
-    // Devuelvo el handle del usuario que estoy buscando
+    // Devuelvo el handle del usuario que estoy buscando (O(1))
     public Handle getHandle() {
 <span class="fc" id="L36">        return handle;</span>
     }
 
-    // Busco el maximo tenedor de montos entre 2 usuarios
+    // Busco el maximo tenedor de montos entre 2 usuarios (O(1))
     public static UsuarioConHandle maximo(UsuarioConHandle a, UsuarioConHandle b) {
 <span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (a == null) return b;            // Si no existe a, devuelvo b</span>
 <span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (b == null) return a;            // y viceversa</span>

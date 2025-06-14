@@ -12,120 +12,85 @@ public class maxHeapTxConHandles {
 <span class="fc" id="L12">        handles = new ArrayList&lt;&gt;();</span>
 <span class="fc" id="L13">    }</span>
 
-    public Handle insertar(Transaccion t) {
-<span class="fc" id="L16">        heap.add(t);</span>
-<span class="fc" id="L17">        Handle handle = new Handle(heap.size() - 1);</span>
-<span class="fc" id="L18">        handles.add(handle);</span>
-<span class="fc" id="L19">        heapifyArriba(heap.size() - 1);</span>
-<span class="fc" id="L20">        return handle;</span>
-    }
+    void insertar(Transaccion t) {
+<span class="fc" id="L16">        heap.add(t);                                    // O(1)</span>
+<span class="fc" id="L17">        Handle handle = new Handle(heap.size() - 1);    // O(1)</span>
+<span class="fc" id="L18">        handles.add(handle);                            // O(1)</span>
+<span class="fc" id="L19">        heapifyArriba(heap.size() - 1);                 // O(log heap.size())</span>
+<span class="fc" id="L20">    }</span>
 
+    // E
     public void eliminar(Handle handle) {
-<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (handle == null || !handle.esValido()) return;</span>
+<span class="fc" id="L24">        int indice = handle.getIndice();</span>
 
-<span class="fc" id="L26">        int indice = handle.getIndice();</span>
-<span class="pc bpc" id="L27" title="2 of 4 branches missed.">        if (indice &lt; 0 || indice &gt;= heap.size()) return;</span>
+<span class="fc" id="L26">        int ultimo = heap.size() - 1;   // busco el ultimo elemento en el Heap (O(1))</span>
+<span class="fc" id="L27">        swap(indice, ultimo);           // Lo intercambio con el que quiero eliminar (O(1))</span>
+<span class="fc" id="L28">        heap.remove(ultimo);            // O(1)</span>
 
-<span class="fc" id="L29">        int ultimo = heap.size() - 1;</span>
-<span class="fc" id="L30">        swap(indice, ultimo);</span>
-<span class="fc" id="L31">        heap.remove(ultimo);</span>
-<span class="fc" id="L32">        handles.remove(ultimo);</span>
-<span class="fc" id="L33">        handle.noEsValido();</span>
-
-<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (indice &lt; heap.size()) {</span>
-<span class="fc" id="L36">            heapifyArriba(indice);</span>
-<span class="fc" id="L37">            heapifyAbajo(indice);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (indice &lt; heap.size()) {</span>
+<span class="fc" id="L31">            heapifyAbajo(indice);       // Reacomodo en el Heap el elemento intercambiado con el que fue eliminado (O(log indice))</span>
         }
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L33">    }</span>
 
-    // Elimino una Tx del heap (despues reordeno el heap para que quede bien armado)
-    public void eliminar(Transaccion t) {
-<span class="nc" id="L43">        int idTx = -1;                      // Tomo un caso borde (uno que nunca cumple lo pedido)</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (int i = 0; i &lt; heap.size(); i++) {</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (heap.get(i).equals(t)) {    // Si la Tx del heap coincide con la pedida</span>
-<span class="nc" id="L46">                idTx = i;                   // Es la que buscaba, la guardo</span>
-            }
-        }
-
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (idTx == -1) return;             // Si no encuentro la Tx que quiero eliminar, no existe</span>
-                                            // -&gt; No elimino nada, termino la funcion
-
-<span class="nc" id="L53">        int ultimo = heap.size() - 1;       // Busco el ultimo elem del heap</span>
-<span class="nc" id="L54">        swap(idTx, ultimo);                 // Y lo coloco en la posicion de idTx (y viceversa) </span>
-<span class="nc" id="L55">        heap.remove(ultimo);                // Luego, elimino la t que buscaba (ahora guardada en la ultima posicion del heap)</span>
-
-<span class="nc" id="L57">        heapifyAbajo(idTx);                 // Reordeno idTx despues de de hacer swap y eliminar la Tx  </span>
-<span class="nc" id="L58">    }</span>
-
-    // Evaluo hijos con padre para ir acomodandolos por &quot;prioridad&quot; en el Heap
+    // Reordeno el Heap con el elemento por su &quot;prioridad&quot; hacia abajo (evaluo hijos con su padre)
     private void heapifyArriba(int i) {
-<span class="fc bfc" id="L62" title="All 2 branches covered.">        while (i &gt; 0) {</span>
-<span class="fc" id="L63">            int padre = (i - 1) / 2;</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (heap.get(i).compareTo(heap.get(padre)) &gt; 0) {</span>
-<span class="fc" id="L65">                swap(i, padre);</span>
-<span class="fc" id="L66">                i = padre;</span>
-<span class="fc" id="L67">            } else {</span>
-<span class="fc" id="L68">                return;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        while (i &gt; 0) {</span>
+<span class="fc" id="L38">            int padre = (i - 1) / 2;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (heap.get(i).compareTo(heap.get(padre)) &gt; 0) {</span>
+<span class="fc" id="L40">                swap(i, padre);</span>
+<span class="fc" id="L41">                i = padre;</span>
+<span class="fc" id="L42">            } else {</span>
+<span class="fc" id="L43">                return;</span>
             }
         }
-<span class="fc" id="L71">    }   </span>
+<span class="fc" id="L46">    }   </span>
 
+    // Reordeno el Heap con el elemento por su &quot;prioridad&quot; hacia abajo (evaluo al padre con sus hijos)
     private void heapifyAbajo(int i) {
-<span class="fc" id="L74">        int izq = 2 * i + 1;</span>
+<span class="fc" id="L50">        int izq = 2 * i + 1;</span>
 
-<span class="fc bfc" id="L76" title="All 2 branches covered.">        while (izq &lt; heap.size()) {</span>
-<span class="fc" id="L77">            int mayor = izq;                    // Asumo que el izq es el mayor de los 2</span>
-<span class="fc" id="L78">            int der = 2 * i + 2;                // Evaluo hijo derecho en c/ iteracion</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        while (izq &lt; heap.size()) {</span>
+<span class="fc" id="L53">            int mayor = izq;                    // Asumo que el izq es el mayor de los 2</span>
+<span class="fc" id="L54">            int der = 2 * i + 2;                // Evaluo hijo derecho en c/ iteracion</span>
 
-<span class="fc bfc" id="L80" title="All 4 branches covered.">            if (der &lt; heap.size() &amp;&amp; heap.get(der).compareTo(heap.get(izq)) &gt; 0) {</span>
-<span class="fc" id="L81">                mayor = der;</span>
+<span class="fc bfc" id="L56" title="All 4 branches covered.">            if (der &lt; heap.size() &amp;&amp; heap.get(der).compareTo(heap.get(izq)) &gt; 0) {</span>
+<span class="fc" id="L57">                mayor = der;</span>
             }
-<span class="fc bfc" id="L83" title="All 2 branches covered.">            if (heap.get(i).compareTo(heap.get(mayor)) &gt;= 0) {</span>
-<span class="fc" id="L84">                return;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (heap.get(i).compareTo(heap.get(mayor)) &gt;= 0) {</span>
+<span class="fc" id="L60">                return;</span>
             }
 
-<span class="fc" id="L87">            swap(i, mayor);</span>
-<span class="fc" id="L88">            i = mayor;</span>
-<span class="fc" id="L89">            izq = 2 * i + 1;</span>
+<span class="fc" id="L63">            swap(i, mayor);</span>
+<span class="fc" id="L64">            i = mayor;</span>
+<span class="fc" id="L65">            izq = 2 * i + 1;</span>
         }
-<span class="fc" id="L91">    }</span>
+<span class="fc" id="L67">    }</span>
 
     // Intercambio elems en el heap para mantenerlo correcto (maxHeap, que no haya elems hijos mayores al padre)
     private void swap(int i, int j) {
-<span class="fc" id="L95">        Transaccion temp = heap.get(i);         // Guardo i en una var temporal </span>
-<span class="fc" id="L96">        heap.set(i, heap.get(j));               // i = j</span>
-<span class="fc" id="L97">        heap.set(j, temp);                      // j = i (temp)</span>
+<span class="fc" id="L71">        Transaccion temp = heap.get(i);         // Guardo i en una var temporal (O(1))</span>
+<span class="fc" id="L72">        heap.set(i, heap.get(j));               // i = j (O(1))</span>
+<span class="fc" id="L73">        heap.set(j, temp);                      // j = i = temp (O(1))</span>
+<span class="fc" id="L74">    }</span>
 
-<span class="fc" id="L99">        Handle handleTemp = handles.get(i);</span>
-<span class="fc" id="L100">        handles.set(i, handles.get(j));</span>
-<span class="fc" id="L101">        handles.set(j, handleTemp);</span>
-
-<span class="pc bpc" id="L103" title="2 of 4 branches missed.">        if (handles.get(i) != null &amp;&amp; handles.get(i).esValido()) {</span>
-<span class="fc" id="L104">            handles.get(i).setIndice(i);</span>
-        }
-<span class="pc bpc" id="L106" title="2 of 4 branches missed.">        if (handles.get(j) != null &amp;&amp; handles.get(j).esValido()) {</span>
-<span class="fc" id="L107">            handles.get(j).setIndice(j);</span>
-        }
-<span class="fc" id="L109">    }</span>
-
-    // Devuelvo el primer elem del heap (mayor monto)
+    // Devuelvo el la primer Tx del heap (mayor monto)
     public Transaccion devolverPrimero() {
-<span class="fc" id="L113">        return heap.get(0);</span>
+<span class="fc" id="L78">        return heap.get(0); // O(1)</span>
     }
 
+    // Devuelve la primer Tx que fue guardada dentro de los Handles
     public Handle devolverPrimerHandle() {
-<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (handles.isEmpty()) return null;</span>
-<span class="fc" id="L118">        return handles.get(0);</span>
+<span class="fc" id="L83">        return handles.get(0);  // O(1)</span>
     }
 
     // Devuelve la cantidad total de elems que hay en el Heap
     public int tamano() {
-<span class="fc" id="L123">        return heap.size();</span>
+<span class="fc" id="L88">        return heap.size(); // O(1)</span>
     }
 
     // Devuelve todos los elems del Heap
     public ArrayList&lt;Transaccion&gt; obtenerElementos() {
-<span class="nc" id="L128">        return new ArrayList&lt;&gt;(heap);</span>
+<span class="nc" id="L93">        return heap;        // Devuelvo todas las Txs ordenadas que tengo en el Heap (O(1))</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

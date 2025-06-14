@@ -2,37 +2,26 @@
 
 public class Handle {
     private int indice;         // Posicion en el Heap
-    private boolean esValido;   // Revisa si el handle es valido
     private Handle handle;      // Referencia a otro Handle
 
-<span class="fc" id="L8">    public Handle(int i) {</span>
-<span class="fc" id="L9">        this.indice = i;</span>
-<span class="fc" id="L10">        this.esValido = true;</span>
-<span class="fc" id="L11">    }</span>
+<span class="fc" id="L7">    public Handle(int i) {</span>
+<span class="fc" id="L8">        this.indice = i;        // indice que me permite acceder al Handle</span>
+<span class="fc" id="L9">    }</span>
 
     public int getIndice() {
-<span class="fc" id="L14">        return indice;</span>
+<span class="fc" id="L12">        return indice;          // Devuelvo el indice del Handle que busco</span>
     }
 
     public void setIndice(int i) {
-<span class="fc" id="L18">        this.indice = i;</span>
-<span class="fc" id="L19">    }</span>
-
-    public boolean esValido() {
-<span class="fc" id="L22">        return esValido;</span>
-    }
-
-    public void noEsValido() {
-<span class="fc" id="L26">        this.esValido = false;</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L16">        this.indice = i;        // Defino el indice del Handle</span>
+<span class="fc" id="L17">    }</span>
 
     public Handle getHandle() {
-<span class="nc" id="L30">        return handle;</span>
+<span class="nc" id="L20">        return handle;          // Devuelvo el handle que busco</span>
     }
 
     public void setHandle(Handle handle) {
-<span class="nc" id="L34">        this.handle = handle;</span>
-<span class="nc" id="L35">    }</span>
-    
+<span class="nc" id="L24">        this.handle = handle;</span>
+<span class="nc" id="L25">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

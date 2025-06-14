@@ -19,7 +19,7 @@ public class Berretacoin {
     }
 
 
-    // Complejidad O(P + n_b) = O(Cantidad de usuarios + Cantidad de Txs en bloque)
+    // Complejidad O(n_b * log P) = O(Cantidad de usuarios + Cantidad de Txs en bloque)
     public void agregarBloque(Transaccion[] transacciones){         
         nodoTx nuevoNodo = new nodoTx(transacciones);           // Creo un nuevo Nodo con las Tx del input (O(1))
         ultimoBloque = nuevoNodo;                               // Actualizo el ultimo Bloque agregado (ahora es el nuevo) (O(1))
@@ -32,39 +32,38 @@ public class Berretacoin {
             if (vendedor != 0) {
                 UsuarioConHandle u = usuarios[vendedor - 1];    // Busco la posicion del vendedor (O(1))
                 u.setMonto(u.getMonto() + monto);               // Sumo el monto al vendedor (O(1))
-                heapUsuarios.actualizarHeap(u);                 // Evaluo si hay un nuevo Usuario con mayor monto (O(1))
+                heapUsuarios.actualizarHeap(u);                 // Actualizo el heap de usuarios (log P)
             }
 
             if (comprador != 0) {
                 UsuarioConHandle u = usuarios[comprador - 1];   // Busco la posicion del comprador (O(1))
                 u.setMonto(u.getMonto() - monto);               // Resto el monto al comprador (O(1))
-                heapUsuarios.actualizarHeap(u);                 // Evaluo si hay un nuevo Usuario con mayor monto (O(1))
+                heapUsuarios.actualizarHeap(u);                 // Actualizo el heap de usuarios (log P)
             }
         }
     }
 
     // Complejidad O(1), devuelvo el primer elemento del Heap
     public Transaccion txMayorValorUltimoBloque(){            
-        return ultimoBloque.obtenerHeap().devolverPrimero();      // Devuelvo el primer elem del heap del ultimo bloque (O(1))
+        return ultimoBloque.obtenerHeap().devolverPrimero();    // Devuelvo el primer elem del heap del ultimo bloque (O(1))
     }
 
-    // Complejidad O(1), obtenerTransacciones() devuelve una copia del array de Txs
+    // Complejidad O(n_b), obtenerTransacciones() devuelve una copia del array de Txs
     public Transaccion[] txUltimoBloque(){
-        return ultimoBloque.obtenerTransacciones();               // Devuelvo las transacciones del ultimo Bloque (en caso que no tenga, devuelve vacío)
+        return ultimoBloque.obtenerTransacciones();             // Devuelvo las transacciones del ultimo Bloque (en caso que no tenga, devuelve vacío)
     }
 
     // Complejidad O(1), devuelvo una variable ya guardada
     public int maximoTenedor(){
-        UsuarioConHandle maxUser = heapUsuarios.obtenerMaximo();  // Devuelvo el ID del usuario con mayor monto (O(1))
-        return maxUser != null ? maxUser.getId() : 0;
+        UsuarioConHandle maxTenedor = heapUsuarios.obtenerMaximo();                         // Devuelvo el ID del usuario con mayor monto (O(1))
+        return maxTenedor != null ? maxTenedor.getId() : 0;
     }
 
     // Complejidad O(1), accedo a valores ya calculados del ultimoBloque
     public int montoMedioUltimoBloque(){
-        // Si ultimoBloque no tiene Tx o no hay mas de 1 Tx (la de creacion) devuelvo 0
-        if (ultimoBloque == null || ultimoBloque.totalTxSinCreacion() <= 0) return 0;
-        return ultimoBloque.montoTotalSinCreacion() / ultimoBloque.totalTxSinCreacion();
-        // Sino, devuelvo los montos / la cantidad de Tx (ambos sin la de creacion)
+        if (ultimoBloque == null || ultimoBloque.totalTxSinCreacion() <= 0) return 0;       // Si ultimoBloque no tiene Tx o no hay mas de 1 Tx (la de creacion) devuelvo 0
+        return ultimoBloque.montoTotalSinCreacion() / ultimoBloque.totalTxSinCreacion();    // Sino, devuelvo los montos / la cantidad de Tx (ambos sin la de creacion)
+        
     }
 
     // Complejidad O(log P * log(n_b)), accedo a modificar el heap tanto de los usuarios como de las Txs

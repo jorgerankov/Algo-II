@@ -32,7 +32,7 @@ public class nodoTx {
                 cantidadSinCreacion++;                  // +1 Tx (sin creacion) (O(1))
             }
         }
-        primerTxHandle = heap.devolverPrimerHandle();   // Devuelvo el primer Handle del heap (O(1))
+        primerTxHandle = heap.devolverPrimerHandle();   // Guardo el primer Handle del heap (O(1))
     }
 
     
@@ -50,6 +50,7 @@ public class nodoTx {
     public int montoTotalSinCreacion() {
         return montoSinCreacion;    // O(1)
     }
+    
     // Devuelvo la cantidad total de Tx en el bloque sin la de Creacion (la primera)
     public int totalTxSinCreacion() {
         return cantidadSinCreacion; // O(1)
@@ -63,11 +64,6 @@ public class nodoTx {
     // Devuelve las Tx
     public Transaccion[] obtenerTransacciones(){
         return transacciones;   // O(1)
-    }
-
-    // Almacena las Tx sin la Tx eliminada en hackearTx
-    public void nuevasTx(Transaccion[] nuevasTx) {
-        this.transacciones = nuevasTx;  // O(1)
     }
 
     public void restarMontoTotal(int m) {
@@ -89,36 +85,31 @@ public class nodoTx {
     public void eliminarPrimero() {
         if (heap.tamano() > 0) {
             Transaccion txAEliminar = heap.devolverPrimero();
-            heap.eliminar(primerTxHandle);                      
             eliminarDeArray(txAEliminar);
+
             primerTxHandle = heap.devolverPrimerHandle();
+            heap.eliminar(primerTxHandle);                      
         }
     }
 
     private void eliminarDeArray(Transaccion t) {
-        if (transacciones == null || t == null) return;
-        int n = transacciones.length;
+        int longitud = transacciones.length;
         int idx = -1;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < longitud; i++) {
             if (transacciones[i].equals(t)) {
                 idx = i;
+                i = longitud;   // Fuerzo a terminar el for porque ya encontré lo que buscaba
             }
         }
 
         if (idx != -1) {
-            Transaccion[] nuevo = new Transaccion[n - 1];
-            for (int i = 0, j = 0; i < n; i++) {
+            Transaccion[] nuevo = new Transaccion[longitud - 1];
+            for (int i = 0, j = 0; i < longitud; i++) {
                 if (i != idx) {
                     nuevo[j++] = transacciones[i];
                 }
             }
             transacciones = nuevo;
         }
-    }
-    
-    // Modularizo para usar una sola funcion que llame a eliminar la Tx requerida de todos lados
-    public void eliminar(Transaccion t) {
-        heap.eliminar(t);
-        eliminarDeArray(t);
     }
 }

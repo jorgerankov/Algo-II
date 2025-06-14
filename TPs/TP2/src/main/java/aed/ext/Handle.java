@@ -2,36 +2,25 @@ package aed.ext;
 
 public class Handle {
     private int indice;         // Posicion en el Heap
-    private boolean esValido;   // Revisa si el handle es valido
     private Handle handle;      // Referencia a otro Handle
 
     public Handle(int i) {
-        this.indice = i;
-        this.esValido = true;
+        this.indice = i;        // indice que me permite acceder al Handle
     }
 
     public int getIndice() {
-        return indice;
+        return indice;          // Devuelvo el indice del Handle que busco
     }
 
     public void setIndice(int i) {
-        this.indice = i;
-    }
-
-    public boolean esValido() {
-        return esValido;
-    }
-
-    public void noEsValido() {
-        this.esValido = false;
+        this.indice = i;        // Defino el indice del Handle
     }
 
     public Handle getHandle() {
-        return handle;
+        return handle;          // Devuelvo el handle que busco
     }
 
     public void setHandle(Handle handle) {
         this.handle = handle;
     }
-    
 }

@@ -8,17 +8,15 @@ public class maxHeapUsuarios {
         heap = new ArrayList<>();
     }
 
-    public Handle insertar(UsuarioConHandle u) {
+    public void insertar(UsuarioConHandle u) {
         heap.add(u);
         Handle handle = new Handle(heap.size() - 1);
         u.setHandle(handle);
         heapifyArriba(heap.size() - 1);
-        return handle;
     }
 
     public void actualizarHeap(UsuarioConHandle u) {
         Handle handle = u.getHandle();
-        if (handle == null || !handle.esValido()) return;
 
         int indice = handle.getIndice();
         if (indice >= 0 && indice < heap.size()) {
@@ -53,16 +51,15 @@ public class maxHeapUsuarios {
 
             if (der < heap.size() && 
                 UsuarioConHandle.maximo(heap.get(der), heap.get(izq)) == heap.get(der)) {
-                    mayor = der;
-            }
-
+                    mayor = der;            // El hijo derecho pasa a ser el nuevo mayor
+            }   
             if (UsuarioConHandle.maximo(heap.get(i), heap.get(mayor)) == heap.get(i)) {
                 return;
             }
 
             swap(i, mayor);
             i = mayor;
-            izq = 2 * i + 1;
+            izq = 2 * i + 1;            // Actualizo el hijo izq para que pase a ser el nuevo mayor
         }
     }
 
@@ -73,11 +70,7 @@ public class maxHeapUsuarios {
         heap.set(i, userJ);
         heap.set(j, userI);
 
-        if (userI.getHandle() != null && userI.getHandle().esValido()) {
-            userI.getHandle().setIndice(j);
-        }
-        if (userJ.getHandle() != null && userJ.getHandle().esValido()) {
-            userJ.getHandle().setIndice(i);
-        }
+        userI.getHandle().setIndice(j);
+        userJ.getHandle().setIndice(i);
     }
 }

@@ -12,52 +12,27 @@ public class maxHeapTxConHandles {
         handles = new ArrayList<>();
     }
 
-    public Handle insertar(Transaccion t) {
+    void insertar(Transaccion t) {
         heap.add(t);                                    // O(1)
         Handle handle = new Handle(heap.size() - 1);    // O(1)
         handles.add(handle);                            // O(1)
         heapifyArriba(heap.size() - 1);                 // O(log heap.size())
-        return handle;                                  // O(1)
     }
 
+    // E
     public void eliminar(Handle handle) {
-        if (handle == null || !handle.esValido()) return;   // O(1)
-
         int indice = handle.getIndice();
-        if (indice < 0 || indice >= heap.size()) return;    // O(1)
 
-        int ultimo = heap.size() - 1;   // O(1)
-        swap(indice, ultimo);           // O(1)
+        int ultimo = heap.size() - 1;   // busco el ultimo elemento en el Heap (O(1))
+        swap(indice, ultimo);           // Lo intercambio con el que quiero eliminar (O(1))
         heap.remove(ultimo);            // O(1)
-        handles.remove(ultimo);         // O(1)
-        handle.noEsValido();            // O(1)
 
         if (indice < heap.size()) {
-            heapifyArriba(indice);      // O(log indice)
-            heapifyAbajo(indice);       // O(log indice)
+            heapifyAbajo(indice);       // Reacomodo en el Heap el elemento intercambiado con el que fue eliminado (O(log indice))
         }
     }
 
-    // Elimino una Tx del heap (despues reordeno el heap para que quede bien armado)
-    public void eliminar(Transaccion t) {
-        int idTx = -1;                      // Tomo un caso borde (uno que nunca cumple lo pedido)
-        for (int i = 0; i < heap.size(); i++) {
-            if (heap.get(i).equals(t)) {    // Si la Tx del heap coincide con la pedida
-                idTx = i;                   // Es la que buscaba, la guardo
-            }
-        }
-
-        if (idTx == -1) return;             // Si no encuentro la Tx que quiero eliminar, no existe
-                                            // -> No elimino nada, termino la funcion
-
-        int ultimo = heap.size() - 1;       // Busco el ultimo elem del heap
-        swap(idTx, ultimo);                 // Y lo coloco en la posicion de idTx (y viceversa) 
-        heap.remove(ultimo);                // Luego, elimino la t que buscaba (ahora guardada en la ultima posicion del heap)
-
-        heapifyAbajo(idTx);                 // Reordeno idTx despues de de hacer swap y eliminar la Tx  
-    }
-
-    // Evaluo hijos con padre para ir acomodandolos por "prioridad" en el Heap
+    // Reordeno el Heap con el elemento por su "prioridad" hacia abajo (evaluo hijos con su padre)
     private void heapifyArriba(int i) {
         while (i > 0) {
             int padre = (i - 1) / 2;
@@ -70,6 +45,7 @@ public class maxHeapTxConHandles {
         }
     }   
 
+    // Reordeno el Heap con el elemento por su "prioridad" hacia abajo (evaluo al padre con sus hijos)
     private void heapifyAbajo(int i) {
         int izq = 2 * i + 1;
 
@@ -94,27 +70,16 @@ public class maxHeapTxConHandles {
     private void swap(int i, int j) {
         Transaccion temp = heap.get(i);         // Guardo i en una var temporal (O(1))
         heap.set(i, heap.get(j));               // i = j (O(1))
-        heap.set(j, temp);                      // j = i (temp) (O(1))
-
-        Handle handleTemp = handles.get(i);
-        handles.set(i, handles.get(j));         // O(1)
-        handles.set(j, handleTemp);             // O(1)
-
-        if (handles.get(i) != null && handles.get(i).esValido()) {
-            handles.get(i).setIndice(i);        // O(1)
-        }
-        if (handles.get(j) != null && handles.get(j).esValido()) {
-            handles.get(j).setIndice(j);        // O(1)
-        }
+        heap.set(j, temp);                      // j = i = temp (O(1))
     }
 
-    // Devuelvo el primer elem del heap (mayor monto)
+    // Devuelvo el la primer Tx del heap (mayor monto)
     public Transaccion devolverPrimero() {
         return heap.get(0); // O(1)
     }
 
+    // Devuelve la primer Tx que fue guardada dentro de los Handles
     public Handle devolverPrimerHandle() {
-        if (handles.isEmpty()) return null; // O(1)
         return handles.get(0);  // O(1)
     }
 
@@ -125,6 +90,6 @@ public class maxHeapTxConHandles {
 
     // Devuelve todos los elems del Heap
     public ArrayList<Transaccion> obtenerElementos() {
-        return new ArrayList<>(heap);   // O(1)
+        return heap;        // Devuelvo todas las Txs ordenadas que tengo en el Heap (O(1))
     }
 }

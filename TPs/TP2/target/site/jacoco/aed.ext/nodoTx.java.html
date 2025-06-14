@@ -9,117 +9,108 @@ public class nodoTx {
     maxHeapTxConHandles heap;
     int montoTotal;
     int cantidadTx;
-
     int montoSinCreacion;
     int cantidadSinCreacion;
 
-<span class="fc" id="L16">    public nodoTx(Transaccion[] transacciones) {</span>
+<span class="fc" id="L15">    public nodoTx(Transaccion[] transacciones) {</span>
         
-<span class="fc" id="L18">        this.transacciones = transacciones;</span>
+<span class="fc" id="L17">        this.transacciones = transacciones;</span>
 
-<span class="fc" id="L20">        heap = new maxHeapTxConHandles();</span>
-<span class="fc" id="L21">        montoTotal = 0;</span>
-<span class="fc" id="L22">        cantidadTx = 0;</span>
-<span class="fc" id="L23">        montoSinCreacion = 0;</span>
-<span class="fc" id="L24">        cantidadSinCreacion = 0;</span>
+<span class="fc" id="L19">        heap = new maxHeapTxConHandles();</span>
+<span class="fc" id="L20">        montoTotal = 0;</span>
+<span class="fc" id="L21">        cantidadTx = 0;</span>
+<span class="fc" id="L22">        montoSinCreacion = 0;</span>
+<span class="fc" id="L23">        cantidadSinCreacion = 0;</span>
         
-<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (Transaccion t : transacciones) {           // Veo cada Tx (O(n_b))</span>
-<span class="fc" id="L27">            heap.insertar(t);                           // Inserto uno a uno en el Heap (O(1))</span>
-<span class="fc" id="L28">            montoTotal += t.monto();                    // Sumo los montos al monto total (O(1))</span>
-<span class="fc" id="L29">            cantidadTx++;                               // Sumo 1 a la cantidad total de Tx (O(1))</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        for (Transaccion t : transacciones) {           // Veo cada Tx (O(n_b))</span>
+<span class="fc" id="L26">            heap.insertar(t);                           // Inserto uno a uno en el Heap (O(1))</span>
+<span class="fc" id="L27">            montoTotal += t.monto();                    // Sumo los montos al monto total (O(1))</span>
+<span class="fc" id="L28">            cantidadTx++;                               // Sumo 1 a la cantidad total de Tx (O(1))</span>
 
-<span class="fc bfc" id="L31" title="All 2 branches covered.">            if (t.id_comprador() != 0) {                // Si el ID del comprador no es el de creacion</span>
-<span class="fc" id="L32">                montoSinCreacion += t.monto();          // Sumo monto al total (sin creacion) (O(1))</span>
-<span class="fc" id="L33">                cantidadSinCreacion++;                  // +1 Tx (sin creacion) (O(1))</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">            if (t.id_comprador() != 0) {                // Si el ID del comprador no es el de creacion</span>
+<span class="fc" id="L31">                montoSinCreacion += t.monto();          // Sumo monto al total (sin creacion) (O(1))</span>
+<span class="fc" id="L32">                cantidadSinCreacion++;                  // +1 Tx (sin creacion) (O(1))</span>
             }
         }
-<span class="fc" id="L36">        primerTxHandle = heap.devolverPrimerHandle();   // Devuelvo el primer Handle del heap (O(1))</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L35">        primerTxHandle = heap.devolverPrimerHandle();   // Guardo el primer Handle del heap (O(1))</span>
+<span class="fc" id="L36">    }</span>
 
     
     // Devuelvo el monto total de todas las Tx
     public int montoTotal() {
-<span class="nc" id="L42">        return montoTotal;</span>
+<span class="nc" id="L41">        return montoTotal;  // O(1)</span>
     }
 
     // Devuelvo la cantidad total de Tx en el bloque
     public int totalTx() {
-<span class="nc" id="L47">        return cantidadTx;</span>
+<span class="nc" id="L46">        return cantidadTx;  // O(1)</span>
     }
 
     // Devuelvo el monto total de todas las Tx sin la de Creacion (la primera)
     public int montoTotalSinCreacion() {
-<span class="fc" id="L52">        return montoSinCreacion;</span>
+<span class="fc" id="L51">        return montoSinCreacion;    // O(1)</span>
     }
+    
     // Devuelvo la cantidad total de Tx en el bloque sin la de Creacion (la primera)
     public int totalTxSinCreacion() {
-<span class="fc" id="L56">        return cantidadSinCreacion;</span>
+<span class="fc" id="L56">        return cantidadSinCreacion; // O(1)</span>
     }
     
     // Devuelve el Heap de las Tx
     public maxHeapTxConHandles obtenerHeap() {
-<span class="fc" id="L61">        return heap;</span>
+<span class="fc" id="L61">        return heap;    // O(1)</span>
     }
 
     // Devuelve las Tx
     public Transaccion[] obtenerTransacciones(){
-<span class="fc" id="L66">        return transacciones;</span>
+<span class="fc" id="L66">        return transacciones;   // O(1)</span>
     }
 
-    // Almacena las Tx sin la Tx eliminada en hackearTx
-    public void nuevasTx(Transaccion[] nuevasTx) {
-<span class="nc" id="L71">        this.transacciones = nuevasTx;</span>
-<span class="nc" id="L72">    }</span>
-
     public void restarMontoTotal(int m) {
-<span class="fc" id="L75">        montoTotal -= m;</span>
-<span class="fc" id="L76">    }</span>
+<span class="fc" id="L70">        montoTotal -= m;    // O(1)</span>
+<span class="fc" id="L71">    }</span>
 
     public void restarMontoTotalSinCreacion(int m) {
-<span class="fc" id="L79">        montoSinCreacion -= m;</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L74">        montoSinCreacion -= m;  // O(1)</span>
+<span class="fc" id="L75">    }</span>
 
     public void restarCantidadTx() {
-<span class="fc" id="L83">        cantidadTx-- ;</span>
-<span class="fc" id="L84">    }</span>
+<span class="fc" id="L78">        cantidadTx-- ;  // O(1)</span>
+<span class="fc" id="L79">    }</span>
 
     public void restarCantidadTxSinCreacion() {
-<span class="fc" id="L87">        cantidadSinCreacion--;</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L82">        cantidadSinCreacion--; // O(1)</span>
+<span class="fc" id="L83">    }</span>
 
     public void eliminarPrimero() {
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        if (heap.tamano() &gt; 0) {</span>
-<span class="fc" id="L92">            Transaccion txAEliminar = heap.devolverPrimero();   // O(1)</span>
-<span class="fc" id="L93">            heap.eliminar(primerTxHandle);                      </span>
-<span class="fc" id="L94">            eliminarDeArray(txAEliminar);</span>
-<span class="fc" id="L95">            primerTxHandle = heap.devolverPrimerHandle();</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (heap.tamano() &gt; 0) {</span>
+<span class="fc" id="L87">            Transaccion txAEliminar = heap.devolverPrimero();</span>
+<span class="fc" id="L88">            eliminarDeArray(txAEliminar);</span>
+
+<span class="fc" id="L90">            primerTxHandle = heap.devolverPrimerHandle();</span>
+<span class="fc" id="L91">            heap.eliminar(primerTxHandle);                      </span>
         }
-<span class="fc" id="L97">    }</span>
+<span class="fc" id="L93">    }</span>
 
     private void eliminarDeArray(Transaccion t) {
-<span class="pc bpc" id="L100" title="2 of 4 branches missed.">        if (transacciones == null || t == null) return;</span>
-<span class="fc" id="L101">        int n = transacciones.length;</span>
-<span class="fc" id="L102">        int idx = -1;</span>
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
-<span class="fc bfc" id="L104" title="All 2 branches covered.">            if (transacciones[i].equals(t)) {</span>
-<span class="fc" id="L105">                idx = i;</span>
+<span class="fc" id="L96">        int longitud = transacciones.length;</span>
+<span class="fc" id="L97">        int idx = -1;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        for (int i = 0; i &lt; longitud; i++) {</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            if (transacciones[i].equals(t)) {</span>
+<span class="fc" id="L100">                idx = i;</span>
+<span class="fc" id="L101">                i = longitud;   // Fuerzo a terminar el for porque ya encontré lo que buscaba</span>
             }
         }
 
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if (idx != -1) {</span>
-<span class="fc" id="L110">            Transaccion[] nuevo = new Transaccion[n - 1];</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">            for (int i = 0, j = 0; i &lt; n; i++) {</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">                if (i != idx) {</span>
-<span class="fc" id="L113">                    nuevo[j++] = transacciones[i];</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (idx != -1) {</span>
+<span class="fc" id="L106">            Transaccion[] nuevo = new Transaccion[longitud - 1];</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">            for (int i = 0, j = 0; i &lt; longitud; i++) {</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">                if (i != idx) {</span>
+<span class="fc" id="L109">                    nuevo[j++] = transacciones[i];</span>
                 }
             }
-<span class="fc" id="L116">            transacciones = nuevo;</span>
+<span class="fc" id="L112">            transacciones = nuevo;</span>
         }
-<span class="fc" id="L118">    }</span>
-    
-    public void eliminar(Transaccion t) {
-<span class="nc" id="L121">        heap.eliminar(t);</span>
-<span class="nc" id="L122">        eliminarDeArray(t);</span>
-<span class="nc" id="L123">    }</span>
+<span class="fc" id="L114">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
