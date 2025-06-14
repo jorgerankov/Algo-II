@@ -39,10 +39,10 @@ public class maxHeapTxConHandles {
 <span class="fc bfc" id="L39" title="All 2 branches covered.">            if (heap.get(i).compareTo(heap.get(padre)) &gt; 0) {</span>
 <span class="fc" id="L40">                swap(i, padre);</span>
 <span class="fc" id="L41">                i = padre;</span>
-<span class="fc" id="L42">            } else {</span>
+            } else {
 <span class="fc" id="L43">                return;</span>
             }
-        }
+<span class="fc" id="L45">        }</span>
 <span class="fc" id="L46">    }   </span>
 
     // Reordeno el Heap con el elemento por su &quot;prioridad&quot; hacia abajo (evaluo al padre con sus hijos)
@@ -63,7 +63,7 @@ public class maxHeapTxConHandles {
 <span class="fc" id="L63">            swap(i, mayor);</span>
 <span class="fc" id="L64">            i = mayor;</span>
 <span class="fc" id="L65">            izq = 2 * i + 1;</span>
-        }
+<span class="fc" id="L66">        }</span>
 <span class="fc" id="L67">    }</span>
 
     // Intercambio elems en el heap para mantenerlo correcto (maxHeap, que no haya elems hijos mayores al padre)

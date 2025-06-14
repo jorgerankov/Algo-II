@@ -66,7 +66,7 @@ public class Berretacoin {
         
     }
 
-    // Complejidad O(log P * log(n_b)), accedo a modificar el heap tanto de los usuarios como de las Txs
+    // Complejidad O(log(n_b) + log P), accedo a modificar el heap tanto de los usuarios como el de las Txs
     public void hackearTx() {         
 <span class="fc" id="L71">        Transaccion bloqueHackeado = ultimoBloque.obtenerHeap().devolverPrimero();</span>
 
@@ -91,7 +91,7 @@ public class Berretacoin {
 <span class="fc bfc" id="L91" title="All 2 branches covered.">        if (bloqueHackeado.id_comprador() == 0) {</span>
 <span class="fc" id="L92">            ultimoBloque.restarMontoTotal(bloqueHackeado.monto());              // Resto el monto hackeado del total (O(1))</span>
 <span class="fc" id="L93">            ultimoBloque.restarCantidadTx();                                    // Resto en 1 la cantidad de Txs totales que hay (O(1))</span>
-<span class="fc" id="L94">        } else {</span>
+        } else {
 <span class="fc" id="L95">            ultimoBloque.restarMontoTotalSinCreacion(bloqueHackeado.monto());   // Resto el monto hackeado del total sin Creacion (O(1))</span>
 <span class="fc" id="L96">            ultimoBloque.restarCantidadTxSinCreacion();                         // Resto en 1 la cantidad de Txs totales que hay sin Creacion (O(1))</span>
         }

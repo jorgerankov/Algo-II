@@ -36,10 +36,10 @@ public class maxHeapUsuarios {
 <span class="fc bfc" id="L36" title="All 2 branches covered.">            if (UsuarioConHandle.maximo(heap.get(i), heap.get(padre)) == heap.get(i)) {</span>
 <span class="fc" id="L37">                swap(i, padre);</span>
 <span class="fc" id="L38">                i = padre;</span>
-<span class="fc" id="L39">            } else {</span>
+            } else {
 <span class="fc" id="L40">                return;</span>
             }
-        }
+<span class="fc" id="L42">        }</span>
 <span class="fc" id="L43">    }</span>
 
     private void heapifyAbajo(int i) {
@@ -60,7 +60,7 @@ public class maxHeapUsuarios {
 <span class="fc" id="L60">            swap(i, mayor);</span>
 <span class="fc" id="L61">            i = mayor;</span>
 <span class="fc" id="L62">            izq = 2 * i + 1;            // Actualizo el hijo izq para que pase a ser el nuevo mayor</span>
-        }
+<span class="fc" id="L63">        }</span>
 <span class="fc" id="L64">    }</span>
 
     private void swap (int i, int j) {
