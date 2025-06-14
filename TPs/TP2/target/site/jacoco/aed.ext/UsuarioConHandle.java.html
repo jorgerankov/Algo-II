@@ -26,27 +26,29 @@ public class UsuarioConHandle {
 <span class="fc" id="L26">        this.monto = monto;             </span>
 <span class="fc" id="L27">    }</span>
 
+    // Defino el handle para el usuario creado
     public void setHandle(Handle handle) {
-<span class="fc" id="L30">        this.handle = handle;</span>
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L31">        this.handle = handle;</span>
+<span class="fc" id="L32">    }</span>
 
+    // Devuelvo el handle del usuario que estoy buscando
     public Handle getHandle() {
-<span class="fc" id="L34">        return handle;</span>
+<span class="fc" id="L36">        return handle;</span>
     }
 
     // Busco el maximo tenedor de montos entre 2 usuarios
     public static UsuarioConHandle maximo(UsuarioConHandle a, UsuarioConHandle b) {
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (a == null) return b;            // Si no existe a, devuelvo b</span>
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (b == null) return a;            // y viceversa</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (a == null) return b;            // Si no existe a, devuelvo b</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (b == null) return a;            // y viceversa</span>
 
-<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (a.getMonto() &gt; b.getMonto()) {  // Si a tiene mas monto que b</span>
-<span class="fc" id="L43">            return a;                       // devuelvo a </span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        } else if (b.getMonto() &gt; a.getMonto()) {</span>
-<span class="fc" id="L45">            return b;                       // y viceversa</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        } else if (a.getId() &lt; b.getId()){  // Pero si tienen = monto, evaluo el menor ID</span>
-<span class="fc" id="L47">            return a;                       // Y devuelvo al usuario con el menor ID</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (a.getMonto() &gt; b.getMonto()) {  // Si a tiene mas monto que b</span>
+<span class="fc" id="L45">            return a;                       // devuelvo a </span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        } else if (b.getMonto() &gt; a.getMonto()) {</span>
+<span class="fc" id="L47">            return b;                       // y viceversa</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        } else if (a.getId() &lt; b.getId()){  // Pero si tienen = monto, evaluo el menor ID</span>
+<span class="fc" id="L49">            return a;                       // Y devuelvo al usuario con el menor ID</span>
         } else {
-<span class="fc" id="L49">            return b;</span>
+<span class="fc" id="L51">            return b;</span>
         }
     }
 }

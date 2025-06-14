@@ -21,7 +21,7 @@ public class maxHeapTxConHandles {
     }
 
     public void eliminar(Handle handle) {
-<span class="pc bpc" id="L24" title="2 of 4 branches missed.">        if (handle == null || !handle.esValido()) return;</span>
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (handle == null || !handle.esValido()) return;</span>
 
 <span class="fc" id="L26">        int indice = handle.getIndice();</span>
 <span class="pc bpc" id="L27" title="2 of 4 branches missed.">        if (indice &lt; 0 || indice &gt;= heap.size()) return;</span>
@@ -64,10 +64,10 @@ public class maxHeapTxConHandles {
 <span class="fc bfc" id="L64" title="All 2 branches covered.">            if (heap.get(i).compareTo(heap.get(padre)) &gt; 0) {</span>
 <span class="fc" id="L65">                swap(i, padre);</span>
 <span class="fc" id="L66">                i = padre;</span>
-            } else {
+<span class="fc" id="L67">            } else {</span>
 <span class="fc" id="L68">                return;</span>
             }
-<span class="fc" id="L70">        }</span>
+        }
 <span class="fc" id="L71">    }   </span>
 
     private void heapifyAbajo(int i) {
@@ -87,7 +87,7 @@ public class maxHeapTxConHandles {
 <span class="fc" id="L87">            swap(i, mayor);</span>
 <span class="fc" id="L88">            i = mayor;</span>
 <span class="fc" id="L89">            izq = 2 * i + 1;</span>
-<span class="fc" id="L90">        }</span>
+        }
 <span class="fc" id="L91">    }</span>
 
     // Intercambio elems en el heap para mantenerlo correcto (maxHeap, que no haya elems hijos mayores al padre)

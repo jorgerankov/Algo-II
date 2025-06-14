@@ -13,28 +13,28 @@ public class maxHeapTxConHandles {
     }
 
     public Handle insertar(Transaccion t) {
-        heap.add(t);
-        Handle handle = new Handle(heap.size() - 1);
-        handles.add(handle);
-        heapifyArriba(heap.size() - 1);
-        return handle;
+        heap.add(t);                                    // O(1)
+        Handle handle = new Handle(heap.size() - 1);    // O(1)
+        handles.add(handle);                            // O(1)
+        heapifyArriba(heap.size() - 1);                 // O(log heap.size())
+        return handle;                                  // O(1)
     }
 
     public void eliminar(Handle handle) {
-        if (handle == null || !handle.esValido()) return;
+        if (handle == null || !handle.esValido()) return;   // O(1)
 
         int indice = handle.getIndice();
-        if (indice < 0 || indice >= heap.size()) return;
+        if (indice < 0 || indice >= heap.size()) return;    // O(1)
 
-        int ultimo = heap.size() - 1;
-        swap(indice, ultimo);
-        heap.remove(ultimo);
-        handles.remove(ultimo);
-        handle.noEsValido();
+        int ultimo = heap.size() - 1;   // O(1)
+        swap(indice, ultimo);           // O(1)
+        heap.remove(ultimo);            // O(1)
+        handles.remove(ultimo);         // O(1)
+        handle.noEsValido();            // O(1)
 
         if (indice < heap.size()) {
-            heapifyArriba(indice);
-            heapifyAbajo(indice);
+            heapifyArriba(indice);      // O(log indice)
+            heapifyAbajo(indice);       // O(log indice)
         }
     }
 
@@ -92,39 +92,39 @@ public class maxHeapTxConHandles {
 
     // Intercambio elems en el heap para mantenerlo correcto (maxHeap, que no haya elems hijos mayores al padre)
     private void swap(int i, int j) {
-        Transaccion temp = heap.get(i);         // Guardo i en una var temporal 
-        heap.set(i, heap.get(j));               // i = j
-        heap.set(j, temp);                      // j = i (temp)
+        Transaccion temp = heap.get(i);         // Guardo i en una var temporal (O(1))
+        heap.set(i, heap.get(j));               // i = j (O(1))
+        heap.set(j, temp);                      // j = i (temp) (O(1))
 
         Handle handleTemp = handles.get(i);
-        handles.set(i, handles.get(j));
-        handles.set(j, handleTemp);
+        handles.set(i, handles.get(j));         // O(1)
+        handles.set(j, handleTemp);             // O(1)
 
         if (handles.get(i) != null && handles.get(i).esValido()) {
-            handles.get(i).setIndice(i);
+            handles.get(i).setIndice(i);        // O(1)
         }
         if (handles.get(j) != null && handles.get(j).esValido()) {
-            handles.get(j).setIndice(j);
+            handles.get(j).setIndice(j);        // O(1)
         }
     }
 
     // Devuelvo el primer elem del heap (mayor monto)
     public Transaccion devolverPrimero() {
-        return heap.get(0);
+        return heap.get(0); // O(1)
     }
 
     public Handle devolverPrimerHandle() {
-        if (handles.isEmpty()) return null;
-        return handles.get(0);
+        if (handles.isEmpty()) return null; // O(1)
+        return handles.get(0);  // O(1)
     }
 
     // Devuelve la cantidad total de elems que hay en el Heap
     public int tamano() {
-        return heap.size();
+        return heap.size(); // O(1)
     }
 
     // Devuelve todos los elems del Heap
     public ArrayList<Transaccion> obtenerElementos() {
-        return new ArrayList<>(heap);
+        return new ArrayList<>(heap);   // O(1)
     }
 }
