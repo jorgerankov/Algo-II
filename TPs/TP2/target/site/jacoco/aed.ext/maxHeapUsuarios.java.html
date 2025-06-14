@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>maxHeapUsuarios.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed.ext</a> &gt; <span class="el_source">maxHeapUsuarios.java</span></div><h1>maxHeapUsuarios.java</h1><pre class="source lang-java linenums">package aed.ext;
+import java.util.ArrayList;
+
+public class maxHeapUsuarios {
+    private ArrayList&lt;UsuarioConHandle&gt; heap;
+
+<span class="fc" id="L7">    public maxHeapUsuarios() {</span>
+<span class="fc" id="L8">        heap = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L9">    }</span>
+
+    public Handle insertar(UsuarioConHandle u) {
+<span class="fc" id="L12">        heap.add(u);</span>
+<span class="fc" id="L13">        Handle handle = new Handle(heap.size() - 1);</span>
+<span class="fc" id="L14">        u.setHandle(handle);</span>
+<span class="fc" id="L15">        heapifyArriba(heap.size() - 1);</span>
+<span class="fc" id="L16">        return handle;</span>
+    }
+
+    public void actualizarHeap(UsuarioConHandle u) {
+<span class="fc" id="L20">        Handle handle = u.getHandle();</span>
+<span class="pc bpc" id="L21" title="2 of 4 branches missed.">        if (handle == null || !handle.esValido()) return;</span>
+
+<span class="fc" id="L23">        int indice = handle.getIndice();</span>
+<span class="pc bpc" id="L24" title="2 of 4 branches missed.">        if (indice &gt;= 0 &amp;&amp; indice &lt; heap.size()) {</span>
+<span class="fc" id="L25">            heapifyArriba(indice);</span>
+<span class="fc" id="L26">            heapifyAbajo(indice);</span>
+        }
+<span class="fc" id="L28">    }</span>
+
+    public UsuarioConHandle obtenerMaximo() {
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (heap.isEmpty()) return null;</span>
+<span class="fc" id="L32">        return heap.get(0);</span>
+    }
+
+    private void heapifyArriba(int i) {
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        while (i &gt; 0) {</span>
+<span class="fc" id="L37">            int padre = (i - 1) / 2;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            if (UsuarioConHandle.maximo(heap.get(i), heap.get(padre)) == heap.get(i)) {</span>
+<span class="fc" id="L39">                swap(i, padre);</span>
+<span class="fc" id="L40">                i = padre;</span>
+            } else {
+<span class="fc" id="L42">                return;</span>
+            }
+<span class="fc" id="L44">        }</span>
+<span class="fc" id="L45">    }</span>
+
+    private void heapifyAbajo(int i) {
+<span class="fc" id="L48">        int izq = 2 * i + 1;</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        while (izq &lt; heap.size()) {</span>
+<span class="fc" id="L51">            int mayor = izq;</span>
+<span class="fc" id="L52">            int der = 2 * i + 2;            // Evaluo hijo derecho en c/ iteracion</span>
+
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            if (der &lt; heap.size() &amp;&amp; </span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">                UsuarioConHandle.maximo(heap.get(der), heap.get(izq)) == heap.get(der)) {</span>
+<span class="fc" id="L56">                    mayor = der;</span>
+            }
+
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (UsuarioConHandle.maximo(heap.get(i), heap.get(mayor)) == heap.get(i)) {</span>
+<span class="fc" id="L60">                return;</span>
+            }
+
+<span class="fc" id="L63">            swap(i, mayor);</span>
+<span class="fc" id="L64">            i = mayor;</span>
+<span class="fc" id="L65">            izq = 2 * i + 1;</span>
+<span class="fc" id="L66">        }</span>
+<span class="fc" id="L67">    }</span>
+
+    private void swap (int i, int j) {
+<span class="fc" id="L70">        UsuarioConHandle userI = heap.get(i);</span>
+<span class="fc" id="L71">        UsuarioConHandle userJ = heap.get(j);</span>
+
+<span class="fc" id="L73">        heap.set(i, userJ);</span>
+<span class="fc" id="L74">        heap.set(j, userI);</span>
+
+<span class="pc bpc" id="L76" title="2 of 4 branches missed.">        if (userI.getHandle() != null &amp;&amp; userI.getHandle().esValido()) {</span>
+<span class="fc" id="L77">            userI.getHandle().setIndice(j);</span>
+        }
+<span class="pc bpc" id="L79" title="2 of 4 branches missed.">        if (userJ.getHandle() != null &amp;&amp; userJ.getHandle().esValido()) {</span>
+<span class="fc" id="L80">            userJ.getHandle().setIndice(i);</span>
+        }
+<span class="fc" id="L82">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

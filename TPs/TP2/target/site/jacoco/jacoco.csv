@@ -1,6 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-tp2,aed,Transaccion,3,68,3,7,1,17,4,8,1,6
-tp2,aed,Berretacoin,0,242,3,17,0,52,3,16,0,9
-tp2,aed.ext,maxHeapTx,8,188,1,17,2,41,3,15,2,7
-tp2,aed.ext,nodoTx,11,174,3,15,4,40,6,16,3,10
-tp2,aed.ext,Usuario,4,46,2,8,0,17,2,8,0,5
+tp2,aed,Transaccion,3,68,3,7,1,14,4,8,1,6
+tp2,aed,Berretacoin,6,235,7,19,2,50,7,13,0,7
+tp2,aed.ext,maxHeapTxConHandles,52,290,14,24,11,57,13,17,2,9
+tp2,aed.ext,maxHeapUsuarios,3,223,9,21,0,48,9,13,0,7
+tp2,aed.ext,UsuarioConHandle,4,56,2,8,0,21,2,10,0,7
+tp2,aed.ext,nodoTx,19,199,4,16,7,47,8,17,4,11
+tp2,aed.ext,Handle,7,23,0,0,3,10,2,5,2,5

@@ -4,8 +4,9 @@ import aed.Transaccion;
 public class nodoTx {
 
     private Transaccion[] transacciones;
+    private Handle primerTxHandle;
 
-    maxHeapTx heap;
+    maxHeapTxConHandles heap;
     int montoTotal;
     int cantidadTx;
 
@@ -16,7 +17,7 @@ public class nodoTx {
         
         this.transacciones = transacciones;
 
-        heap = new maxHeapTx();
+        heap = new maxHeapTxConHandles();
         montoTotal = 0;
         cantidadTx = 0;
         montoSinCreacion = 0;
@@ -32,6 +33,8 @@ public class nodoTx {
                 cantidadSinCreacion++;                  // +1 Tx (sin creacion)
             }
         }
+
+        primerTxHandle = heap.devolverPrimerHandle();
     }
 
     
@@ -55,7 +58,7 @@ public class nodoTx {
     }
     
     // Devuelve el Heap de las Tx
-    public maxHeapTx obtenerHeap() {
+    public maxHeapTxConHandles obtenerHeap() {
         return heap;
     }
 
@@ -85,24 +88,38 @@ public class nodoTx {
         cantidadSinCreacion--;
     }
 
-    public void eliminar(Transaccion tx) {
-        if (transacciones == null) return;                                  // Si no hay Txs, no devuelvo nada
-        int n = transacciones.length;                                       // n = total de Txs
-        int idx = -1;                                                       // Tomo caso borde 
+    public void eliminarPrimero() {
+        if (heap.tamano() > 0) {
+            Transaccion txAEliminar = heap.devolverPrimero();
+            heap.eliminar(primerTxHandle);
+            eliminarDeArray(txAEliminar);
+            primerTxHandle = heap.devolverPrimerHandle();
+        }
+    }
+
+    private void eliminarDeArray(Transaccion t) {
+        if (transacciones == null || t == null) return;
+        int n = transacciones.length;
+        int idx = -1;
         for (int i = 0; i < n; i++) {
-            if (transacciones[i] != null && transacciones[i].equals(tx)) {  // Si la Tx del array es igual a la q quiero eliminar
-                idx = i;                                                    // Me guardo el caso
+            if (transacciones[i].equals(t)) {
+                idx = i;
             }
         }
 
-        if (idx != -1) {                                                    // Si encontré la Tx que buscaba eliminar
-            Transaccion[] nuevo = new Transaccion[n - 1];                   // Creo una lista de Tx con longitud Txs originales menos la eliminada
-            for (int i = 0, j = 0; i < n; i++) {                            // 
+        if (idx != -1) {
+            Transaccion[] nuevo = new Transaccion[n - 1];
+            for (int i = 0, j = 0; i < n; i++) {
                 if (i != idx) {
                     nuevo[j++] = transacciones[i];
                 }
             }
             transacciones = nuevo;
         }
+    }
+    
+    public void eliminar(Transaccion t) {
+        heap.eliminar(t);
+        eliminarDeArray(t);
     }
 }
