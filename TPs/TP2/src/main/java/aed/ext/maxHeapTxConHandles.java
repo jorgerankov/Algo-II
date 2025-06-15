@@ -1,6 +1,7 @@
 package aed.ext;
-import aed.Transaccion;
 import java.util.ArrayList;
+
+import aed.Transaccion;
 
 public class maxHeapTxConHandles {
     private ArrayList<Transaccion> heap;
@@ -19,7 +20,7 @@ public class maxHeapTxConHandles {
         heapifyArriba(heap.size() - 1);                 // O(log heap.size())
     }
 
-    // E
+    // Elimino el elemento que quiero hackear
     public void eliminar(Handle handle) {
         int indice = handle.getIndice();
 

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>berretaCoinTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp2</a> &gt; <a href="index.source.html" class="el_package">aed.ext</a> &gt; <span class="el_source">berretaCoinTests.java</span></div><h1>berretaCoinTests.java</h1><pre class="source lang-java linenums">package aed.ext;
+import aed.Berretacoin;
+import aed.Transaccion;
+
+<span class="nc" id="L5">public class berretaCoinTests {</span>
+    public static void main(String[] args) {
+<span class="nc" id="L7">        testsBase();</span>
+<span class="nc" id="L8">        testConHackeo();</span>
+<span class="nc" id="L9">        testsSaldos();</span>
+<span class="nc" id="L10">        testsCasosEspeciales();</span>
+<span class="nc" id="L11">    }</span>
+
+    public static void testsBase() {
+<span class="nc" id="L14">        inicializar();  // Inicializa un nuevo Berretacoin()</span>
+<span class="nc" id="L15">        txUnica();      // Evaluo un bloque con una unica Tx</span>
+<span class="nc" id="L16">        multiplesTxs(); // Evaluo multiples Tx en un mismo Bloque (sin Tx de Creación)</span>
+<span class="nc" id="L17">        txCreacion();   // Evaluo Bloque con una Tx de Creación</span>
+<span class="nc" id="L18">    }</span>
+
+    public static void testConHackeo() {
+<span class="nc" id="L21">        pruebaHackear();            // Hackeo la Tx de mayor monto</span>
+<span class="nc" id="L22">        agregarMultiplesBloques();  // Agrego múltiples bloques y evalúo las funciones cada vez que agrego uno nuevo</span>
+<span class="nc" id="L23">    }</span>
+    
+    public static void testsSaldos() {
+<span class="nc" id="L26">        testearSaldos();            // Testeo los saldos del maximo tenedor antes y después de hackear la Tx</span>
+<span class="nc" id="L27">        saldoNegativo();            // Veo qué saldo recibo en un usuario cuando da más monto del que tiene</span>
+<span class="nc" id="L28">    }</span>
+
+    public static void testsCasosEspeciales() {
+<span class="nc" id="L31">        unicoUsuario();             // Veo el caso donde solo tengo un usuario trabajado en la Tx</span>
+<span class="nc" id="L32">        txsMismoMayorMonto();       // Evalúo qué pasa cuando tengo Txs con el mismo mayor monto (evalúo el mayor ID)</span>
+<span class="nc" id="L33">        soloTxCreacion();           // Evalúo las funciones cuando solo agrego Txs de Creación</span>
+<span class="nc" id="L34">        testearBloqueVacio();       // Evalúo qué pasa si agrego un bloque vacío (debería dar error)</span>
+<span class="nc" id="L35">    }</span>
+
+    public static void inicializar() {
+<span class="nc" id="L38">        System.out.println(&quot;\n===== Iniciar Berretacoin =====&quot;);</span>
+<span class="nc" id="L39">        Berretacoin bc = new Berretacoin(5);</span>
+
+<span class="nc" id="L41">        int maxTenedor = bc.maximoTenedor();</span>
+<span class="nc" id="L42">        System.out.println(&quot;ID del maximo tenedor: &quot; + maxTenedor);</span>
+<span class="nc" id="L43">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L44">    }</span>
+
+    public static void txUnica() {
+<span class="nc" id="L47">        System.out.println(&quot;===== Una sola Tx en bloque =====&quot;);</span>
+<span class="nc" id="L48">        Berretacoin bc = new Berretacoin(3);</span>
+
+<span class="nc" id="L50">        Transaccion[] txs = {</span>
+<span class="nc" id="L51">            new Transaccion(1, 1, 2, 3)</span>
+        };
+
+<span class="nc" id="L54">        bc.agregarBloque(txs);</span>
+
+<span class="nc" id="L56">        System.out.println(&quot;Tx de mayor valor: &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+<span class="nc" id="L57">        System.out.println(&quot;ID del máximo tenedor: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L58">        System.out.println(&quot;Monto promedio: &quot; + bc.montoMedioUltimoBloque());</span>
+<span class="nc" id="L59">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L60">    }</span>
+
+    public static void multiplesTxs() {
+<span class="nc" id="L63">        System.out.println(&quot;===== Multiples Txs en un solo bloque (sin Tx de Creación)=====&quot;);</span>
+<span class="nc" id="L64">        Berretacoin bc = new Berretacoin(4);</span>
+<span class="nc" id="L65">        Transaccion[] txs = {</span>
+<span class="nc" id="L66">            new Transaccion(1, 1, 2, 1),</span>
+<span class="nc" id="L67">            new Transaccion(2, 3, 4, 2),</span>
+<span class="nc" id="L68">            new Transaccion(3, 2, 1, 1)</span>
+        };
+
+<span class="nc" id="L71">        bc.agregarBloque(txs);</span>
+
+<span class="nc" id="L73">        System.out.println(&quot;Tx de mayor valor: &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+<span class="nc" id="L74">        System.out.println(&quot;ID de maximo tenedor: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L75">        System.out.println(&quot;Monto promedio: &quot; + bc.montoMedioUltimoBloque());</span>
+<span class="nc" id="L76">        System.out.println(&quot;\n&quot;);</span>
+
+<span class="nc" id="L78">    }</span>
+
+    public static void txCreacion() {
+<span class="nc" id="L81">        System.out.println(&quot;===== Txs junto a una Tx de Creación =====&quot;);</span>
+<span class="nc" id="L82">        Berretacoin bc = new Berretacoin(3);</span>
+
+<span class="nc" id="L84">        Transaccion[] txs = {</span>
+<span class="nc" id="L85">            new Transaccion(1, 0, 1, 5),</span>
+<span class="nc" id="L86">            new Transaccion(2, 1, 2, 1)</span>
+        };
+
+<span class="nc" id="L89">        bc.agregarBloque(txs);</span>
+
+<span class="nc" id="L91">        System.out.println(&quot;Tx de mayor valor: &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+<span class="nc" id="L92">        System.out.println(&quot;Maximo tenedor: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L93">        System.out.println(&quot;Monto promedio: (excluyendo Creación): &quot; + bc.montoMedioUltimoBloque());</span>
+<span class="nc" id="L94">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L95">    }</span>
+
+    public static void pruebaHackear() {
+<span class="nc" id="L98">        System.out.println(&quot;==== Funcionalidad de Hackear ====&quot;);</span>
+<span class="nc" id="L99">        Berretacoin bc = new Berretacoin(4);</span>
+
+<span class="nc" id="L101">        Transaccion[] txs = {</span>
+<span class="nc" id="L102">            new Transaccion(1, 0, 2, 3),</span>
+<span class="nc" id="L103">            new Transaccion(2, 3, 4, 2),</span>
+<span class="nc" id="L104">            new Transaccion(3, 2, 3, 1)</span>
+        };
+
+<span class="nc" id="L107">        bc.agregarBloque(txs);</span>
+
+<span class="nc" id="L109">        System.out.println(&quot;Antes de hackear: &quot;);</span>
+<span class="nc" id="L110">        System.out.println(&quot;Tx con mayor valor: &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+<span class="nc" id="L111">        System.out.println(&quot;Maximo tenedor: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L112">        System.out.println(&quot;Monto promedio: &quot; + bc.montoMedioUltimoBloque());</span>
+
+<span class="nc" id="L114">        bc.hackearTx();</span>
+
+<span class="nc" id="L116">        System.out.println(&quot;\nDespues de hackear:&quot;);</span>
+<span class="nc" id="L117">        System.out.println(&quot;Tx con mayor valor: &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+<span class="nc" id="L118">        System.out.println(&quot;Maximo tenedor: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L119">        System.out.println(&quot;Monto promedio: &quot; + bc.montoMedioUltimoBloque());</span>
+<span class="nc" id="L120">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L121">    }</span>
+
+    public static void agregarMultiplesBloques() {
+<span class="nc" id="L124">        System.out.println(&quot;==== Agrego multiples bloques ====&quot;);</span>
+<span class="nc" id="L125">        Berretacoin bc = new Berretacoin(5);</span>
+
+<span class="nc" id="L127">        Transaccion[] bloque1 = {</span>
+<span class="nc" id="L128">            new Transaccion(1, 0, 5, 2),</span>
+<span class="nc" id="L129">            new Transaccion(2, 4, 1, 3)</span>
+        };
+<span class="nc" id="L131">        bc.agregarBloque(bloque1);</span>
+
+<span class="nc" id="L133">        System.out.println(&quot;Maximo tenedor con Bloque1 agregado: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L134">        System.out.println(&quot;Mayor monto de ultimo Bloque (en este caso Bloque1): &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+
+<span class="nc" id="L136">        Transaccion[] bloque2 = {</span>
+<span class="nc" id="L137">            new Transaccion(3, 0, 4, 1),</span>
+<span class="nc" id="L138">            new Transaccion(4, 3, 2, 4)</span>
+        };
+<span class="nc" id="L140">        bc.agregarBloque(bloque2);</span>
+
+<span class="nc" id="L142">        System.out.println(&quot;\nMaximo tenedor con Bloque2 agregado: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L143">        System.out.println(&quot;Mayor monto de ultimo Bloque (en este caso Bloque2): &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+<span class="nc" id="L144">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L145">    }</span>
+
+    public static void testearSaldos() {
+<span class="nc" id="L148">        System.out.println(&quot;==== Consistencia de los saldos ====&quot;);</span>
+<span class="nc" id="L149">        Berretacoin bc = new Berretacoin(3);</span>
+
+<span class="nc" id="L151">        Transaccion[] txs = {</span>
+<span class="nc" id="L152">            new Transaccion(1, 0, 2, 1),</span>
+<span class="nc" id="L153">            new Transaccion(2, 2, 3, 5),</span>
+<span class="nc" id="L154">            new Transaccion(3, 3, 1, 3)</span>
+        };
+
+<span class="nc" id="L157">        bc.agregarBloque(txs);</span>
+<span class="nc" id="L158">        System.out.println(&quot;Maximo tenedor antes de hackear: &quot; + bc.maximoTenedor());</span>
+
+<span class="nc" id="L160">        bc.hackearTx();</span>
+
+<span class="nc" id="L162">        System.out.println(&quot;Maximo tenedor despues de hackear: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L163">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L164">    }</span>
+
+    public static void saldoNegativo() {
+<span class="nc" id="L167">        System.out.println(&quot;==== Usuario con saldo insuficiente ====&quot;);</span>
+<span class="nc" id="L168">        Berretacoin bc = new Berretacoin(3);</span>
+
+<span class="nc" id="L170">        Transaccion[] bloque1 = {</span>
+<span class="nc" id="L171">            new Transaccion(1, 0, 1, 5)</span>
+        };
+
+<span class="nc" id="L174">        bc.agregarBloque(bloque1);</span>
+<span class="nc" id="L175">        System.out.println(&quot;Maximo tenedor (bloque1): &quot; + bc.maximoTenedor());</span>
+
+<span class="nc" id="L177">        Transaccion[] bloque2 = {</span>
+<span class="nc" id="L178">            new Transaccion(2, 1, 2, 7)</span>
+        };
+
+<span class="nc" id="L181">        bc.agregarBloque(bloque2);</span>
+<span class="nc" id="L182">        System.out.println(&quot;Maximo tenedor (bloque2): &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L183">        System.out.println(&quot;Usuario 1 ahora tiene monto negativo = -2&quot;);</span>
+<span class="nc" id="L184">        System.out.println(&quot;Usuario 2 tiene monto 7&quot;);</span>
+<span class="nc" id="L185">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L186">    }</span>
+
+    public static void unicoUsuario() {
+<span class="nc" id="L189">        System.out.println(&quot;==== Agregar un unico usuario ====&quot;);</span>
+
+<span class="nc" id="L191">        Berretacoin bc = new Berretacoin(1);</span>
+
+<span class="nc" id="L193">        Transaccion[] txs = {</span>
+<span class="nc" id="L194">            new Transaccion(1, 0, 1, 1)</span>
+        };
+
+<span class="nc" id="L197">        bc.agregarBloque(txs);</span>
+
+<span class="nc" id="L199">        System.out.println(&quot;Maximo tenedor: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L200">        System.out.println(&quot;Monto Promedio: &quot; + bc.montoMedioUltimoBloque());</span>
+<span class="nc" id="L201">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L202">    }</span>
+
+    public static void txsMismoMayorMonto() {
+<span class="nc" id="L205">        System.out.println(&quot;==== Txs con mismo monto ====&quot;);</span>
+
+<span class="nc" id="L207">        Berretacoin bc = new Berretacoin(5);</span>
+
+<span class="nc" id="L209">        Transaccion[] txs = {</span>
+<span class="nc" id="L210">            new Transaccion(2, 0, 2, 1),</span>
+<span class="nc" id="L211">            new Transaccion(3, 2, 3, 1),</span>
+<span class="nc" id="L212">            new Transaccion(4, 3, 4, 1),</span>
+<span class="nc" id="L213">            new Transaccion(5, 4, 5, 1)</span>
+        };
+
+<span class="nc" id="L216">        bc.agregarBloque(txs);</span>
+
+<span class="nc" id="L218">        System.out.println(&quot;Tx mas alta: &quot; + bc.txMayorValorUltimoBloque().id()); // uso ID porque ya se que todos los montos son iguales</span>
+<span class="nc" id="L219">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L220">    }</span>
+
+    public static void soloTxCreacion() {
+<span class="nc" id="L223">        System.out.println(&quot;==== Agregar solo Txs de Creacion ====&quot;);</span>
+
+<span class="nc" id="L225">        Berretacoin bc = new Berretacoin(3);</span>
+
+<span class="nc" id="L227">        Transaccion[] txs = {</span>
+<span class="nc" id="L228">            new Transaccion(1, 0, 1, 5),</span>
+<span class="nc" id="L229">            new Transaccion(2, 0, 2, 3),</span>
+<span class="nc" id="L230">            new Transaccion(3, 0, 3, 7)</span>
+        };
+
+<span class="nc" id="L233">        bc.agregarBloque(txs);</span>
+
+<span class="nc" id="L235">        System.out.println(&quot;Maximo tenedor: &quot; + bc.maximoTenedor());</span>
+<span class="nc" id="L236">        System.out.println(&quot;Promedio (debería ser 0 ya que son todas de Creación): &quot; + bc.montoMedioUltimoBloque());</span>
+<span class="nc" id="L237">        System.out.println(&quot;Tx de mayor valor: &quot; + bc.txMayorValorUltimoBloque().monto());</span>
+<span class="nc" id="L238">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L239">    }</span>
+
+    public static void testearBloqueVacio() {
+<span class="nc" id="L242">        System.out.println(&quot;==== Agregar un bloque vacío ====\n&quot;);</span>
+
+<span class="nc" id="L244">        System.out.println(&quot;Debería dar error de índice o devolver una excepción&quot;);</span>
+<span class="nc" id="L245">        System.out.println(&quot;ya que no puedo trabajar con un bloque vacío: \n&quot;);</span>
+
+<span class="nc" id="L247">        Berretacoin bc = new Berretacoin(3);</span>
+<span class="nc" id="L248">        Transaccion[] txsVacia = {};</span>
+
+<span class="nc" id="L250">        bc.agregarBloque(txsVacia);</span>
+<span class="nc" id="L251">        System.out.println(&quot;Monto promedio: &quot; + bc.montoMedioUltimoBloque());</span>
+<span class="nc" id="L252">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L253">    }</span>
+}
+
+
+ 
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

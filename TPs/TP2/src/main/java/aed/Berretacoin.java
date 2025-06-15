@@ -1,5 +1,7 @@
 package aed;
-import aed.ext.*;
+import aed.ext.UsuarioConHandle;
+import aed.ext.maxHeapUsuarios;
+import aed.ext.nodoTx;
 
 public class Berretacoin {
     UsuarioConHandle[] usuarios;                                    // Array de Usuarios con Handle
@@ -17,7 +19,6 @@ public class Berretacoin {
 
         ultimoBloque = null;                                        // No tengo Bloques creados
     }
-
 
     // Complejidad O(n_b * log P) = O(Cantidad de usuarios + Cantidad de Txs en bloque)
     public void agregarBloque(Transaccion[] transacciones){         

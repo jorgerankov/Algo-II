@@ -3,7 +3,7 @@ tp2,aed,Transaccion,3,68,3,7,1,14,4,8,1,6
 tp2,aed,Berretacoin,1,223,4,16,0,47,4,13,0,7
 tp2,aed.ext,maxHeapTxConHandles,3,201,0,14,1,44,1,16,1,9
 tp2,aed.ext,maxHeapUsuarios,2,203,3,15,0,45,3,13,0,7
-tp2,aed.ext,Tests,3,0,0,0,1,0,1,0,1,0
+tp2,aed.ext,berretaCoinTests,849,0,0,0,162,0,18,0,18,0
 tp2,aed.ext,UsuarioConHandle,4,56,2,8,0,21,2,10,0,7
 tp2,aed.ext,nodoTx,6,195,2,14,2,47,4,17,2,11
 tp2,aed.ext,Handle,7,13,0,0,3,6,2,3,2,3
